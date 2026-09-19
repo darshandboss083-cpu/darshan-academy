@@ -1,12 +1,14 @@
 /* =========================================================
    DARSHAN ACADEMY
-   Main website JavaScript
+   Main Website JavaScript
 ========================================================= */
 
 "use strict";
 
 
-/* ================= SETTINGS ================= */
+/* =========================================================
+   SETTINGS
+========================================================= */
 
 const YOUTUBE_PLAYLISTS =
     "https://youtube.com/@darshanacademy-z6c/playlists";
@@ -16,6 +18,7 @@ const INSTAGRAM =
 
 const SITE_URL =
     "https://darshandboss083-cpu.github.io/darshan-academy/";
+
 
 const STORAGE = {
     name: "ds_student_name",
@@ -30,7 +33,9 @@ const STORAGE = {
 };
 
 
-/* ================= DEFAULT CODE ================= */
+/* =========================================================
+   DEFAULT CODE
+========================================================= */
 
 const DEFAULT_CODE = {
 
@@ -72,7 +77,9 @@ button {
 };
 
 
-/* ================= HELPERS ================= */
+/* =========================================================
+   HELPER
+========================================================= */
 
 function get(id) {
     return document.getElementById(id);
@@ -82,7 +89,9 @@ function get(id) {
 function read(key, fallback) {
 
     try {
-        const value = localStorage.getItem(key);
+
+        const value =
+            localStorage.getItem(key);
 
         if (value === null) {
             return fallback;
@@ -91,6 +100,7 @@ function read(key, fallback) {
         return JSON.parse(value);
 
     } catch (error) {
+
         return fallback;
     }
 }
@@ -99,81 +109,162 @@ function read(key, fallback) {
 function write(key, value) {
 
     try {
+
         localStorage.setItem(
             key,
             JSON.stringify(value)
         );
+
     } catch (error) {
-        console.warn("Storage unavailable");
+
+        console.warn("Storage unavailable.");
     }
 }
 
 
-/* ================= STUDENT NAME ================= */
+/* =========================================================
+   STUDENT NAME
+========================================================= */
 
 function setupStudentName() {
 
-    const modal = get("welcomeModal");
-    const input = get("studentNameInput");
-    const continueBtn = get("continueBtn");
-    const error = get("nameError");
+    const modal =
+        get("welcomeModal");
+
+    /*
+       Your HTML currently uses studentNameInput.
+       The fallback also supports studentName.
+    */
+    const input =
+        get("studentNameInput") ||
+        get("studentName");
+
+    const continueBtn =
+        get("continueBtn");
+
+    const error =
+        get("nameError");
+
 
     if (!modal || !input || !continueBtn) {
+
+        console.error(
+            "Welcome modal elements are missing."
+        );
+
         return;
     }
 
+
     const savedName =
-        localStorage.getItem(STORAGE.name);
+        localStorage.getItem(
+            STORAGE.name
+        );
 
-    if (savedName && savedName.trim()) {
 
-        showStudent(savedName);
+    /* -------------------------
+       Existing student
+    ------------------------- */
 
-        modal.classList.add("hidden");
+    if (
+        savedName &&
+        savedName.trim()
+    ) {
+
+        showStudent(
+            savedName.trim()
+        );
+
+        modal.classList.add(
+            "hidden"
+        );
 
     } else {
 
-        modal.classList.remove("hidden");
+        modal.classList.remove(
+            "hidden"
+        );
 
-        setTimeout(() => {
+        setTimeout(function () {
+
             input.focus();
-        }, 150);
+
+        }, 200);
     }
 
+
+    /* -------------------------
+       Continue button
+    ------------------------- */
 
     function continueToWebsite() {
 
         const name =
             input.value.trim();
 
+
         if (!name) {
 
-            error.textContent =
-                "Please enter your name.";
+            if (error) {
+
+                error.textContent =
+                    "Please enter your name.";
+            }
 
             input.focus();
 
             return;
         }
+
 
         if (name.length < 2) {
 
-            error.textContent =
-                "Please enter a valid name.";
+            if (error) {
+
+                error.textContent =
+                    "Please enter a valid name.";
+            }
 
             input.focus();
 
             return;
         }
+
+
+        /* Save name */
 
         localStorage.setItem(
             STORAGE.name,
             name
         );
 
+
+        /* Show name on website */
+
         showStudent(name);
 
-        modal.classList.add("hidden");
+
+        /* Hide welcome popup */
+
+        modal.classList.add(
+            "hidden"
+        );
+
+
+        /* Save first visit */
+
+        if (
+            !localStorage.getItem(
+                STORAGE.firstVisit
+            )
+        ) {
+
+            localStorage.setItem(
+                STORAGE.firstVisit,
+                new Date().toISOString()
+            );
+        }
+
 
         updateActivity(
             "Started learning journey"
@@ -189,11 +280,15 @@ function setupStudentName() {
     );
 
 
+    /* Enter key */
+
     input.addEventListener(
         "keydown",
-        function(event) {
+        function (event) {
 
-            if (event.key === "Enter") {
+            if (
+                event.key === "Enter"
+            ) {
 
                 event.preventDefault();
 
@@ -203,14 +298,23 @@ function setupStudentName() {
     );
 
 
+    /* Clear error while typing */
+
     input.addEventListener(
         "input",
-        function() {
-            error.textContent = "";
+        function () {
+
+            if (error) {
+                error.textContent = "";
+            }
         }
     );
 }
 
+
+/* =========================================================
+   SHOW STUDENT
+========================================================= */
 
 function showStudent(name) {
 
@@ -220,48 +324,72 @@ function showStudent(name) {
     const avatar =
         get("studentAvatar");
 
+
     if (topName) {
-        topName.textContent = name;
+
+        topName.textContent =
+            name;
     }
 
+
     if (avatar) {
+
         avatar.textContent =
             name.charAt(0).toUpperCase();
     }
+
+
+    document
+        .querySelectorAll(
+            ".student-name, #profileStudentName, #studentDisplayName"
+        )
+        .forEach(function (element) {
+
+            element.textContent =
+                name;
+        });
 }
 
 
-/* ================= NAVIGATION ================= */
+/* =========================================================
+   NAVIGATION
+========================================================= */
 
 function setupNavigation() {
 
     const navButtons =
-        document.querySelectorAll(".nav-btn");
+        document.querySelectorAll(
+            ".nav-btn"
+        );
 
     const sections =
-        document.querySelectorAll(".page-section");
+        document.querySelectorAll(
+            ".page-section"
+        );
 
 
     function showSection(sectionId) {
 
-        sections.forEach(section => {
+        sections.forEach(
+            function (section) {
 
-            section.classList.toggle(
-                "active",
-                section.id === sectionId
-            );
+                section.classList.toggle(
+                    "active",
+                    section.id === sectionId
+                );
+            }
+        );
 
-        });
 
+        navButtons.forEach(
+            function (button) {
 
-        navButtons.forEach(button => {
-
-            button.classList.toggle(
-                "active",
-                button.dataset.section === sectionId
-            );
-
-        });
+                button.classList.toggle(
+                    "active",
+                    button.dataset.section === sectionId
+                );
+            }
+        );
 
 
         window.scrollTo({
@@ -270,75 +398,105 @@ function setupNavigation() {
         });
 
 
-        if (sectionId === "journey") {
+        if (
+            sectionId === "journey"
+        ) {
+
             updateJourney();
         }
     }
 
 
-    navButtons.forEach(button => {
-
-        button.addEventListener(
-            "click",
-            function() {
-
-                showSection(
-                    button.dataset.section
-                );
-
-                updateActivity(
-                    "Opened " +
-                    button.dataset.section
-                );
-            }
-        );
-    });
-
-
-    document.querySelectorAll("[data-go]")
-        .forEach(button => {
+    navButtons.forEach(
+        function (button) {
 
             button.addEventListener(
                 "click",
-                function() {
+                function () {
 
                     showSection(
-                        button.dataset.go
+                        button.dataset.section
+                    );
+
+                    updateActivity(
+                        "Opened " +
+                        button.dataset.section
                     );
                 }
             );
-        });
+        }
+    );
+
+
+    document
+        .querySelectorAll("[data-go]")
+        .forEach(
+            function (button) {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        showSection(
+                            button.dataset.go
+                        );
+                    }
+                );
+            }
+        );
 }
 
 
-/* ================= EXTERNAL LINKS ================= */
+/* =========================================================
+   EXTERNAL LINKS
+========================================================= */
 
 function setupExternalLinks() {
 
-    document.querySelectorAll(
-        'a[href*="youtube.com"]'
-    ).forEach(link => {
+    document
+        .querySelectorAll(
+            'a[href*="youtube.com"]'
+        )
+        .forEach(
+            function (link) {
 
-        link.addEventListener(
-            "click",
-            () => updateActivity("Opened YouTube playlist")
+                link.addEventListener(
+                    "click",
+                    function () {
+
+                        updateActivity(
+                            "Opened YouTube playlist"
+                        );
+                    }
+                );
+            }
         );
-    });
 
 
-    document.querySelectorAll(
-        'a[href*="instagram.com"]'
-    ).forEach(link => {
+    document
+        .querySelectorAll(
+            'a[href*="instagram.com"]'
+        )
+        .forEach(
+            function (link) {
 
-        link.addEventListener(
-            "click",
-            () => updateActivity("Opened Instagram")
+                link.addEventListener(
+                    "click",
+                    function () {
+
+                        updateActivity(
+                            "Opened Instagram"
+                        );
+                    }
+                );
+            }
         );
-    });
 }
 
 
-/* ================= PLAYGROUND ================= */
+/* =========================================================
+   PLAYGROUND
+========================================================= */
 
 let editors = {};
 
@@ -352,28 +510,51 @@ const languageModes = {
     css: "css",
 
     javascript: "javascript"
-
 };
 
+
+/* =========================================================
+   SETUP PLAYGROUND
+========================================================= */
 
 function setupPlayground() {
 
     const container =
         get("editorContainer");
 
+
     if (!container) {
         return;
     }
 
 
+    /*
+       Prevent duplicate editors
+       if the function runs again.
+    */
+
+    if (
+        Object.keys(editors).length > 0
+    ) {
+
+        return;
+    }
+
+
     const savedHTML =
-        localStorage.getItem(STORAGE.html);
+        localStorage.getItem(
+            STORAGE.html
+        );
 
     const savedCSS =
-        localStorage.getItem(STORAGE.css);
+        localStorage.getItem(
+            STORAGE.css
+        );
 
     const savedJS =
-        localStorage.getItem(STORAGE.javascript);
+        localStorage.getItem(
+            STORAGE.javascript
+        );
 
 
     const initialCode = {
@@ -392,152 +573,228 @@ function setupPlayground() {
     };
 
 
-    Object.keys(initialCode).forEach(
-        language => {
+    Object.keys(initialCode)
+        .forEach(
+            function (language) {
 
-            const wrapper =
-                document.createElement("div");
-
-            wrapper.className =
-                "editor-instance";
-
-            wrapper.style.display =
-                language === "html"
-                    ? "block"
-                    : "none";
+                const wrapper =
+                    document.createElement(
+                        "div"
+                    );
 
 
-            const textarea =
-                document.createElement("textarea");
-
-            textarea.value =
-                initialCode[language];
-
-            wrapper.appendChild(textarea);
-
-            container.appendChild(wrapper);
+                wrapper.className =
+                    "editor-instance";
 
 
-            const editor =
-                CodeMirror.fromTextArea(
-                    textarea,
-                    {
-                        mode: languageModes[language],
-                        theme: "material-darker",
+                wrapper.style.display =
+                    language === "html"
+                        ? "block"
+                        : "none";
 
-                        lineNumbers: true,
 
-                        lineWrapping: true,
+                const textarea =
+                    document.createElement(
+                        "textarea"
+                    );
 
-                        autoCloseBrackets: true,
 
-                        tabSize: 2,
+                textarea.value =
+                    initialCode[language];
 
-                        indentUnit: 2,
 
-                        extraKeys: {
-                            "Ctrl-Space":
-                                "autocomplete"
+                wrapper.appendChild(
+                    textarea
+                );
+
+
+                container.appendChild(
+                    wrapper
+                );
+
+
+                const editor =
+                    CodeMirror.fromTextArea(
+                        textarea,
+                        {
+
+                            mode:
+                                languageModes[
+                                    language
+                                ],
+
+                            theme:
+                                "material-darker",
+
+                            lineNumbers:
+                                true,
+
+                            lineWrapping:
+                                true,
+
+                            autoCloseBrackets:
+                                true,
+
+                            tabSize:
+                                2,
+
+                            indentUnit:
+                                2,
+
+                            extraKeys: {
+
+                                "Ctrl-Space":
+                                    "autocomplete"
+                            }
                         }
+                    );
+
+
+                editor.on(
+                    "change",
+                    function () {
+
+                        localStorage.setItem(
+                            STORAGE[language],
+                            editor.getValue()
+                        );
+
+                        updatePractice();
                     }
                 );
 
 
-            editor.on(
-                "change",
-                function() {
+                editors[language] = {
 
-                    localStorage.setItem(
-                        STORAGE[language],
-                        editor.getValue()
+                    editor:
+                        editor,
+
+                    wrapper:
+                        wrapper
+                };
+
+
+                /* HTML automatic closing */
+
+                if (
+                    language === "html"
+                ) {
+
+                    setupHTMLAutoClose(
+                        editor
                     );
-
-                    updateActivity(
-                        "Edited " + language
-                    );
-
-                    updatePractice();
                 }
-            );
+            }
+        );
 
 
-            editors[language] = {
-                editor,
-                wrapper
-            };
+    /* Editor tabs */
 
-        }
-    );
+    document
+        .querySelectorAll(
+            ".editor-tab"
+        )
+        .forEach(
+            function (tab) {
 
+                tab.addEventListener(
+                    "click",
+                    function () {
 
-    const languageSelect =
-        get("languageSelect");
-
-
-    if (languageSelect) {
-
-        languageSelect.addEventListener(
-            "change",
-            function() {
-
-                changeLanguage(
-                    languageSelect.value
+                        changeLanguage(
+                            tab.dataset.editor
+                        );
+                    }
                 );
             }
+        );
+
+
+    /* Suggestions */
+
+    const suggestBtn =
+        get("suggestBtn");
+
+    if (suggestBtn) {
+
+        suggestBtn.addEventListener(
+            "click",
+            showSuggestions
         );
     }
 
 
-    document.querySelectorAll(
-        ".editor-tab"
-    ).forEach(tab => {
+    /* Copy */
 
-        tab.addEventListener(
+    const copyBtn =
+        get("copyCode");
+
+    if (copyBtn) {
+
+        copyBtn.addEventListener(
             "click",
-            function() {
-
-                changeLanguage(
-                    tab.dataset.editor
-                );
-            }
+            copyCode
         );
-    });
+    }
 
 
-    get("suggestBtn")?.addEventListener(
-        "click",
-        showSuggestions
-    );
+    /* Clear */
+
+    const clearBtn =
+        get("clearCode");
+
+    if (clearBtn) {
+
+        clearBtn.addEventListener(
+            "click",
+            clearCode
+        );
+    }
 
 
-    get("copyCode")?.addEventListener(
-        "click",
-        copyCode
-    );
+    /* Reset */
+
+    const resetBtn =
+        get("resetCode");
+
+    if (resetBtn) {
+
+        resetBtn.addEventListener(
+            "click",
+            resetCode
+        );
+    }
 
 
-    get("clearCode")?.addEventListener(
-        "click",
-        clearCode
-    );
+    /* Run */
+
+    const runBtn =
+        get("runCode");
+
+    if (runBtn) {
+
+        runBtn.addEventListener(
+            "click",
+            runWebsite
+        );
+    }
 
 
-    get("resetCode")?.addEventListener(
-        "click",
-        resetCode
-    );
+    /* Publish */
+
+    const publishBtn =
+        get("publishCode");
+
+    if (publishBtn) {
+
+        publishBtn.addEventListener(
+            "click",
+            publishWebsite
+        );
+    }
 
 
-    get("runCode")?.addEventListener(
-        "click",
-        runWebsite
-    );
-
-
-    get("publishCode")?.addEventListener(
-        "click",
-        publishWebsite
-    );
+    setupWebDropdown();
 
 
     runWebsite();
@@ -546,82 +803,372 @@ function setupPlayground() {
 }
 
 
-function changeLanguage(language) {
+/* =========================================================
+   WEB DROPDOWN
+========================================================= */
 
-    if (!editors[language]) {
+function setupWebDropdown() {
+
+    const button =
+        get("webDropdownBtn");
+
+    const menu =
+        get("webDropdownMenu");
+
+
+    if (!button || !menu) {
         return;
     }
 
 
-    Object.keys(editors).forEach(
-        key => {
+    button.addEventListener(
+        "click",
+        function (event) {
 
-            editors[key].wrapper.style.display =
-                key === language
-                    ? "block"
-                    : "none";
+            event.stopPropagation();
+
+            menu.classList.toggle(
+                "show"
+            );
         }
     );
+
+
+    document.addEventListener(
+        "click",
+        function () {
+
+            menu.classList.remove(
+                "show"
+            );
+        }
+    );
+
+
+    document
+        .querySelectorAll(
+            ".web-option"
+        )
+        .forEach(
+            function (option) {
+
+                option.addEventListener(
+                    "click",
+                    function () {
+
+                        const language =
+                            option.dataset.editor;
+
+
+                        changeLanguage(
+                            language
+                        );
+
+
+                        document
+                            .querySelectorAll(
+                                ".web-option"
+                            )
+                            .forEach(
+                                function (item) {
+
+                                    item.classList.remove(
+                                        "active"
+                                    );
+                                }
+                            );
+
+
+                        option.classList.add(
+                            "active"
+                        );
+
+
+                        menu.classList.remove(
+                            "show"
+                        );
+                    }
+                );
+            }
+        );
+}
+
+
+/* =========================================================
+   HTML AUTO CLOSE TAG
+========================================================= */
+
+function setupHTMLAutoClose(editor) {
+
+    let lock = false;
+
+
+    const voidTags =
+        new Set([
+
+            "area",
+            "base",
+            "br",
+            "col",
+            "embed",
+            "hr",
+            "img",
+            "input",
+            "link",
+            "meta",
+            "param",
+            "source",
+            "track",
+            "wbr"
+        ]);
+
+
+    editor.on(
+        "change",
+        function (cm, change) {
+
+            if (
+                lock ||
+                !change ||
+                change.origin === "autoClose"
+            ) {
+
+                return;
+            }
+
+
+            if (
+                change.text.length !== 1 ||
+                change.text[0] !== ">"
+            ) {
+
+                return;
+            }
+
+
+            const cursor =
+                cm.getCursor();
+
+
+            const line =
+                cm.getLine(
+                    cursor.line
+                );
+
+
+            const before =
+                line.slice(
+                    0,
+                    cursor.ch
+                );
+
+
+            const match =
+                before.match(
+                    /<([A-Za-z][\w:-]*)(?:\s[^<>]*?)?>$/
+                );
+
+
+            if (!match) {
+                return;
+            }
+
+
+            const tag =
+                match[1];
+
+
+            if (
+                voidTags.has(
+                    tag.toLowerCase()
+                )
+            ) {
+
+                return;
+            }
+
+
+            if (
+                /\/\s*>$/.test(
+                    before
+                )
+            ) {
+
+                return;
+            }
+
+
+            /*
+               Don't automatically close
+               an already closed tag.
+            */
+
+            const after =
+                line.slice(
+                    cursor.ch
+                );
+
+
+            if (
+                after.startsWith(
+                    `</${tag}>`
+                )
+            ) {
+
+                return;
+            }
+
+
+            const closingTag =
+                `</${tag}>`;
+
+
+            lock = true;
+
+
+            cm.replaceRange(
+                closingTag,
+                cursor,
+                cursor,
+                "autoClose"
+            );
+
+
+            cm.setCursor(
+                cursor
+            );
+
+
+            lock = false;
+        }
+    );
+}
+
+
+/* =========================================================
+   CHANGE LANGUAGE
+========================================================= */
+
+function changeLanguage(language) {
+
+    if (
+        !editors[language]
+    ) {
+
+        return;
+    }
+
+
+    Object.keys(editors)
+        .forEach(
+            function (key) {
+
+                editors[key].wrapper.style.display =
+                    key === language
+                        ? "block"
+                        : "none";
+            }
+        );
 
 
     activeLanguage =
         language;
 
 
-    const select =
-        get("languageSelect");
+    document
+        .querySelectorAll(
+            ".editor-tab"
+        )
+        .forEach(
+            function (tab) {
 
-    if (select) {
-        select.value = language;
-    }
-
-
-    document.querySelectorAll(
-        ".editor-tab"
-    ).forEach(tab => {
-
-        tab.classList.toggle(
-            "active",
-            tab.dataset.editor === language
+                tab.classList.toggle(
+                    "active",
+                    tab.dataset.editor === language
+                );
+            }
         );
-    });
+
+
+    document
+        .querySelectorAll(
+            ".web-option"
+        )
+        .forEach(
+            function (option) {
+
+                option.classList.toggle(
+                    "active",
+                    option.dataset.editor === language
+                );
+            }
+        );
 
 
     updateEditorLabel();
 
 
-    setTimeout(() => {
+    setTimeout(
+        function () {
 
-        editors[language].editor.refresh();
+            editors[
+                language
+            ].editor.refresh();
 
-    }, 50);
+        },
+        50
+    );
 }
 
+
+/* =========================================================
+   EDITOR LABEL
+========================================================= */
 
 function updateEditorLabel() {
 
     const label =
         get("editorLanguage");
 
+
     if (!label) {
         return;
     }
 
-    label.textContent =
+
+    if (
         activeLanguage === "html"
-            ? "HTML"
-            : activeLanguage === "css"
-                ? "CSS"
-                : "JavaScript";
+    ) {
+
+        label.textContent =
+            "HTML";
+
+    } else if (
+        activeLanguage === "css"
+    ) {
+
+        label.textContent =
+            "CSS";
+
+    } else {
+
+        label.textContent =
+            "JavaScript";
+    }
 }
 
 
-/* ================= SUGGESTIONS ================= */
+/* =========================================================
+   SUGGESTIONS
+========================================================= */
 
 function showSuggestions() {
 
     const currentEditor =
-        editors[activeLanguage]?.editor;
+        editors[
+            activeLanguage
+        ]?.editor;
+
 
     if (!currentEditor) {
         return;
@@ -631,6 +1178,7 @@ function showSuggestions() {
     const suggestions = {
 
         html: [
+
             "<div></div>",
             "<section></section>",
             "<header></header>",
@@ -645,7 +1193,9 @@ function showSuggestions() {
             "<li></li>"
         ],
 
+
         css: [
+
             "display: flex;",
             "display: grid;",
             "justify-content: center;",
@@ -660,7 +1210,9 @@ function showSuggestions() {
             "text-align: center;"
         ],
 
+
         javascript: [
+
             "console.log();",
             "document.getElementById();",
             "document.querySelector();",
@@ -675,49 +1227,74 @@ function showSuggestions() {
 
 
     const hintList =
-        suggestions[activeLanguage];
+        suggestions[
+            activeLanguage
+        ];
+
+
+    if (
+        !hintList ||
+        !CodeMirror.showHint
+    ) {
+
+        return;
+    }
 
 
     const cursor =
         currentEditor.getCursor();
 
 
+    const token =
+        currentEditor.getTokenAt(
+            cursor
+        );
+
+
     const word =
-        currentEditor.getTokenAt(cursor).string;
+        token.string || "";
 
 
     const start =
-        cursor.ch - word.length;
+        cursor.ch -
+        word.length;
 
 
     const end =
         cursor.ch;
 
 
-    currentEditor.showHint({
-
-        hint: function() {
+    CodeMirror.showHint(
+        currentEditor,
+        function () {
 
             return {
 
-                list: hintList,
+                list:
+                    hintList,
 
-                from: CodeMirror.Pos(
-                    cursor.line,
-                    Math.max(0, start)
-                ),
+                from:
+                    CodeMirror.Pos(
+                        cursor.line,
+                        Math.max(
+                            0,
+                            start
+                        )
+                    ),
 
-                to: CodeMirror.Pos(
-                    cursor.line,
-                    end
-                )
-
+                to:
+                    CodeMirror.Pos(
+                        cursor.line,
+                        end
+                    )
             };
         },
 
-        completeSingle: false
-
-    });
+        {
+            completeSingle:
+                false
+        }
+    );
 
 
     updateActivity(
@@ -726,12 +1303,17 @@ function showSuggestions() {
 }
 
 
-/* ================= COPY ================= */
+/* =========================================================
+   COPY
+========================================================= */
 
 async function copyCode() {
 
     const editor =
-        editors[activeLanguage]?.editor;
+        editors[
+            activeLanguage
+        ]?.editor;
+
 
     if (!editor) {
         return;
@@ -748,34 +1330,56 @@ async function copyCode() {
             code
         );
 
-        alert("Code copied!");
+        alert(
+            "Code copied!"
+        );
 
     } catch (error) {
 
         const temp =
-            document.createElement("textarea");
+            document.createElement(
+                "textarea"
+            );
 
-        temp.value = code;
 
-        document.body.appendChild(temp);
+        temp.value =
+            code;
+
+
+        document.body.appendChild(
+            temp
+        );
+
 
         temp.select();
 
-        document.execCommand("copy");
+
+        document.execCommand(
+            "copy"
+        );
+
 
         temp.remove();
 
-        alert("Code copied!");
+
+        alert(
+            "Code copied!"
+        );
     }
 }
 
 
-/* ================= CLEAR ================= */
+/* =========================================================
+   CLEAR
+========================================================= */
 
 function clearCode() {
 
     const editor =
-        editors[activeLanguage]?.editor;
+        editors[
+            activeLanguage
+        ]?.editor;
+
 
     if (!editor) {
         return;
@@ -784,18 +1388,26 @@ function clearCode() {
 
     editor.setValue("");
 
+
     updateActivity(
-        "Cleared " + activeLanguage + " code"
+        "Cleared " +
+        activeLanguage +
+        " code"
     );
 }
 
 
-/* ================= RESET ================= */
+/* =========================================================
+   RESET
+========================================================= */
 
 function resetCode() {
 
     const editor =
-        editors[activeLanguage]?.editor;
+        editors[
+            activeLanguage
+        ]?.editor;
+
 
     if (!editor) {
         return;
@@ -803,23 +1415,33 @@ function resetCode() {
 
 
     editor.setValue(
-        DEFAULT_CODE[activeLanguage]
+        DEFAULT_CODE[
+            activeLanguage
+        ]
     );
 
 
     localStorage.setItem(
-        STORAGE[activeLanguage],
-        DEFAULT_CODE[activeLanguage]
+        STORAGE[
+            activeLanguage
+        ],
+        DEFAULT_CODE[
+            activeLanguage
+        ]
     );
 
 
     updateActivity(
-        "Reset " + activeLanguage + " code"
+        "Reset " +
+        activeLanguage +
+        " code"
     );
 }
 
 
-/* ================= RUN ================= */
+/* =========================================================
+   RUN WEBSITE
+========================================================= */
 
 function runWebsite() {
 
@@ -828,6 +1450,7 @@ function runWebsite() {
         !editors.css ||
         !editors.javascript
     ) {
+
         return;
     }
 
@@ -835,21 +1458,39 @@ function runWebsite() {
     const html =
         editors.html.editor.getValue();
 
+
     const css =
         editors.css.editor.getValue();
+
 
     const javascript =
         editors.javascript.editor.getValue();
 
 
-    const finalHTML = `<!DOCTYPE html>
+    const safeJS =
+        javascript.replace(
+            /<\/script/gi,
+            "<\\/script"
+        );
+
+
+    const finalHTML =
+`<!DOCTYPE html>
 <html>
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <style>
+
 ${css}
+
 </style>
 
 </head>
@@ -859,10 +1500,13 @@ ${css}
 ${html}
 
 <script>
-${javascript}
+
+${safeJS}
+
 <\/script>
 
 </body>
+
 </html>`;
 
 
@@ -879,15 +1523,13 @@ ${javascript}
         finalHTML;
 
 
-    updateActivity(
-        "Ran website"
-    );
-
     updatePractice();
 }
 
 
-/* ================= PUBLISH ================= */
+/* =========================================================
+   PUBLISH WEBSITE
+========================================================= */
 
 function publishWebsite() {
 
@@ -896,6 +1538,19 @@ function publishWebsite() {
         !editors.css ||
         !editors.javascript
     ) {
+
+        return;
+    }
+
+
+    if (
+        typeof LZString === "undefined"
+    ) {
+
+        alert(
+            "Publishing is temporarily unavailable. Please refresh the page."
+        );
+
         return;
     }
 
@@ -928,16 +1583,23 @@ function publishWebsite() {
     const box =
         get("publishBox");
 
+
     const link =
         get("shareLink");
 
 
     if (box) {
-        box.classList.remove("hidden");
+
+        box.classList.remove(
+            "hidden"
+        );
     }
 
+
     if (link) {
-        link.value = url;
+
+        link.value =
+            url;
     }
 
 
@@ -947,24 +1609,41 @@ function publishWebsite() {
 }
 
 
-function loadPublishedProject() {
+/* =========================================================
+   GET SHARED PROJECT
+========================================================= */
+
+function getSharedProjectFromURL() {
 
     const hash =
         window.location.hash;
 
 
     if (
-        !hash.startsWith("#project=")
+        !hash.startsWith(
+            "#project="
+        )
     ) {
-        return;
+
+        return null;
     }
 
 
-    const compressed =
-        hash.substring("#project=".length);
-
-
     try {
+
+        const compressed =
+            decodeURIComponent(
+                hash.substring(9)
+            );
+
+
+        if (
+            typeof LZString === "undefined"
+        ) {
+
+            return null;
+        }
+
 
         const json =
             LZString.decompressFromEncodedURIComponent(
@@ -972,59 +1651,247 @@ function loadPublishedProject() {
             );
 
 
-        const project =
-            JSON.parse(json);
-
-
-        if (
-            !project ||
-            !project.html
-        ) {
-            return;
+        if (!json) {
+            return null;
         }
 
 
-        setTimeout(() => {
-
-            if (editors.html) {
-
-                editors.html.editor.setValue(
-                    project.html || ""
-                );
-
-                editors.css.editor.setValue(
-                    project.css || ""
-                );
-
-                editors.javascript.editor.setValue(
-                    project.javascript || ""
-                );
-
-                runWebsite();
-
-            }
-
-        }, 600);
+        return JSON.parse(
+            json
+        );
 
     } catch (error) {
 
-        console.warn(
-            "Could not load published project."
+        console.error(
+            "Could not load shared project:",
+            error
         );
+
+        return null;
     }
 }
 
 
-/* ================= PUBLISHED LINK BUTTON ================= */
+/* =========================================================
+   BUILD SHARED PROJECT
+========================================================= */
+
+function buildProjectHTML(project) {
+
+    const html =
+        project.html || "";
+
+
+    const css =
+        project.css || "";
+
+
+    const javascript =
+        (
+            project.javascript ||
+            ""
+        ).replace(
+            /<\/script/gi,
+            "<\\/script"
+        );
+
+
+    /*
+       If user created a complete
+       HTML document.
+    */
+
+    if (
+        /<html[\s>]/i.test(
+            html
+        )
+    ) {
+
+        let full =
+            html;
+
+
+        if (
+            /<\/head>/i.test(
+                full
+            )
+        ) {
+
+            full =
+                full.replace(
+                    /<\/head>/i,
+                    `<style>${css}</style></head>`
+                );
+
+        } else {
+
+            full =
+                `<style>${css}</style>` +
+                full;
+        }
+
+
+        if (
+            /<\/body>/i.test(
+                full
+            )
+        ) {
+
+            full =
+                full.replace(
+                    /<\/body>/i,
+                    `<script>${javascript}<\/script></body>`
+                );
+
+        } else {
+
+            full +=
+                `<script>${javascript}<\/script>`;
+        }
+
+
+        return full;
+    }
+
+
+    /*
+       Normal HTML fragment.
+    */
+
+    return `<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<style>
+
+${css}
+
+</style>
+
+</head>
+
+<body>
+
+${html}
+
+<script>
+
+${javascript}
+
+<\/script>
+
+</body>
+
+</html>`;
+}
+
+
+/* =========================================================
+   RENDER SHARED PROJECT
+========================================================= */
+
+function renderSharedProject(project) {
+
+    document.body.innerHTML = "";
+
+
+    const frame =
+        document.createElement(
+            "iframe"
+        );
+
+
+    frame.style.cssText =
+        "width:100vw;" +
+        "height:100vh;" +
+        "border:0;" +
+        "display:block;" +
+        "background:white;";
+
+
+    frame.setAttribute(
+        "title",
+        "Published Website"
+    );
+
+
+    frame.setAttribute(
+        "sandbox",
+        "allow-scripts"
+    );
+
+
+    frame.srcdoc =
+        buildProjectHTML(
+            project
+        );
+
+
+    document.body.appendChild(
+        frame
+    );
+
+
+    document.title =
+        "Published Website | Darshan Academy";
+}
+
+
+/* =========================================================
+   LOAD PUBLISHED PROJECT
+========================================================= */
+
+function loadPublishedProject() {
+
+    const project =
+        getSharedProjectFromURL();
+
+
+    if (!project) {
+        return false;
+    }
+
+
+    renderSharedProject(
+        project
+    );
+
+
+    return true;
+}
+
+
+/* =========================================================
+   PUBLISHED LINK BUTTON
+========================================================= */
 
 function setupPublishedButton() {
 
-    get("openPublished")?.addEventListener(
+    const button =
+        get("openPublished");
+
+
+    if (!button) {
+        return;
+    }
+
+
+    button.addEventListener(
         "click",
-        function() {
+        function () {
 
             const link =
                 get("shareLink");
+
 
             if (
                 link &&
@@ -1042,31 +1909,47 @@ function setupPublishedButton() {
 }
 
 
-/* ================= AI ASSISTANT ================= */
+/* =========================================================
+   AI ASSISTANT
+========================================================= */
 
 function setupAI() {
 
-    get("askAiBtn")?.addEventListener(
-        "click",
-        askAI
-    );
+    const button =
+        get("askAiBtn");
 
 
-    get("aiQuestion")?.addEventListener(
-        "keydown",
-        function(event) {
+    if (button) {
 
-            if (
-                event.key === "Enter" &&
-                event.ctrlKey
-            ) {
+        button.addEventListener(
+            "click",
+            askAI
+        );
+    }
 
-                event.preventDefault();
 
-                askAI();
+    const input =
+        get("aiQuestion");
+
+
+    if (input) {
+
+        input.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (
+                    event.key === "Enter" &&
+                    event.ctrlKey
+                ) {
+
+                    event.preventDefault();
+
+                    askAI();
+                }
             }
-        }
-    );
+        );
+    }
 }
 
 
@@ -1074,6 +1957,7 @@ function askAI() {
 
     const input =
         get("aiQuestion");
+
 
     const answer =
         get("aiAnswer");
@@ -1144,8 +2028,8 @@ function askAI() {
             "Python is a high-level programming language known for simple syntax. It is widely used in software development, automation, data science and AI.";
 
     } else if (
-        q.includes("ai") ||
-        q.includes("artificial intelligence")
+        q.includes("artificial intelligence") ||
+        q.includes(" ai ")
     ) {
 
         response =
@@ -1171,7 +2055,7 @@ function askAI() {
     ) {
 
         response =
-            "Flexbox is a CSS layout system. Use display: flex on a parent and then properties such as justify-content and align-items to position its children.";
+            "Flexbox is a CSS layout system. Use display: flex on a parent and properties such as justify-content and align-items to position its children.";
 
     } else if (
         q.includes("border-radius")
@@ -1184,7 +2068,6 @@ function askAI() {
 
         response =
             "Start by breaking the doubt into a smaller concept. Check the relevant HTML, CSS, JavaScript, Python or AI/ML lesson, then test the concept in the Coding Playground.";
-
     }
 
 
@@ -1198,15 +2081,19 @@ function askAI() {
 }
 
 
-/* ================= NOTES ================= */
+/* =========================================================
+   NOTES
+========================================================= */
 
 function setupNotes() {
 
     const notes =
         get("quickNotes");
 
+
     const save =
         get("saveNotesBtn");
+
 
     const message =
         get("notesSavedMessage");
@@ -1224,13 +2111,15 @@ function setupNotes() {
 
 
     if (saved) {
-        notes.value = saved;
+
+        notes.value =
+            saved;
     }
 
 
     save.addEventListener(
         "click",
-        function() {
+        function () {
 
             localStorage.setItem(
                 STORAGE.notes,
@@ -1243,11 +2132,16 @@ function setupNotes() {
                 message.textContent =
                     "Notes saved.";
 
-                setTimeout(() => {
 
-                    message.textContent = "";
+                setTimeout(
+                    function () {
 
-                }, 1800);
+                        message.textContent =
+                            "";
+
+                    },
+                    1800
+                );
             }
 
 
@@ -1259,78 +2153,92 @@ function setupNotes() {
 }
 
 
-/* ================= ASK INSTRUCTOR ================= */
+/* =========================================================
+   ASK INSTRUCTOR
+========================================================= */
 
 function setupInstructor() {
 
-    get("sendInstructorBtn")?.addEventListener(
-        "click",
-        function() {
-
-            const input =
-                get("instructorQuestion");
+    const button =
+        get("sendInstructorBtn");
 
 
-            if (!input) {
-                return;
-            }
+    if (button) {
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                const input =
+                    get("instructorQuestion");
 
 
-            const question =
-                input.value.trim();
+                if (!input) {
+                    return;
+                }
 
 
-            if (!question) {
+                const question =
+                    input.value.trim();
+
+
+                if (!question) {
+
+                    alert(
+                        "Please write your doubt first."
+                    );
+
+                    input.focus();
+
+                    return;
+                }
+
+
+                const questions =
+                    read(
+                        STORAGE.questions,
+                        []
+                    );
+
+
+                questions.unshift({
+
+                    text:
+                        question,
+
+                    time:
+                        new Date()
+                            .toLocaleString()
+                });
+
+
+                write(
+                    STORAGE.questions,
+                    questions.slice(
+                        0,
+                        20
+                    )
+                );
+
+
+                input.value =
+                    "";
+
+
+                renderQuestions();
+
+
+                updateActivity(
+                    "Asked Instructor a question"
+                );
+
 
                 alert(
-                    "Please write your doubt first."
+                    "Your question has been saved."
                 );
-
-                input.focus();
-
-                return;
             }
-
-
-            const questions =
-                read(
-                    STORAGE.questions,
-                    []
-                );
-
-
-            questions.unshift({
-
-                text: question,
-
-                time:
-                    new Date().toLocaleString()
-
-            });
-
-
-            write(
-                STORAGE.questions,
-                questions.slice(0, 20)
-            );
-
-
-            input.value = "";
-
-
-            renderQuestions();
-
-
-            updateActivity(
-                "Asked Instructor a question"
-            );
-
-
-            alert(
-                "Your question has been saved."
-            );
-        }
-    );
+        );
+    }
 
 
     renderQuestions();
@@ -1367,26 +2275,36 @@ function renderQuestions() {
 
 
     list.innerHTML =
-        questions.map(
-            question => {
+        questions
+            .map(
+                function (question) {
 
-                return `
-                    <div class="question-item">
-                        <strong>
-                            ${escapeHTML(question.text)}
-                        </strong>
+                    return `
+                        <div class="question-item">
 
-                        <small>
-                            ${escapeHTML(question.time)}
-                        </small>
-                    </div>
-                `;
-            }
-        ).join("");
+                            <strong>
+                                ${escapeHTML(
+                                    question.text
+                                )}
+                            </strong>
+
+                            <small>
+                                ${escapeHTML(
+                                    question.time
+                                )}
+                            </small>
+
+                        </div>
+                    `;
+                }
+            )
+            .join("");
 }
 
 
-/* ================= JOURNEY ================= */
+/* =========================================================
+   JOURNEY / ACTIVITY
+========================================================= */
 
 function updateActivity(text) {
 
@@ -1404,23 +2322,30 @@ function updateActivity(text) {
 
     activities.unshift({
 
-        text,
+        text:
+            text,
 
         time:
-            new Date().toLocaleTimeString(
-                [],
-                {
-                    hour: "2-digit",
-                    minute: "2-digit"
-                }
-            )
+            new Date()
+                .toLocaleTimeString(
+                    [],
+                    {
+                        hour:
+                            "2-digit",
 
+                        minute:
+                            "2-digit"
+                    }
+                )
     });
 
 
     write(
         STORAGE.activities,
-        activities.slice(0, 10)
+        activities.slice(
+            0,
+            10
+        )
     );
 
 
@@ -1434,7 +2359,8 @@ function updatePractice() {
         Number(
             localStorage.getItem(
                 STORAGE.practice
-            ) || "0"
+            ) ||
+            "0"
         );
 
 
@@ -1464,7 +2390,8 @@ function updateJourney() {
         Number(
             localStorage.getItem(
                 STORAGE.practice
-            ) || "0"
+            ) ||
+            "0"
         );
 
 
@@ -1474,24 +2401,30 @@ function updateJourney() {
                 30,
                 Math.max(
                     1,
-                    new Set(
-                        activities.map(
-                            item => item.time
-                        )
-                    ).size
+                    activities.length
                 )
             )
             : 0;
 
 
-    if (get("streakCount")) {
-        get("streakCount").textContent =
+    if (
+        get("streakCount")
+    ) {
+
+        get(
+            "streakCount"
+        ).textContent =
             streak;
     }
 
 
-    if (get("practiceCount")) {
-        get("practiceCount").textContent =
+    if (
+        get("practiceCount")
+    ) {
+
+        get(
+            "practiceCount"
+        ).textContent =
             practice;
     }
 
@@ -1502,9 +2435,13 @@ function updateJourney() {
         );
 
 
-    if (get("savedCount")) {
+    if (
+        get("savedCount")
+    ) {
 
-        get("savedCount").textContent =
+        get(
+            "savedCount"
+        ).textContent =
             savedNotes &&
             savedNotes.trim()
                 ? 1
@@ -1519,16 +2456,24 @@ function updateJourney() {
         );
 
 
-    if (get("progressFill")) {
+    if (
+        get("progressFill")
+    ) {
 
-        get("progressFill").style.width =
+        get(
+            "progressFill"
+        ).style.width =
             progress + "%";
     }
 
 
-    if (get("progressPercent")) {
+    if (
+        get("progressPercent")
+    ) {
 
-        get("progressPercent").textContent =
+        get(
+            "progressPercent"
+        ).textContent =
             progress + "%";
     }
 
@@ -1554,93 +2499,161 @@ function updateJourney() {
 
 
     activityList.innerHTML =
-        activities.slice(0, 8)
-            .map(item => {
+        activities
+            .slice(
+                0,
+                8
+            )
+            .map(
+                function (item) {
 
-                return `
-                    <div class="activity-item">
-                        ${escapeHTML(item.text)}
-                        <small style="color:#8f98ad;margin-left:8px;">
-                            ${escapeHTML(item.time)}
-                        </small>
-                    </div>
-                `;
+                    return `
+                        <div class="activity-item">
 
-            })
+                            ${escapeHTML(
+                                item.text
+                            )}
+
+                            <small
+                                style="color:#8f98ad;margin-left:8px;"
+                            >
+                                ${escapeHTML(
+                                    item.time
+                                )}
+                            </small>
+
+                        </div>
+                    `;
+                }
+            )
             .join("");
 }
 
 
-/* ================= NOTE BUTTONS ================= */
+/* =========================================================
+   NOTE BUTTONS
+========================================================= */
 
 function setupNoteButtons() {
 
-    document.querySelectorAll(
-        ".note-btn"
-    ).forEach(button => {
+    document
+        .querySelectorAll(
+            ".note-btn"
+        )
+        .forEach(
+            function (button) {
 
-        button.addEventListener(
-            "click",
-            function() {
+                button.addEventListener(
+                    "click",
+                    function () {
 
-                document
-                    .querySelector(
-                        '[data-section="ai"]'
-                    )
-                    ?.click();
+                        document
+                            .querySelector(
+                                '[data-section="ai"]'
+                            )
+                            ?.click();
 
 
-                setTimeout(() => {
+                        setTimeout(
+                            function () {
 
-                    get("aiQuestion")?.focus();
+                                get(
+                                    "aiQuestion"
+                                )?.focus();
 
-                }, 200);
-
+                            },
+                            200
+                        );
+                    }
+                );
             }
         );
-    });
 }
 
 
-/* ================= SECURITY ================= */
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
 
 function escapeHTML(value) {
 
     return String(value)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
 }
 
 
-/* ================= INITIALIZATION ================= */
-/* ================= INITIALIZATION ================= */
-/* ================= INITIALIZATION ================= */
+/* =========================================================
+   INITIALIZATION
+========================================================= */
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
-    setupStudentName();
+        /*
+           IMPORTANT:
+           If this is a published project link,
+           show only the student's project.
+        */
 
-    setupNavigation();
+        const sharedProject =
+            getSharedProjectFromURL();
 
-    setupExternalLinks();
 
-    setupPlayground();
+        if (sharedProject) {
 
-    setupPublishedButton();
+            renderSharedProject(
+                sharedProject
+            );
 
-    setupAI();
+            return;
+        }
 
-    setupNotes();
 
-    setupInstructor();
+        /* Normal website */
 
-    setupNoteButtons();
+        setupStudentName();
 
-    updateJourney();
+        setupNavigation();
 
-    loadPublishedProject();
+        setupExternalLinks();
 
-});
+        setupPlayground();
+
+        setupPublishedButton();
+
+        setupAI();
+
+        setupNotes();
+
+        setupInstructor();
+
+        setupNoteButtons();
+
+        updateJourney();
+    }
+);
