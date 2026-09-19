@@ -2296,3 +2296,155 @@ footer strong {
     font-size: 24px;
   }
 }
+/* =========================================
+   DARSHAN ACADEMY - NIGHT MODE
+   Added safely without changing playground
+========================================= */
+
+body.night-mode {
+  --bg: #0b0f17;
+  --card: #151a24;
+  --text: #f1f5ff;
+  --muted: #9da7bb;
+  --line: #283041;
+
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Main areas */
+body.night-mode .sidebar {
+  background: #10151f;
+  border-color: var(--line);
+}
+
+body.night-mode .topbar {
+  background: rgba(16, 21, 31, .94);
+  border-color: var(--line);
+}
+
+body.night-mode .content {
+  color: var(--text);
+}
+
+/* Text */
+body.night-mode h1,
+body.night-mode h2,
+body.night-mode h3,
+body.night-mode h4,
+body.night-mode strong {
+  color: var(--text);
+}
+
+body.night-mode p,
+body.night-mode small {
+  color: var(--muted);
+}
+
+/* Sidebar */
+body.night-mode .profile-mini {
+  background: #171d29;
+}
+
+body.night-mode .nav-item {
+  color: #aab4c8;
+}
+
+body.night-mode .nav-item:hover {
+  background: #1b2230;
+}
+
+body.night-mode .nav-item.active {
+  background: #252044;
+  color: #9b93ff;
+}
+
+/* Top buttons */
+body.night-mode .icon-btn {
+  background: #171d29;
+  border-color: var(--line);
+  color: #dce3f2;
+}
+
+/* Cards */
+body.night-mode .stat-card,
+body.night-mode .course-card,
+body.night-mode .big-course,
+body.night-mode .video-card,
+body.night-mode .resource-card,
+body.night-mode .doubt-card,
+body.night-mode .instructor-contact-card,
+body.night-mode .journey-card {
+  background: var(--card);
+  border-color: var(--line);
+}
+
+/* Course pills */
+body.night-mode .pill {
+  background: #252044;
+}
+
+/* Secondary buttons */
+body.night-mode .secondary-btn {
+  background: #202735;
+  color: #dce3f2;
+}
+
+body.night-mode .secondary-btn:hover {
+  background: #2a3343;
+}
+
+/* Inputs */
+body.night-mode input,
+body.night-mode textarea,
+body.night-mode select {
+  background: #10151f;
+  color: #f1f5ff;
+  border-color: #30394b;
+}
+
+body.night-mode input::placeholder,
+body.night-mode textarea::placeholder {
+  color: #6f7a90;
+}
+
+/* Progress bars */
+body.night-mode .progress-line {
+  background: #2a3140;
+}
+
+/* Resource / information areas */
+body.night-mode .empty-info {
+  background: #151a24;
+  border-color: var(--line);
+}
+
+/* Keep welcome screen exactly as it is */
+body.night-mode .welcome-overlay {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(99,91,255,.28), transparent 30%),
+    radial-gradient(circle at 80% 80%, rgba(30,185,255,.2), transparent 30%),
+    #080b12;
+}
+
+/* Smooth theme transition */
+body,
+.sidebar,
+.topbar,
+.stat-card,
+.course-card,
+.big-course,
+.video-card,
+.resource-card,
+.doubt-card,
+.instructor-contact-card,
+.journey-card,
+.icon-btn,
+.secondary-btn,
+.profile-mini,
+.nav-item {
+  transition:
+    background-color .25s ease,
+    color .25s ease,
+    border-color .25s ease;
+}
