@@ -1617,6 +1617,7 @@ function escapeHTML(value) {
 
 /* ================= INITIALIZATION ================= */
 /* ================= INITIALIZATION ================= */
+/* ================= INITIALIZATION ================= */
 
 document.addEventListener("DOMContentLoaded", function () {
 
