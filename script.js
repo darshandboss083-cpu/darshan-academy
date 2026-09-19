@@ -2084,3 +2084,32 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }, 300);
 });
+/* =========================
+   NIGHT MODE
+========================= */
+
+const themeToggle = document.getElementById("themeToggle");
+
+if (themeToggle) {
+  const savedTheme = localStorage.getItem("darshanAcademyTheme");
+
+  if (savedTheme === "dark") {
+    document.body.classList.add("night-mode");
+    themeToggle.textContent = "☀️";
+    themeToggle.title = "Day Mode";
+  }
+
+  themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("night-mode");
+
+    const isDark = document.body.classList.contains("night-mode");
+
+    localStorage.setItem(
+      "darshanAcademyTheme",
+      isDark ? "dark" : "light"
+    );
+
+    themeToggle.textContent = isDark ? "☀️" : "🌙";
+    themeToggle.title = isDark ? "Day Mode" : "Night Mode";
+  });
+}
