@@ -31,13 +31,13 @@
      WELCOME
 ===================================================== -->
 
+<!-- Welcome Popup -->
 <div id="welcomeModal" class="welcome-modal">
-
     <div class="welcome-box">
 
         <div class="welcome-logo">DS</div>
 
-        <h1>Welcome to Darshan Academy</h1>
+        <h1>Welcome to DS Academy</h1>
 
         <p>Learn. Code. Build. Grow.</p>
 
@@ -48,17 +48,45 @@
             autocomplete="off"
         >
 
-        <button id="continueBtn" type="button">
+        <div id="nameError" class="name-error"></div>
+
+        <button
+            id="continueBtn"
+            type="button"
+            onclick="continueStudent()"
+        >
             Continue
         </button>
 
-        <small id="nameError"></small>
-
     </div>
-
 </div>
 
+<script>
+function continueStudent() {
+    const input = document.getElementById("studentNameInput");
+    const modal = document.getElementById("welcomeModal");
+    const error = document.getElementById("nameError");
 
+    const name = input.value.trim();
+
+    if (name === "") {
+        error.textContent = "Please enter your name.";
+        input.focus();
+        return;
+    }
+
+    localStorage.setItem("studentName", name);
+
+    modal.classList.add("hidden");
+
+    const displayName = document.getElementById("studentDisplayName");
+
+    if (displayName) {
+        displayName.textContent = name;
+    }
+}
+</script>
+    
 <!-- =====================================================
      HEADER
 ===================================================== -->
