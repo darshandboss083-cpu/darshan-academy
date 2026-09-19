@@ -6,23 +6,33 @@
 
     <title>Darshan Academy</title>
 
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+    <!-- CodeMirror -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css"
+    >
 
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css"
+    >
 
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css"
+    >
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- ================= WELCOME ================= -->
+<!-- =====================================================
+     WELCOME
+===================================================== -->
 
 <div id="welcomeModal" class="welcome-modal">
+
     <div class="welcome-box">
 
         <div class="welcome-logo">DS</div>
@@ -45,73 +55,136 @@
         <small id="nameError"></small>
 
     </div>
+
 </div>
 
 
-<!-- ================= HEADER ================= -->
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
 <header class="topbar">
 
     <div class="brand">
+
         <div class="brand-logo">DS</div>
 
         <div>
             <h2>Darshan Academy</h2>
             <span>Learn. Code. Build. Grow.</span>
         </div>
+
     </div>
 
+
     <div class="student-box">
-        <div class="student-avatar" id="studentAvatar">D</div>
+
+        <div
+            class="student-avatar"
+            id="studentAvatar"
+        >
+            D
+        </div>
 
         <div>
             <strong id="topStudentName">Student</strong>
-            <small>Learning with Darshan & Sunil</small>
+
+            <small>
+                Learning with Darshan & Sunil
+            </small>
         </div>
+
     </div>
 
 </header>
 
 
-<!-- ================= MAIN LAYOUT ================= -->
+<!-- =====================================================
+     MAIN LAYOUT
+===================================================== -->
 
 <div class="layout">
 
-    <!-- SIDEBAR -->
+
+    <!-- =================================================
+         SIDEBAR
+    ================================================== -->
 
     <aside class="sidebar">
 
-        <button class="nav-btn active" data-section="home">
+        <button
+            class="nav-btn active"
+            data-section="home"
+        >
             🏠 <span>Home</span>
         </button>
 
-        <button class="nav-btn" data-section="courses">
+
+        <button
+            class="nav-btn"
+            data-section="courses"
+        >
             📚 <span>Courses</span>
         </button>
 
-        <button class="nav-btn" data-section="videos">
+
+        <button
+            class="nav-btn"
+            data-section="projects"
+        >
+            🚀 <span>Projects</span>
+        </button>
+
+
+        <button
+            class="nav-btn"
+            data-section="videos"
+        >
             ▶️ <span>Videos</span>
         </button>
 
-        <button class="nav-btn" data-section="notes">
+
+        <button
+            class="nav-btn"
+            data-section="notes"
+        >
             📝 <span>Notes</span>
         </button>
 
-        <button class="nav-btn" data-section="playground">
+
+        <button
+            class="nav-btn"
+            data-section="playground"
+        >
             💻 <span>Coding Playground</span>
         </button>
 
-        <button class="nav-btn" data-section="journey">
+
+        <button
+            class="nav-btn"
+            data-section="journey"
+        >
             📈 <span>My Journey</span>
         </button>
 
-        <button class="nav-btn" data-section="ai">
+
+        <button
+            class="nav-btn"
+            data-section="ai"
+        >
             🤖 <span>AI Doubt</span>
         </button>
 
-        <button class="nav-btn" data-section="instructor">
+
+        <button
+            class="nav-btn"
+            data-section="instructor"
+        >
             👨‍🏫 <span>Ask Instructor</span>
         </button>
+
+
+        <!-- SOCIAL LINKS -->
 
         <div class="sidebar-social">
 
@@ -123,6 +196,7 @@
             >
                 ▶ YouTube
             </a>
+
 
             <a
                 href="https://www.instagram.com/dsacademy.in/"
@@ -138,20 +212,29 @@
     </aside>
 
 
-    <!-- CONTENT -->
+    <!-- =================================================
+         CONTENT
+    ================================================== -->
 
     <main class="content">
 
 
-        <!-- ================= HOME ================= -->
+        <!-- =================================================
+             HOME
+        ================================================== -->
 
-        <section id="home" class="page-section active">
+        <section
+            id="home"
+            class="page-section active"
+        >
 
             <div class="hero">
 
                 <div class="hero-text">
 
-                    <span class="eyebrow">WELCOME TO DS ACADEMY</span>
+                    <span class="eyebrow">
+                        WELCOME TO DS ACADEMY
+                    </span>
 
                     <h1>
                         Learn today.<br>
@@ -163,6 +246,7 @@
                         through simple explanations and practical projects.
                     </p>
 
+
                     <div class="hero-buttons">
 
                         <button
@@ -171,6 +255,7 @@
                         >
                             Explore Courses
                         </button>
+
 
                         <button
                             class="secondary-btn"
@@ -183,12 +268,17 @@
 
                 </div>
 
+
                 <div class="hero-card">
 
                     <div class="hero-card-top">
+
                         <span>DS</span>
+
                         <span>2026</span>
+
                     </div>
+
 
                     <h3>Darshan Academy</h3>
 
@@ -196,16 +286,30 @@
                         Learn. Code. Build. Grow.
                     </p>
 
+
                     <div class="instructors">
-                        <div>
-                            <strong>Darshan</strong>
-                            <span>Main Instructor</span>
-                        </div>
 
                         <div>
-                            <strong>Sunil</strong>
-                            <span>Co-Instructor</span>
+
+                            <strong>Darshan</strong>
+
+                            <span>
+                                Main Instructor
+                            </span>
+
                         </div>
+
+
+                        <div>
+
+                            <strong>Sunil</strong>
+
+                            <span>
+                                Co-Instructor
+                            </span>
+
+                        </div>
+
                     </div>
 
                 </div>
@@ -216,8 +320,15 @@
             <div class="section-heading">
 
                 <div>
-                    <span class="eyebrow">START LEARNING</span>
-                    <h2>Everything in one place</h2>
+
+                    <span class="eyebrow">
+                        START LEARNING
+                    </span>
+
+                    <h2>
+                        Everything in one place
+                    </h2>
+
                 </div>
 
             </div>
@@ -226,27 +337,70 @@
             <div class="feature-grid">
 
                 <article class="feature-card">
-                    <div class="feature-icon">📚</div>
-                    <h3>Courses</h3>
-                    <p>HTML, CSS, JavaScript, Python and AI/ML.</p>
+
+                    <div class="feature-icon">
+                        📚
+                    </div>
+
+                    <h3>
+                        Courses
+                    </h3>
+
+                    <p>
+                        HTML, CSS, JavaScript, Python and AI/ML.
+                    </p>
+
                 </article>
 
-                <article class="feature-card">
-                    <div class="feature-icon">💻</div>
-                    <h3>Code</h3>
-                    <p>Practice directly inside the coding playground.</p>
-                </article>
 
                 <article class="feature-card">
-                    <div class="feature-icon">🤖</div>
-                    <h3>AI Doubt</h3>
-                    <p>Ask questions and get instant explanations.</p>
+
+                    <div class="feature-icon">
+                        💻
+                    </div>
+
+                    <h3>
+                        Code
+                    </h3>
+
+                    <p>
+                        Practice directly inside the coding playground.
+                    </p>
+
                 </article>
 
+
                 <article class="feature-card">
-                    <div class="feature-icon">📝</div>
-                    <h3>Notes</h3>
-                    <p>Keep important learning notes in one place.</p>
+
+                    <div class="feature-icon">
+                        🤖
+                    </div>
+
+                    <h3>
+                        AI Doubt
+                    </h3>
+
+                    <p>
+                        Ask questions and get instant explanations.
+                    </p>
+
+                </article>
+
+
+                <article class="feature-card">
+
+                    <div class="feature-icon">
+                        📝
+                    </div>
+
+                    <h3>
+                        Notes
+                    </h3>
+
+                    <p>
+                        Keep important learning notes in one place.
+                    </p>
+
                 </article>
 
             </div>
@@ -254,19 +408,28 @@
         </section>
 
 
-        <!-- ================= COURSES ================= -->
+        <!-- =================================================
+             COURSES
+        ================================================== -->
 
-        <section id="courses" class="page-section">
+        <section
+            id="courses"
+            class="page-section"
+        >
 
             <div class="section-title">
 
-                <span class="eyebrow">LEARNING PATH</span>
+                <span class="eyebrow">
+                    LEARNING PATH
+                </span>
 
-                <h1>Courses</h1>
+                <h1>
+                    Courses
+                </h1>
 
                 <p>
-                    Choose a subject and continue learning through the
-                    Darshan Academy YouTube playlists.
+                    Learn step by step through Darshan Academy
+                    YouTube playlists.
                 </p>
 
             </div>
@@ -275,111 +438,151 @@
             <div class="course-grid">
 
 
+                <!-- HTML -->
+
                 <article class="course-card html-course">
 
-                    <div class="course-icon">HTML</div>
+                    <div class="course-icon">
+                        HTML
+                    </div>
 
-                    <h3>HTML</h3>
+                    <h3>
+                        HTML
+                    </h3>
 
                     <p>
-                        Learn the structure of websites from the basics.
+                        Learn HTML from the basics and understand
+                        webpage structure, elements, attributes,
+                        links, images, buttons and more.
                     </p>
 
                     <a
-                        href="https://youtube.com/@darshanacademy-z6c/playlists"
+                        href="https://www.youtube.com/playlist?list=PLINVebe4EU3A"
                         target="_blank"
                         rel="noopener noreferrer"
                         class="course-btn"
                     >
-                        Watch Playlist →
+                        Go to YouTube
                     </a>
 
                 </article>
 
+
+                <!-- CSS -->
 
                 <article class="course-card css-course">
 
-                    <div class="course-icon">CSS</div>
+                    <div class="course-icon">
+                        CSS
+                    </div>
 
-                    <h3>CSS</h3>
+                    <h3>
+                        CSS
+                    </h3>
 
                     <p>
-                        Learn styling, layouts, spacing and responsive design.
+                        Learn CSS step by step including colors,
+                        fonts, spacing, borders, layouts and
+                        responsive webpage design.
                     </p>
 
                     <a
-                        href="https://youtube.com/@darshanacademy-z6c/playlists"
+                        href="https://www.youtube.com/playlist?list=PLaQNfMhGC1ro"
                         target="_blank"
                         rel="noopener noreferrer"
                         class="course-btn"
                     >
-                        Watch Playlist →
+                        Go to YouTube
                     </a>
 
                 </article>
 
+
+                <!-- JAVASCRIPT -->
 
                 <article class="course-card js-course">
 
-                    <div class="course-icon">JS</div>
+                    <div class="course-icon">
+                        JS
+                    </div>
 
-                    <h3>JavaScript</h3>
+                    <h3>
+                        JavaScript
+                    </h3>
 
                     <p>
-                        Learn programming logic and interactive websites.
+                        Learn JavaScript from the basics and create
+                        interactive webpages using programming logic,
+                        functions, events and DOM concepts.
                     </p>
 
                     <a
-                        href="https://youtube.com/@darshanacademy-z6c/playlists"
+                        href="https://youtube.com/playlist?list=PLIgX2fGXgKvU&si=fPtCKsttXPohbGAg"
                         target="_blank"
                         rel="noopener noreferrer"
                         class="course-btn"
                     >
-                        Watch Playlist →
+                        Go to YouTube
                     </a>
 
                 </article>
 
+
+                <!-- PYTHON -->
 
                 <article class="course-card python-course">
 
-                    <div class="course-icon">PY</div>
+                    <div class="course-icon">
+                        PY
+                    </div>
 
-                    <h3>Python</h3>
+                    <h3>
+                        Python
+                    </h3>
 
                     <p>
-                        Start programming with Python step by step.
+                        Learn Python programming step by step with
+                        variables, conditions, loops, functions,
+                        lists, dictionaries and problem solving.
                     </p>
 
                     <a
-                        href="https://youtube.com/@darshanacademy-z6c/playlists"
+                        href="https://www.youtube.com/playlist?list=PLbHaeywvV9PI"
                         target="_blank"
                         rel="noopener noreferrer"
                         class="course-btn"
                     >
-                        Watch Playlist →
+                        Go to YouTube
                     </a>
 
                 </article>
 
 
+                <!-- AI / ML -->
+
                 <article class="course-card aiml-course">
 
-                    <div class="course-icon">AI</div>
+                    <div class="course-icon">
+                        AI
+                    </div>
 
-                    <h3>AI / ML</h3>
+                    <h3>
+                        AI / ML
+                    </h3>
 
                     <p>
-                        Understand Artificial Intelligence and Machine Learning.
+                        Understand Artificial Intelligence and
+                        Machine Learning through simple explanations,
+                        examples and real-world applications.
                     </p>
 
                     <a
-                        href="https://youtube.com/@darshanacademy-z6c/playlists"
+                        href="https://www.youtube.com/playlist?list=PLSuJlRaRXmXc"
                         target="_blank"
                         rel="noopener noreferrer"
                         class="course-btn"
                     >
-                        Watch Playlist →
+                        Go to YouTube
                     </a>
 
                 </article>
@@ -389,15 +592,24 @@
         </section>
 
 
-        <!-- ================= PROJECTS ================= -->
+        <!-- =================================================
+             PROJECTS
+        ================================================== -->
 
-        <section id="projects" class="page-section">
+        <section
+            id="projects"
+            class="page-section"
+        >
 
             <div class="section-title">
 
-                <span class="eyebrow">BUILD SOMETHING</span>
+                <span class="eyebrow">
+                    BUILD SOMETHING
+                </span>
 
-                <h1>Projects</h1>
+                <h1>
+                    Projects
+                </h1>
 
                 <p>
                     Practice what you learn by building real projects.
@@ -408,28 +620,40 @@
 
             <div class="project-grid">
 
+
                 <article class="project-card tree-project">
 
                     <div class="project-preview">
 
                         <div class="tree">
+
                             <div class="tree-leaves"></div>
+
                             <div class="tree-trunk"></div>
+
                             <div class="tree-ground"></div>
+
                         </div>
 
                     </div>
 
+
                     <div class="project-info">
 
-                        <span class="project-tag">HTML + CSS</span>
+                        <span class="project-tag">
+                            HTML + CSS
+                        </span>
 
-                        <h3>Tree Project</h3>
+                        <h3>
+                            Tree Project – Build a Webpage from Scratch
+                        </h3>
 
                         <p>
-                            Build a simple attractive tree illustration
-                            using HTML and CSS.
+                            Create an attractive tree-themed webpage
+                            using HTML and CSS while practicing webpage
+                            structure, styling, spacing, colors and layouts.
                         </p>
+
 
                         <button
                             class="primary-btn project-open"
@@ -447,18 +671,28 @@
         </section>
 
 
-        <!-- ================= VIDEOS ================= -->
+        <!-- =================================================
+             VIDEOS
+        ================================================== -->
 
-        <section id="videos" class="page-section">
+        <section
+            id="videos"
+            class="page-section"
+        >
 
             <div class="section-title">
 
-                <span class="eyebrow">WATCH & LEARN</span>
+                <span class="eyebrow">
+                    WATCH & LEARN
+                </span>
 
-                <h1>Videos</h1>
+                <h1>
+                    Videos
+                </h1>
 
                 <p>
-                    Watch the latest lessons from Darshan Academy.
+                    Watch lessons and practical coding videos
+                    from Darshan Academy.
                 </p>
 
             </div>
@@ -466,21 +700,29 @@
 
             <div class="video-grid">
 
+
                 <article class="video-card">
 
-                    <div class="video-icon">▶</div>
+                    <div class="video-icon">
+                        ▶
+                    </div>
 
-                    <h3>HTML Playlist</h3>
+                    <h3>
+                        HTML
+                    </h3>
 
-                    <p>HTML lessons and practical coding.</p>
+                    <p>
+                        Learn HTML concepts and practical webpage
+                        development.
+                    </p>
 
                     <a
-                        href="https://youtube.com/@darshanacademy-z6c/playlists"
+                        href="https://www.youtube.com/playlist?list=PLINVebe4EU3A"
                         target="_blank"
                         rel="noopener noreferrer"
                         class="course-btn"
                     >
-                        Open Playlist
+                        Go to YouTube
                     </a>
 
                 </article>
@@ -488,19 +730,26 @@
 
                 <article class="video-card">
 
-                    <div class="video-icon">▶</div>
+                    <div class="video-icon">
+                        ▶
+                    </div>
 
-                    <h3>CSS Playlist</h3>
+                    <h3>
+                        CSS
+                    </h3>
 
-                    <p>CSS concepts and website styling.</p>
+                    <p>
+                        Learn CSS styling, layouts, spacing and
+                        responsive design.
+                    </p>
 
                     <a
-                        href="https://youtube.com/@darshanacademy-z6c/playlists"
+                        href="https://www.youtube.com/playlist?list=PLaQNfMhGC1ro"
                         target="_blank"
                         rel="noopener noreferrer"
                         class="course-btn"
                     >
-                        Open Playlist
+                        Go to YouTube
                     </a>
 
                 </article>
@@ -508,19 +757,106 @@
 
                 <article class="video-card">
 
-                    <div class="video-icon">▶</div>
+                    <div class="video-icon">
+                        ▶
+                    </div>
 
-                    <h3>Programming Playlist</h3>
+                    <h3>
+                        JavaScript
+                    </h3>
 
-                    <p>Programming and development lessons.</p>
+                    <p>
+                        Learn programming logic and make webpages
+                        interactive.
+                    </p>
 
                     <a
-                        href="https://youtube.com/@darshanacademy-z6c/playlists"
+                        href="https://youtube.com/playlist?list=PLIgX2fGXgKvU&si=fPtCKsttXPohbGAg"
                         target="_blank"
                         rel="noopener noreferrer"
                         class="course-btn"
                     >
-                        Open Playlist
+                        Go to YouTube
+                    </a>
+
+                </article>
+
+
+                <article class="video-card">
+
+                    <div class="video-icon">
+                        ▶
+                    </div>
+
+                    <h3>
+                        Python
+                    </h3>
+
+                    <p>
+                        Learn Python programming from the basics.
+                    </p>
+
+                    <a
+                        href="https://www.youtube.com/playlist?list=PLbHaeywvV9PI"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="course-btn"
+                    >
+                        Go to YouTube
+                    </a>
+
+                </article>
+
+
+                <article class="video-card">
+
+                    <div class="video-icon">
+                        ▶
+                    </div>
+
+                    <h3>
+                        AI / ML
+                    </h3>
+
+                    <p>
+                        Understand the fundamentals of AI and
+                        Machine Learning.
+                    </p>
+
+                    <a
+                        href="https://www.youtube.com/playlist?list=PLSuJlRaRXmXc"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="course-btn"
+                    >
+                        Go to YouTube
+                    </a>
+
+                </article>
+
+
+                <article class="video-card">
+
+                    <div class="video-icon">
+                        ▶
+                    </div>
+
+                    <h3>
+                        Projects
+                    </h3>
+
+                    <p>
+                        Build practical web development projects
+                        using what you learn.
+                    </p>
+
+                    <a
+                        href="https://www.youtube.com/playlist?list=PLHlHG8dVaMME"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="course-btn"
+                    >
+                        Go to YouTube
                     </a>
 
                 </article>
@@ -530,15 +866,24 @@
         </section>
 
 
-        <!-- ================= NOTES ================= -->
+        <!-- =================================================
+             NOTES
+        ================================================== -->
 
-        <section id="notes" class="page-section">
+        <section
+            id="notes"
+            class="page-section"
+        >
 
             <div class="section-title">
 
-                <span class="eyebrow">REVISION</span>
+                <span class="eyebrow">
+                    REVISION
+                </span>
 
-                <h1>Notes</h1>
+                <h1>
+                    Notes
+                </h1>
 
                 <p>
                     Keep your important concepts and revision notes here.
@@ -550,24 +895,68 @@
             <div class="notes-grid">
 
                 <article class="note-card">
+
                     <span>01</span>
-                    <h3>HTML Notes</h3>
-                    <p>HTML elements, attributes, links, images and sections.</p>
-                    <button class="secondary-btn note-btn">Open Notes</button>
+
+                    <h3>
+                        HTML Notes
+                    </h3>
+
+                    <p>
+                        HTML elements, attributes, links, images
+                        and sections.
+                    </p>
+
+                    <button
+                        class="secondary-btn note-btn"
+                    >
+                        Open Notes
+                    </button>
+
                 </article>
 
+
                 <article class="note-card">
+
                     <span>02</span>
-                    <h3>CSS Notes</h3>
-                    <p>Selectors, colors, spacing, borders and layouts.</p>
-                    <button class="secondary-btn note-btn">Open Notes</button>
+
+                    <h3>
+                        CSS Notes
+                    </h3>
+
+                    <p>
+                        Selectors, colors, spacing, borders
+                        and layouts.
+                    </p>
+
+                    <button
+                        class="secondary-btn note-btn"
+                    >
+                        Open Notes
+                    </button>
+
                 </article>
 
+
                 <article class="note-card">
+
                     <span>03</span>
-                    <h3>Python Notes</h3>
-                    <p>Programming basics, variables, conditions and loops.</p>
-                    <button class="secondary-btn note-btn">Open Notes</button>
+
+                    <h3>
+                        Python Notes
+                    </h3>
+
+                    <p>
+                        Programming basics, variables,
+                        conditions and loops.
+                    </p>
+
+                    <button
+                        class="secondary-btn note-btn"
+                    >
+                        Open Notes
+                    </button>
+
                 </article>
 
             </div>
@@ -575,15 +964,24 @@
         </section>
 
 
-        <!-- ================= PLAYGROUND ================= -->
+        <!-- =================================================
+             CODING PLAYGROUND
+        ================================================== -->
 
-        <section id="playground" class="page-section playground-section">
+        <section
+            id="playground"
+            class="page-section playground-section"
+        >
 
             <div class="section-title">
 
-                <span class="eyebrow">PRACTICE</span>
+                <span class="eyebrow">
+                    PRACTICE
+                </span>
 
-                <h1>Coding Playground</h1>
+                <h1>
+                    Coding Playground
+                </h1>
 
                 <p>
                     Write code, run it and see the result instantly.
@@ -594,81 +992,194 @@
 
             <div class="playground">
 
+
+                <!-- TOP PLAYGROUND BAR -->
+
                 <div class="playground-toolbar">
 
-                    <select id="languageSelect">
-                        <option value="html">HTML</option>
-                        <option value="css">CSS</option>
-                        <option value="javascript">JavaScript</option>
-                    </select>
+
+                    <!-- WEB DROPDOWN -->
+
+                    <div class="web-dropdown">
+
+                        <button
+                            id="webDropdownBtn"
+                            class="web-dropdown-btn"
+                            type="button"
+                        >
+                            Web
+                            <span>▼</span>
+                        </button>
+
+
+                        <div
+                            id="webDropdownMenu"
+                            class="web-dropdown-menu"
+                        >
+
+                            <button
+                                type="button"
+                                class="web-option active"
+                                data-editor="html"
+                            >
+                                HTML
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="web-option"
+                                data-editor="css"
+                            >
+                                CSS
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="web-option"
+                                data-editor="javascript"
+                            >
+                                JavaScript
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- TOP RIGHT ACTIONS -->
+
+                    <div class="playground-main-actions">
+
+                        <button
+                            id="runCode"
+                            class="run-btn"
+                        >
+                            ▶ Run Code
+                        </button>
+
+
+                        <button
+                            id="publishCode"
+                            class="publish-btn"
+                        >
+                            Publish Website
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SECOND PLAYGROUND BAR -->
+
+                <div class="playground-actions">
+
+
+                    <!-- FILE TABS -->
 
                     <div class="editor-tabs">
 
-                        <button class="editor-tab active" data-editor="html">
+                        <button
+                            class="editor-tab active"
+                            data-editor="html"
+                        >
                             index.html
                         </button>
 
-                        <button class="editor-tab" data-editor="css">
+
+                        <button
+                            class="editor-tab"
+                            data-editor="css"
+                        >
                             style.css
                         </button>
 
-                        <button class="editor-tab" data-editor="javascript">
+
+                        <button
+                            class="editor-tab"
+                            data-editor="javascript"
+                        >
                             script.js
                         </button>
 
                     </div>
 
-                    <button id="suggestBtn" class="tool-btn">
+
+                    <button
+                        id="suggestBtn"
+                        class="tool-btn"
+                    >
                         Suggestions
                     </button>
 
-                </div>
 
-
-                <div class="playground-actions">
-
-                    <button id="copyCode" class="tool-btn">
+                    <button
+                        id="copyCode"
+                        class="tool-btn"
+                    >
                         Copy
                     </button>
 
-                    <button id="clearCode" class="tool-btn">
+
+                    <button
+                        id="clearCode"
+                        class="tool-btn"
+                    >
                         Clear
                     </button>
 
-                    <button id="resetCode" class="tool-btn">
+
+                    <button
+                        id="resetCode"
+                        class="tool-btn"
+                    >
                         Reset
-                    </button>
-
-                    <button id="runCode" class="run-btn">
-                        ▶ Run
-                    </button>
-
-                    <button id="publishCode" class="publish-btn">
-                        Publish Website
                     </button>
 
                 </div>
 
 
+                <!-- EDITOR + PREVIEW -->
+
                 <div class="playground-grid">
+
+
+                    <!-- EDITOR -->
 
                     <div class="editor-panel">
 
                         <div class="panel-header">
-                            <span>Code</span>
-                            <span id="editorLanguage">HTML</span>
+
+                            <span>
+                                Code
+                            </span>
+
+                            <span id="editorLanguage">
+                                HTML
+                            </span>
+
                         </div>
+
 
                         <div id="editorContainer"></div>
 
                     </div>
 
 
+                    <!-- PREVIEW -->
+
                     <div class="preview-panel">
 
                         <div class="panel-header">
-                            <span>Live Preview</span>
+
+                            <span>
+                                Live Preview
+                            </span>
+
                         </div>
+
 
                         <iframe
                             id="previewFrame"
@@ -680,9 +1191,17 @@
                 </div>
 
 
-                <div id="publishBox" class="publish-box hidden">
+                <!-- PUBLISHED LINK -->
 
-                    <strong>Your website link</strong>
+                <div
+                    id="publishBox"
+                    class="publish-box hidden"
+                >
+
+                    <strong>
+                        Your website link
+                    </strong>
+
 
                     <div class="share-row">
 
@@ -690,6 +1209,7 @@
                             id="shareLink"
                             readonly
                         >
+
 
                         <button id="openPublished">
                             Open Website
@@ -704,15 +1224,24 @@
         </section>
 
 
-        <!-- ================= JOURNEY ================= -->
+        <!-- =================================================
+             MY JOURNEY
+        ================================================== -->
 
-        <section id="journey" class="page-section">
+        <section
+            id="journey"
+            class="page-section"
+        >
 
             <div class="section-title">
 
-                <span class="eyebrow">YOUR PROGRESS</span>
+                <span class="eyebrow">
+                    YOUR PROGRESS
+                </span>
 
-                <h1>My Journey</h1>
+                <h1>
+                    My Journey
+                </h1>
 
                 <p>
                     Track your learning progress on Darshan Academy.
@@ -723,22 +1252,49 @@
 
             <div class="stats-grid">
 
+
                 <div class="stat-card">
+
                     <span>🔥</span>
-                    <strong id="streakCount">0</strong>
-                    <small>Learning Days</small>
+
+                    <strong id="streakCount">
+                        0
+                    </strong>
+
+                    <small>
+                        Learning Days
+                    </small>
+
                 </div>
 
+
                 <div class="stat-card">
+
                     <span>💻</span>
-                    <strong id="practiceCount">0</strong>
-                    <small>Practice Sessions</small>
+
+                    <strong id="practiceCount">
+                        0
+                    </strong>
+
+                    <small>
+                        Practice Sessions
+                    </small>
+
                 </div>
 
+
                 <div class="stat-card">
+
                     <span>📝</span>
-                    <strong id="savedCount">0</strong>
-                    <small>Saved Items</small>
+
+                    <strong id="savedCount">
+                        0
+                    </strong>
+
+                    <small>
+                        Saved Items
+                    </small>
+
                 </div>
 
             </div>
@@ -746,15 +1302,28 @@
 
             <div class="journey-card">
 
-                <h3>Learning Progress</h3>
+                <h3>
+                    Learning Progress
+                </h3>
+
 
                 <div class="progress-bar">
+
                     <div id="progressFill"></div>
+
                 </div>
 
+
                 <div class="progress-text">
-                    <span>Keep learning</span>
-                    <strong id="progressPercent">0%</strong>
+
+                    <span>
+                        Keep learning
+                    </span>
+
+                    <strong id="progressPercent">
+                        0%
+                    </strong>
+
                 </div>
 
             </div>
@@ -762,7 +1331,9 @@
 
             <div class="activity-card">
 
-                <h3>Recent Activity</h3>
+                <h3>
+                    Recent Activity
+                </h3>
 
                 <div id="activityList"></div>
 
@@ -771,18 +1342,28 @@
         </section>
 
 
-        <!-- ================= AI DOUBT ================= -->
+        <!-- =================================================
+             AI DOUBT
+        ================================================== -->
 
-        <section id="ai" class="page-section">
+        <section
+            id="ai"
+            class="page-section"
+        >
 
             <div class="section-title">
 
-                <span class="eyebrow">LEARN WITH AI</span>
+                <span class="eyebrow">
+                    LEARN WITH AI
+                </span>
 
-                <h1>AI Doubt Assistant</h1>
+                <h1>
+                    AI Doubt Assistant
+                </h1>
 
                 <p>
-                    Ask a coding or learning question and get a simple explanation.
+                    Ask a coding or learning question and get
+                    a simple explanation.
                 </p>
 
             </div>
@@ -790,15 +1371,29 @@
 
             <div class="ai-layout">
 
+
                 <div class="ai-card">
 
+
                     <div class="ai-heading">
-                        <div class="ai-avatar">AI</div>
+
+                        <div class="ai-avatar">
+                            AI
+                        </div>
+
 
                         <div>
-                            <h3>DS AI Assistant</h3>
-                            <span>Ready to help</span>
+
+                            <h3>
+                                DS AI Assistant
+                            </h3>
+
+                            <span>
+                                Ready to help
+                            </span>
+
                         </div>
+
                     </div>
 
 
@@ -808,12 +1403,18 @@
                     ></textarea>
 
 
-                    <button id="askAiBtn" class="primary-btn">
+                    <button
+                        id="askAiBtn"
+                        class="primary-btn"
+                    >
                         Ask AI
                     </button>
 
 
-                    <div id="aiAnswer" class="ai-answer">
+                    <div
+                        id="aiAnswer"
+                        class="ai-answer"
+                    >
 
                         <span class="ai-placeholder">
                             Your answer will appear here.
@@ -824,16 +1425,27 @@
                 </div>
 
 
+                <!-- QUICK NOTES -->
+
                 <div class="notes-side-card">
 
                     <div class="notes-side-header">
 
                         <div>
-                            <span class="eyebrow">QUICK NOTES</span>
-                            <h3>My Notes</h3>
+
+                            <span class="eyebrow">
+                                QUICK NOTES
+                            </span>
+
+                            <h3>
+                                My Notes
+                            </h3>
+
                         </div>
 
-                        <span>📝</span>
+                        <span>
+                            📝
+                        </span>
 
                     </div>
 
@@ -844,9 +1456,13 @@
                     ></textarea>
 
 
-                    <button id="saveNotesBtn" class="secondary-btn">
+                    <button
+                        id="saveNotesBtn"
+                        class="secondary-btn"
+                    >
                         Save Notes
                     </button>
+
 
                     <small id="notesSavedMessage"></small>
 
@@ -857,18 +1473,28 @@
         </section>
 
 
-        <!-- ================= ASK INSTRUCTOR ================= -->
+        <!-- =================================================
+             ASK INSTRUCTOR
+        ================================================== -->
 
-        <section id="instructor" class="page-section">
+        <section
+            id="instructor"
+            class="page-section"
+        >
 
             <div class="section-title">
 
-                <span class="eyebrow">DIRECT HELP</span>
+                <span class="eyebrow">
+                    DIRECT HELP
+                </span>
 
-                <h1>Ask Instructor</h1>
+                <h1>
+                    Ask Instructor
+                </h1>
 
                 <p>
-                    Write your doubt so you can keep track of your questions.
+                    Write your doubt so you can keep track
+                    of your questions.
                 </p>
 
             </div>
@@ -876,15 +1502,27 @@
 
             <div class="instructor-layout">
 
+
                 <div class="instructor-card">
+
 
                     <div class="instructor-person">
 
-                        <div class="person-avatar">D</div>
+                        <div class="person-avatar">
+                            D
+                        </div>
+
 
                         <div>
-                            <h3>Darshan</h3>
-                            <span>Main Instructor</span>
+
+                            <h3>
+                                Darshan
+                            </h3>
+
+                            <span>
+                                Main Instructor
+                            </span>
+
                         </div>
 
                     </div>
@@ -908,13 +1546,15 @@
 
                 <div class="question-list-card">
 
-                    <h3>Your Questions</h3>
+                    <h3>
+                        Your Questions
+                    </h3>
+
 
                     <div id="questionList">
 
                         <div class="empty-question">
                             Your questions will appear here.
-
                         </div>
 
                     </div>
@@ -926,14 +1566,24 @@
         </section>
 
 
-        <!-- ================= FOOTER ================= -->
+        <!-- =================================================
+             FOOTER
+        ================================================== -->
 
         <footer>
 
             <div>
-                <strong>DS Academy</strong>
-                <span>Learn. Code. Build. Grow.</span>
+
+                <strong>
+                    DS Academy
+                </strong>
+
+                <span>
+                    Learn. Code. Build. Grow.
+                </span>
+
             </div>
+
 
             <div>
                 © 2026 Darshan Academy
@@ -946,7 +1596,9 @@
 </div>
 
 
-<!-- ================= CODEMIRROR ================= -->
+<!-- =====================================================
+     CODEMIRROR SCRIPTS
+===================================================== -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
 
@@ -970,6 +1622,3 @@
 
 </body>
 </html>
-
-
-           
