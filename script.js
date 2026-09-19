@@ -1616,31 +1616,30 @@ function escapeHTML(value) {
 
 
 /* ================= INITIALIZATION ================= */
+/* ================= INITIALIZATION ================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
+document.addEventListener("DOMContentLoaded", function () {
 
-        setupStudentName();
+    setupStudentName();
 
-        setupNavigation();
+    setupNavigation();
 
-        setupExternalLinks();
+    setupExternalLinks();
 
-        setupPlayground();
+    setupPlayground();
 
-        setupPublishedButton();
+    setupPublishedButton();
 
-        setupAI();
+    setupAI();
 
-        setupNotes();
+    setupNotes();
 
-        setupInstructor();
+    setupInstructor();
 
-        setupNoteButtons();
+    setupNoteButtons();
 
-        updateJourney();
+    updateJourney();
 
-        loadPublishedProject();
+    loadPublishedProject();
 
-    }
+});
