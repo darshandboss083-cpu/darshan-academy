@@ -50,13 +50,12 @@
 
         <div id="nameError" class="name-error"></div>
 
-        <button
-            id="continueBtn"
-            type="button"
-            onclick="continueStudent()"
-        >
-            Continue
-        </button>
+       <button
+    id="continueBtn"
+    type="button"
+    onclick="continueStudent()">
+    Continue
+</button>
 
     </div>
 </div>
@@ -67,17 +66,24 @@ function continueStudent() {
     const modal = document.getElementById("welcomeModal");
     const error = document.getElementById("nameError");
 
+    if (!input || !modal) {
+        alert("Welcome section error");
+        return;
+    }
+
     const name = input.value.trim();
 
     if (name === "") {
-        error.textContent = "Please enter your name.";
+        if (error) {
+            error.textContent = "Please enter your name.";
+        }
         input.focus();
         return;
     }
 
     localStorage.setItem("studentName", name);
 
-    modal.classList.add("hidden");
+    modal.style.display = "none";
 
     const displayName = document.getElementById("studentDisplayName");
 
@@ -86,7 +92,6 @@ function continueStudent() {
     }
 }
 </script>
-    
 <!-- =====================================================
      HEADER
 ===================================================== -->
