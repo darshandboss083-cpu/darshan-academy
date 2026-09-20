@@ -1,1060 +1,601 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
 
-  <title>Darshan Academy</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Darshan Academy</title>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
-    rel="stylesheet"
-  >
-
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css"
-  >
-
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css"
-  >
-
-  <link rel="stylesheet" href="style.css">
+    <!-- Connect CSS file -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- WELCOME POPUP -->
-  <div id="welcome" class="welcome">
+    <!-- ============================= -->
+    <!-- HEADER SECTION -->
+    <!-- ============================= -->
 
-    <div class="welcome-card">
+    <header class="header">
 
-      <div class="welcome-logo">
-        DS
-      </div>
+        <div class="logo">
+            <h1>DS Academy</h1>
+            <p>Darshan & Sunil</p>
+        </div>
 
-      <p class="eyebrow">
-        WELCOME TO DARSHAN ACADEMY
-      </p>
+        <nav class="navbar">
 
-      <h1>
-        What should we call you?
-      </h1>
+            <a href="#home">Home</a>
+            <a href="#courses">Courses</a>
+            <a href="#videos">Videos</a>
+            <a href="#notes">Notes</a>
+            <a href="#playground">Practice</a>
+            <a href="#about">About</a>
 
-      <p>
-        Enter your name to start your learning journey.
-      </p>
+        </nav>
 
-      <form id="nameForm">
-
-        <input
-          id="name"
-          placeholder="Enter your name"
-          maxlength="40"
-          required
-        >
-
-        <button class="btn primary">
-          Start Learning →
-        </button>
-
-      </form>
-
-      <small class="muted">
-        No account • No phone number • No OTP
-      </small>
-
-    </div>
-
-  </div>
+    </header>
 
 
-  <!-- TOAST -->
-  <div id="toast" class="toast"></div>
+    <!-- ============================= -->
+    <!-- HOME SECTION -->
+    <!-- ============================= -->
+
+    <section id="home" class="hero">
+
+        <div class="hero-container">
+
+            <div class="hero-content">
+
+                <p class="small-heading">
+                    Welcome to
+                </p>
+
+                <h1>
+                    Darshan Academy
+                </h1>
+
+                <h2>
+                    Learn. Code. Build. Grow.
+                </h2>
+
+                <p>
+                    Learn programming, practice coding,
+                    watch tutorials and build real projects.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a href="#courses"
+                       class="btn">
+                        Explore Courses
+                    </a>
+
+                    <a href="#playground"
+                       class="btn secondary-btn">
+                        Start Coding
+                    </a>
+
+                </div>
+
+            </div>
 
 
-  <!-- HEADER -->
-  <header class="top">
+            <div class="hero-card">
 
-    <button id="mobile" class="small mobile">
-      ☰
-    </button>
+                <div class="academy-logo">
+                    DS
+                </div>
 
-    <div class="brand">
+                <h2>
+                    DS Academy
+                </h2>
 
-      <div class="logo">
-        DS
-      </div>
+                <p>
+                    Darshan & Sunil
+                </p>
 
-      <div>
-        <b>Darshan Academy</b>
-        <small>Learn. Code. Build. Grow.</small>
-      </div>
-
-    </div>
-
-
-    <div>
-
-      <button id="theme" class="small">
-        ☾
-      </button>
-
-      <span class="avatar" id="avatar">
-        D
-      </span>
-
-      <span id="student">
-        Student
-      </span>
-
-    </div>
-
-  </header>
-
-
-  <!-- APP -->
-  <div class="app">
-
-
-    <!-- SIDEBAR -->
-    <aside id="side">
-
-      <nav>
-
-        <button class="nav active" data-page="home">
-          ⌂ Home
-        </button>
-
-        <button class="nav" data-page="courses">
-          ▦ Courses
-        </button>
-
-        <button class="nav" data-page="videos">
-          ▶ Videos
-        </button>
-
-        <button class="nav" data-page="notes">
-          ▤ Notes / PDFs
-        </button>
-
-        <button class="nav" data-page="playground">
-          &lt;/&gt; Coding Playground
-        </button>
-
-        <button class="nav" data-page="saved">
-          ♡ Saved
-        </button>
-
-        <button class="nav" data-page="doubt">
-          ? Ask a Doubt
-        </button>
-
-        <button class="nav" data-page="ai">
-          ✦ AI Assistant
-        </button>
-
-        <button class="nav" data-page="journey">
-          ◔ My Journey
-        </button>
-
-        <button class="nav" data-page="blog">
-          ▥ Blog / Articles
-        </button>
-
-        <button class="nav" data-page="quiz">
-          ✓ Quizzes
-        </button>
-
-      </nav>
-
-
-      <div>
-
-        <a
-          class="nav"
-          href="https://youtube.com/@darshanacademy-z6c?si=i3MVR4Ne1t9wch-I"
-          target="_blank"
-        >
-          ▶ YouTube
-        </a>
-
-        <a
-          class="nav"
-          href="https://www.instagram.com/dsacademy.in?stkn=MTNvZXN1amNjbnltdA%3D%3D&utm_source=qr"
-          target="_blank"
-        >
-          ◎ Instagram
-        </a>
-
-        <p class="muted">
-          Darshan — Main Instructor<br>
-          Sunil — Co-Instructor
-        </p>
-
-      </div>
-
-    </aside>
-
-
-    <!-- MAIN -->
-    <main>
-
-
-      <!-- HOME -->
-      <section id="page-home" class="page active">
-
-        <div class="hero">
-
-          <p class="eyebrow">
-            DARSHAN ACADEMY
-          </p>
-
-          <h1>
-            Learn.
-            <span>Code.</span>
-            <br>
-            Build.
-            <span>Grow.</span>
-          </h1>
-
-          <p>
-            Engineering, programming, web development,
-            AI/ML and practical learning — explained simply.
-          </p>
-
-          <button
-            class="btn primary"
-            data-go="playground"
-          >
-            Start Coding →
-          </button>
-
-          <button
-            class="btn secondary"
-            data-go="courses"
-          >
-            Explore Courses
-          </button>
-
-          <p>
-            👨‍🏫 Darshan — Main Instructor
-            &nbsp; • &nbsp;
-            👨‍💻 Sunil — Co-Instructor
-          </p>
+            </div>
 
         </div>
 
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- COURSES SECTION -->
+    <!-- ============================= -->
+
+    <section id="courses" class="section">
+
+        <div class="section-heading">
+
+            <p>LEARN WITH US</p>
+
+            <h2>
+                Our Courses
+            </h2>
+
+            <span>
+                Start learning programming step by step.
+            </span>
+
+        </div>
+
+
+        <div class="course-container">
+
+
+            <!-- HTML COURSE -->
+
+            <div class="course-card">
+
+                <div class="course-icon">
+                    HTML
+                </div>
+
+                <h3>
+                    HTML
+                </h3>
+
+                <p>
+                    Learn the structure of websites
+                    using HTML.
+                </p>
+
+                <button
+                    class="course-button"
+                    onclick="openCourse('HTML')">
+
+                    Open Course
+
+                </button>
+
+            </div>
+
+
+            <!-- CSS COURSE -->
+
+            <div class="course-card">
+
+                <div class="course-icon">
+                    CSS
+                </div>
+
+                <h3>
+                    CSS
+                </h3>
+
+                <p>
+                    Learn how to design and style
+                    websites.
+                </p>
+
+                <button
+                    class="course-button"
+                    onclick="openCourse('CSS')">
+
+                    Open Course
+
+                </button>
+
+            </div>
+
+
+            <!-- JAVASCRIPT COURSE -->
+
+            <div class="course-card">
+
+                <div class="course-icon">
+                    JS
+                </div>
+
+                <h3>
+                    JavaScript
+                </h3>
+
+                <p>
+                    Learn how to make websites
+                    interactive.
+                </p>
+
+                <button
+                    class="course-button"
+                    onclick="openCourse('JavaScript')">
+
+                    Open Course
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- VIDEOS SECTION -->
+    <!-- ============================= -->
+
+    <section id="videos" class="section">
+
+        <div class="section-heading">
+
+            <p>WATCH AND LEARN</p>
+
+            <h2>
+                Video Lessons
+            </h2>
+
+            <span>
+                Learn programming through video tutorials.
+            </span>
+
+        </div>
+
+
+        <div class="video-container">
+
+
+            <div class="video-card">
+
+                <h3>
+                    HTML Basics
+                </h3>
+
+                <p>
+                    Learn HTML from the beginning.
+                </p>
+
+                <button
+                    onclick="openVideo()">
+
+                    Watch Video
+
+                </button>
+
+            </div>
+
+
+            <div class="video-card">
+
+                <h3>
+                    CSS Basics
+                </h3>
+
+                <p>
+                    Learn CSS and create beautiful websites.
+                </p>
+
+                <button
+                    onclick="openVideo()">
+
+                    Watch Video
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- NOTES SECTION -->
+    <!-- ============================= -->
+
+    <section id="notes" class="section">
+
+        <div class="section-heading">
+
+            <p>STUDY MATERIAL</p>
+
+            <h2>
+                Notes
+            </h2>
+
+            <span>
+                Access your learning materials.
+            </span>
+
+        </div>
+
+
+        <div class="notes-container">
+
+
+            <div class="notes-card">
+
+                <h3>
+                    HTML Notes
+                </h3>
+
+                <p>
+                    HTML elements, headings,
+                    paragraphs, links and images.
+                </p>
+
+                <a
+                    href="https://drive.google.com/drive/folders/1jleiOmq5Ty0ZIFbqoAvj0WbjYwgzuTWB"
+                    target="_blank"
+                    class="btn">
+
+                    Open Notes
+
+                </a>
+
+            </div>
+
+
+            <div class="notes-card">
+
+                <h3>
+                    CSS Notes
+                </h3>
+
+                <p>
+                    CSS selectors, colors,
+                    spacing, borders and layouts.
+                </p>
+
+                <a
+                    href="https://drive.google.com/drive/folders/1EaAjMdErE_poAY98r8nTxtC5oqTfl5xF"
+                    target="_blank"
+                    class="btn">
+
+                    Open Notes
+
+                </a>
+
+            </div>
+
+
+            <div class="notes-card">
+
+                <h3>
+                    JavaScript Notes
+                </h3>
+
+                <p>
+                    Variables, functions,
+                    conditions, events and loops.
+                </p>
+
+                <a
+                    href="https://drive.google.com/drive/folders/1qUehvfjD2HENVrZrQws88OBl0lPTuSwz"
+                    target="_blank"
+                    class="btn">
+
+                    Open Notes
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- CODING PLAYGROUND -->
+    <!-- ============================= -->
+
+    <section id="playground" class="section">
+
+        <div class="section-heading">
+
+            <p>PRACTICE</p>
+
+            <h2>
+                Coding Playground
+            </h2>
+
+            <span>
+                Write your code and see the result.
+            </span>
+
+        </div>
+
+
+        <div class="playground">
+
+
+            <!-- LEFT SIDE -->
+
+            <div class="editor-container">
+
+                <div class="editor-header">
+
+                    <button
+                        onclick="showHTML()">
+                        index.html
+                    </button>
+
+                    <button
+                        onclick="showCSS()">
+                        style.css
+                    </button>
+
+                    <button
+                        onclick="showJS()">
+                        script.js
+                    </button>
+
+                </div>
+
+
+                <textarea
+                    id="codeEditor"
+                    placeholder="Write your code here...">
+
+                </textarea>
+
+
+                <div class="editor-buttons">
+
+                    <button
+                        onclick="runCode()">
+                        Run Code
+                    </button>
+
+                    <button
+                        onclick="clearCode()">
+                        Clear
+                    </button>
+
+                    <button
+                        onclick="resetCode()">
+                        Reset
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT SIDE -->
+
+            <div class="preview-container">
+
+                <h3>
+                    Output
+                </h3>
+
+                <iframe
+                    id="output"
+                    title="Code Output">
+                </iframe>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- ABOUT SECTION -->
+    <!-- ============================= -->
+
+    <section id="about" class="section about">
+
+        <div class="section-heading">
+
+            <p>ABOUT US</p>
+
+            <h2>
+                Darshan Academy
+            </h2>
+
+        </div>
+
+
+        <div class="about-container">
+
+            <div class="about-card">
+
+                <h3>
+                    Darshan
+                </h3>
+
+                <p>
+                    Main Instructor
+                </p>
+
+            </div>
+
+
+            <div class="about-card">
+
+                <h3>
+                    Sunil
+                </h3>
+
+                <p>
+                    Co-Instructor
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- SOCIAL MEDIA -->
+    <!-- ============================= -->
+
+    <section class="social-section">
 
         <h2>
-          Everything in one place
+            Follow Darshan Academy
         </h2>
 
-
-        <div class="grid">
-
-          <button
-            class="card"
-            data-go="courses"
-          >
-            <h3>
-              ▦ Courses
-            </h3>
-
-            <p>
-              Learn step by step.
-            </p>
-          </button>
-
-
-          <button
-            class="card"
-            data-go="videos"
-          >
-            <h3>
-              ▶ Videos
-            </h3>
-
-            <p>
-              Watch class lessons.
-            </p>
-          </button>
-
-
-          <button
-            class="card"
-            data-go="notes"
-          >
-            <h3>
-              ▤ Notes
-            </h3>
-
-            <p>
-              Study your material.
-            </p>
-          </button>
-
-
-          <button
-            class="card"
-            data-go="playground"
-          >
-            <h3>
-              &lt;/&gt; Playground
-            </h3>
-
-            <p>
-              Build websites.
-            </p>
-          </button>
-
-
-          <button
-            class="card"
-            data-go="doubt"
-          >
-            <h3>
-              ? Ask a Doubt
-            </h3>
-
-            <p>
-              Write your question.
-            </p>
-          </button>
-
-
-          <button
-            class="card"
-            data-go="journey"
-          >
-            <h3>
-              ◔ My Journey
-            </h3>
-
-            <p>
-              Track progress.
-            </p>
-          </button>
-
-        </div>
-
-      </section>
-
-
-      <!-- COURSES -->
-      <section id="page-courses" class="page">
-
-        <p class="eyebrow">
-          LEARNING
+        <p>
+            Learn more through our social media.
         </p>
 
-        <h1>
-          Courses
-        </h1>
 
-        <div
-          id="courses"
-          class="grid"
-        ></div>
+        <div class="social-buttons">
 
-      </section>
+            <a
+                href="https://youtube.com/@darshanacademy-z6c?si=i3MVR4Ne1t9wch-I"
+                target="_blank">
+
+                YouTube
+
+            </a>
 
 
-      <!-- VIDEOS -->
-      <section id="page-videos" class="page">
+            <a
+                href="https://www.instagram.com/dsacademy.in?stkn=MTNvZXN1amNjbnltdA%3D%3D&utm_source=qr"
+                target="_blank">
 
-        <p class="eyebrow">
-          WATCH
+                Instagram
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- FOOTER -->
+    <!-- ============================= -->
+
+    <footer class="footer">
+
+        <h3>
+            DS Academy
+        </h3>
+
+        <p>
+            Learn. Code. Build. Grow.
         </p>
 
-        <h1>
-          Videos
-        </h1>
-
-        <div
-          id="videos"
-          class="grid"
-        ></div>
-
-      </section>
-
-
-      <!-- NOTES -->
-      <section id="page-notes" class="page">
-
-        <p class="eyebrow">
-          STUDY
+        <p>
+            © 2026 Darshan Academy
         </p>
 
-        <h1>
-          Notes / PDFs
-        </h1>
+    </footer>
 
-        <div
-          id="notes"
-          class="grid"
-        ></div>
 
-      </section>
-
-
-      <!-- CODING PLAYGROUND -->
-      <section id="page-playground" class="page">
-
-        <div class="play-title">
-
-          <div>
-
-            <p class="eyebrow">
-              BUILD
-            </p>
-
-            <h1>
-              Coding Playground
-            </h1>
-
-            <p>
-              Left = code editor.
-              Right = website preview.
-              No code is shown in the preview.
-            </p>
-
-          </div>
-
-
-          <div class="actions">
-
-            <button
-              id="save"
-              class="btn small"
-            >
-              Save
-            </button>
-
-            <button
-              id="copy"
-              class="btn small"
-            >
-              Copy
-            </button>
-
-            <button
-              id="clear"
-              class="btn small"
-            >
-              Clear
-            </button>
-
-            <button
-              id="reset"
-              class="btn small"
-            >
-              Reset
-            </button>
-
-            <button
-              id="publish"
-              class="btn primary"
-            >
-              Publish / Share ↗
-            </button>
-
-          </div>
-
-        </div>
-
-
-        <div class="toolbar">
-
-          <select id="lang">
-
-            <option value="html">
-              HTML
-            </option>
-
-            <option value="css">
-              CSS
-            </option>
-
-            <option value="javascript">
-              JavaScript
-            </option>
-
-            <option value="python312">
-              Python 3.12
-            </option>
-
-            <option value="python310">
-              Python 3.10
-            </option>
-
-            <option value="python39">
-              Python 3.9
-            </option>
-
-            <option value="c">
-              C
-            </option>
-
-            <option value="cpp">
-              C++
-            </option>
-
-            <option value="csharp">
-              C#
-            </option>
-
-            <option value="java">
-              Java
-            </option>
-
-            <option value="kotlin">
-              Kotlin
-            </option>
-
-            <option value="go">
-              Go
-            </option>
-
-            <option value="rust">
-              Rust
-            </option>
-
-            <option value="php">
-              PHP
-            </option>
-
-            <option value="ruby">
-              Ruby
-            </option>
-
-            <option value="swift">
-              Swift
-            </option>
-
-            <option value="typescript">
-              TypeScript
-            </option>
-
-            <option value="sql">
-              SQL
-            </option>
-
-            <option value="mysql">
-              MySQL
-            </option>
-
-            <option value="postgresql">
-              PostgreSQL
-            </option>
-
-            <option value="r">
-              R
-            </option>
-
-            <option value="matlab">
-              MATLAB
-            </option>
-
-            <option value="scala">
-              Scala
-            </option>
-
-            <option value="dart">
-              Dart
-            </option>
-
-            <option value="lua">
-              Lua
-            </option>
-
-            <option value="perl">
-              Perl
-            </option>
-
-            <option value="haskell">
-              Haskell
-            </option>
-
-            <option value="shell">
-              Shell
-            </option>
-
-            <option value="bash">
-              Bash
-            </option>
-
-            <option value="powershell">
-              PowerShell
-            </option>
-
-            <option value="objectivec">
-              Objective-C
-            </option>
-
-            <option value="julia">
-              Julia
-            </option>
-
-            <option value="fortran">
-              Fortran
-            </option>
-
-            <option value="cobol">
-              COBOL
-            </option>
-
-            <option value="assembly">
-              Assembly
-            </option>
-
-          </select>
-
-
-          <div class="tabs">
-
-            <button
-              class="tab active"
-              data-lang="html"
-            >
-              &lt;/&gt; HTML
-            </button>
-
-            <button
-              class="tab"
-              data-lang="css"
-            >
-              # CSS
-            </button>
-
-            <button
-              class="tab"
-              data-lang="javascript"
-            >
-              JS JAVASCRIPT
-            </button>
-
-          </div>
-
-
-          <button
-            id="suggest"
-            class="btn small"
-          >
-            ✦ Suggestions
-            <small>Ctrl+Space</small>
-          </button>
-
-        </div>
-
-
-        <div class="workspace">
-
-          <div class="editor">
-
-            <div class="label">
-
-              <span id="editorLang">
-                HTML
-              </span>
-
-              <span id="editorState">
-                Ready
-              </span>
-
-            </div>
-
-            <textarea id="code"></textarea>
-
-          </div>
-
-
-          <div class="preview">
-
-            <div class="label">
-
-              <span>
-                LIVE WEBSITE
-              </span>
-
-              <button id="refresh">
-                ↻ Refresh
-              </button>
-
-            </div>
-
-
-            <iframe
-              id="preview"
-              sandbox="allow-scripts"
-            ></iframe>
-
-
-            <div
-              id="compiler"
-              class="compiler hidden"
-            >
-
-              <h2>
-                &lt;/&gt;
-              </h2>
-
-              <p>
-                Editor and suggestions are available.
-                Real Python/C/C++/Java/MySQL execution
-                needs a secure backend/compiler.
-              </p>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="runbar">
-
-          <span>
-            ●
-            <em id="runStatus">
-              Ready
-            </em>
-          </span>
-
-          <button
-            id="run"
-            class="btn primary"
-          >
-            Run Code ▶
-          </button>
-
-        </div>
-
-
-        <div
-          id="publishBox"
-          class="panel publish hidden"
-        >
-
-          <h3>
-            Share your project
-          </h3>
-
-          <p>
-            Client-side share link.
-            It stores the project inside the URL fragment.
-          </p>
-
-          <input
-            id="publishUrl"
-            readonly
-          >
-
-          <br>
-
-          <button
-            id="copyLink"
-            class="btn primary"
-          >
-            Copy Link
-          </button>
-
-          <button
-            id="share"
-            class="btn secondary"
-          >
-            Share
-          </button>
-
-          <button
-            id="closePublish"
-            class="btn small"
-          >
-            Close
-          </button>
-
-        </div>
-
-      </section>
-
-
-      <!-- SAVED -->
-      <section id="page-saved" class="page">
-
-        <p class="eyebrow">
-          YOUR LIBRARY
-        </p>
-
-        <h1>
-          Saved
-        </h1>
-
-        <div class="panel">
-
-          <p>
-            Saved code is stored in this browser.
-          </p>
-
-        </div>
-
-      </section>
-
-
-      <!-- DOUBT -->
-      <section id="page-doubt" class="page">
-
-        <p class="eyebrow">
-          GET HELP
-        </p>
-
-        <h1>
-          Ask a Doubt
-        </h1>
-
-        <div class="two">
-
-          <div class="panel">
-
-            <h3>
-              Darshan + Sunil
-            </h3>
-
-            <textarea
-              id="doubt"
-              class="doubt"
-              rows="9"
-              placeholder="Type your doubt..."
-            ></textarea>
-
-            <button
-              id="submitDoubt"
-              class="btn primary"
-            >
-              Submit Doubt
-            </button>
-
-            <p>
-              Static version:
-              stored only in this browser.
-            </p>
-
-          </div>
-
-
-          <div class="panel">
-
-            <h3>
-              Your Doubts
-            </h3>
-
-            <div id="doubtList"></div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- AI -->
-      <section id="page-ai" class="page">
-
-        <p class="eyebrow">
-          LEARNING ASSISTANT
-        </p>
-
-        <h1>
-          AI Assistant
-        </h1>
-
-        <div class="panel">
-
-          <div id="aiMessages">
-
-            <div class="ai-msg">
-
-              <b>
-                Darshan Academy AI
-              </b>
-
-              <p>
-                Hello!
-                Ask about HTML, CSS, JavaScript,
-                Python, C, C++, Java or MySQL.
-              </p>
-
-            </div>
-
-          </div>
-
-
-          <div class="ai-input">
-
-            <input
-              id="aiInput"
-              class="doubt"
-              placeholder="Ask a coding question..."
-            >
-
-            <button
-              id="aiSend"
-              class="btn primary"
-            >
-              Send
-            </button>
-
-          </div>
-
-
-          <p>
-            This is a local learning assistant.
-            Real AI requires a secure backend/API.
-          </p>
-
-        </div>
-
-      </section>
-
-
-      <!-- JOURNEY -->
-      <section id="page-journey" class="page">
-
-        <p class="eyebrow">
-          PROGRESS
-        </p>
-
-        <h1>
-          My Journey
-        </h1>
-
-        <div
-          id="stats"
-          class="stats"
-        ></div>
-
-
-        <div class="panel">
-
-          <div>
-            <b id="journeyProgress">
-              0%
-            </b>
-          </div>
-
-          <div class="progress">
-
-            <i id="journeyBar"></i>
-
-          </div>
-
-        </div>
-
-
-        <h2>
-          Recent Activity
-        </h2>
-
-        <div id="activity"></div>
-
-      </section>
-
-
-      <!-- BLOG -->
-      <section id="page-blog" class="page">
-
-        <p class="eyebrow">
-          FUTURE
-        </p>
-
-        <h1>
-          Blog / Articles
-        </h1>
-
-        <div class="card">
-
-          <h3>
-            Coming soon
-          </h3>
-
-          <p>
-            Tutorials, updates and articles
-            can be published here later.
-          </p>
-
-        </div>
-
-      </section>
-
-
-      <!-- QUIZ -->
-      <section id="page-quiz" class="page">
-
-        <p class="eyebrow">
-          PRACTISE
-        </p>
-
-        <h1>
-          Quizzes
-        </h1>
-
-        <div class="card">
-
-          <h3>
-            Interactive quizzes are planned
-          </h3>
-
-          <p>
-            This section is ready for quiz content
-            and coding challenges.
-          </p>
-
-        </div>
-
-      </section>
-
-    </main>
-
-  </div>
-
-
-  <!-- FOOTER -->
-  <footer class="footer">
-
-    ©
-    <span id="year"></span>
-    Darshan Academy
-    • Learn. Code. Build. Grow.
-
-  </footer>
-
-
-  <!-- CODEMIRROR -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/clike/clike.min.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/sql/sql.min.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js"></script>
-
-  <script src="script.js"></script>
+    <!-- Connect JavaScript -->
+    <script src="script.js"></script>
 
 </body>
+
 </html>
