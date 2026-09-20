@@ -1,1664 +1,499 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Darshan Academy</title>
 
-    <title>Darshan Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- CodeMirror -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css"
-    >
-
-    <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css">
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- =====================================================
-     WELCOME
-===================================================== -->
+<div id="welcome" class="welcome">
+  <div class="welcome-card">
+    <div class="welcome-logo">DS</div>
+    <p class="eyebrow">WELCOME TO DARSHAN ACADEMY</p>
+    <h1>What should we call you?</h1>
+    <p>Enter your name to start your learning journey.</p>
 
-<!-- Welcome Popup -->
-<div id="welcomeModal" class="welcome-modal">
-    <div class="welcome-box">
+    <form id="nameForm">
+      <input id="name" placeholder="Enter your name" maxlength="40" required>
+      <button class="btn primary">Start Learning →</button>
+    </form>
 
-        <div class="welcome-logo">DS</div>
-
-        <h1>Welcome to DS Academy</h1>
-
-        <p>Learn. Code. Build. Grow.</p>
-
-        <input
-            id="studentNameInput"
-            type="text"
-            placeholder="Enter your name"
-            autocomplete="off"
-        >
-
-        <div id="nameError" class="name-error"></div>
-
-       <button
-    id="continueBtn"
-    type="button"
-    onclick="continueStudent()">
-    Continue
-</button>
-
-    </div>
+    <small class="muted">No account • No phone number • No OTP</small>
+  </div>
 </div>
 
-<script>
-function continueStudent() {
-    const input = document.getElementById("studentNameInput");
-    const modal = document.getElementById("welcomeModal");
-    const error = document.getElementById("nameError");
+<div id="toast" class="toast"></div>
 
-    if (!input || !modal) {
-        alert("Welcome section error");
-        return;
-    }
+<header class="top">
+  <button id="mobile" class="small mobile">☰</button>
 
-    const name = input.value.trim();
-
-    if (name === "") {
-        if (error) {
-            error.textContent = "Please enter your name.";
-        }
-        input.focus();
-        return;
-    }
-
-    localStorage.setItem("studentName", name);
-
-    modal.style.display = "none";
-
-    const displayName = document.getElementById("studentDisplayName");
-
-    if (displayName) {
-        displayName.textContent = name;
-    }
-}
-</script>
-<!-- =====================================================
-     HEADER
-===================================================== -->
-
-<header class="topbar">
-
-    <div class="brand">
-
-        <div class="brand-logo">DS</div>
-
-        <div>
-            <h2>Darshan Academy</h2>
-            <span>Learn. Code. Build. Grow.</span>
-        </div>
-
+  <div class="brand">
+    <div class="logo">DS</div>
+    <div>
+      <b>Darshan Academy</b>
+      <small>Learn. Code. Build. Grow.</small>
     </div>
+  </div>
 
-
-    <div class="student-box">
-
-        <div
-            class="student-avatar"
-            id="studentAvatar"
-        >
-            D
-        </div>
-
-        <div>
-            <strong id="topStudentName">Student</strong>
-
-            <small>
-                Learning with Darshan & Sunil
-            </small>
-        </div>
-
-    </div>
-
+  <div>
+    <button id="theme" class="small">☾</button>
+    <span class="avatar" id="avatar">D</span>
+    <span id="student">Student</span>
+  </div>
 </header>
 
+<div class="app">
 
-<!-- =====================================================
-     MAIN LAYOUT
-===================================================== -->
+<aside id="side">
 
-<div class="layout">
+<nav>
+<button class="nav active" data-page="home">⌂ Home</button>
+<button class="nav" data-page="courses">▦ Courses</button>
+<button class="nav" data-page="videos">▶ Videos</button>
+<button class="nav" data-page="notes">▤ Notes / PDFs</button>
+<button class="nav" data-page="playground">&lt;/&gt; Coding Playground</button>
+<button class="nav" data-page="saved">♡ Saved</button>
+<button class="nav" data-page="doubt">? Ask a Doubt</button>
+<button class="nav" data-page="ai">✦ AI Assistant</button>
+<button class="nav" data-page="journey">◔ My Journey</button>
+<button class="nav" data-page="blog">▥ Blog / Articles</button>
+<button class="nav" data-page="quiz">✓ Quizzes</button>
+</nav>
 
+<div>
+<a class="nav" href="https://youtube.com/@darshanacademy-z6c?si=i3MVR4Ne1t9wch-I" target="_blank">▶ YouTube</a>
 
-    <!-- =================================================
-         SIDEBAR
-    ================================================== -->
+<a class="nav" href="https://www.instagram.com/dsacademy.in?stkn=MTNvZXN1amNjbnltdA%3D%3D&utm_source=qr" target="_blank">◎ Instagram</a>
 
-    <aside class="sidebar">
+<p class="muted">
+Darshan — Main Instructor<br>
+Sunil — Co-Instructor
+</p>
+</div>
 
-        <button
-            class="nav-btn active"
-            data-section="home"
-        >
-            🏠 <span>Home</span>
-        </button>
+</aside>
 
+<main>
 
-        <button
-            class="nav-btn"
-            data-section="courses"
-        >
-            📚 <span>Courses</span>
-        </button>
+<section id="page-home" class="page active">
 
+<div class="hero">
 
-        <button
-            class="nav-btn"
-            data-section="projects"
-        >
-            🚀 <span>Projects</span>
-        </button>
+<p class="eyebrow">DARSHAN ACADEMY</p>
 
+<h1>
+Learn. <span>Code.</span><br>
+Build. <span>Grow.</span>
+</h1>
 
-        <button
-            class="nav-btn"
-            data-section="videos"
-        >
-            ▶️ <span>Videos</span>
-        </button>
+<p>
+Engineering, programming, web development, AI/ML and practical learning — explained simply.
+</p>
 
+<button class="btn primary" data-go="playground">
+Start Coding →
+</button>
 
-        <button
-            class="nav-btn"
-            data-section="notes"
-        >
-            📝 <span>Notes</span>
-        </button>
+<button class="btn secondary" data-go="courses">
+Explore Courses
+</button>
 
+<p>
+👨‍🏫 Darshan — Main Instructor
+&nbsp; • &nbsp;
+Sunil — Co-Instructor
+</p>
 
-        <button
-            class="nav-btn"
-            data-section="playground"
-        >
-            💻 <span>Coding Playground</span>
-        </button>
+</div>
 
+<div class="grid" id="homeCards">
 
-        <button
-            class="nav-btn"
-            data-section="journey"
-        >
-            📈 <span>My Journey</span>
-        </button>
+<div class="card">
+<h3>💻 Learn Programming</h3>
+<p>Learn HTML, CSS, JavaScript, Python and other programming concepts.</p>
+</div>
 
+<div class="card">
+<h3>🤖 AI / ML</h3>
+<p>Understand artificial intelligence and machine learning concepts.</p>
+</div>
 
-        <button
-            class="nav-btn"
-            data-section="ai"
-        >
-            🤖 <span>AI Doubt</span>
-        </button>
+<div class="card">
+<h3>🚀 Build Projects</h3>
+<p>Turn your knowledge into practical projects.</p>
+</div>
 
+</div>
 
-        <button
-            class="nav-btn"
-            data-section="instructor"
-        >
-            👨‍🏫 <span>Ask Instructor</span>
-        </button>
+</section>
 
 
-        <!-- SOCIAL LINKS -->
+<section id="page-courses" class="page">
 
-        <div class="sidebar-social">
+<p class="eyebrow">LEARN</p>
 
-            <a
-                href="https://youtube.com/@darshanacademy-z6c/playlists"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="social-btn youtube"
-            >
-                ▶ YouTube
-            </a>
+<h1>Courses</h1>
 
+<div id="courses" class="grid"></div>
 
-            <a
-                href="https://www.instagram.com/dsacademy.in/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="social-btn instagram"
-            >
-                ◎ Instagram
-            </a>
+</section>
 
-        </div>
 
-    </aside>
+<section id="page-videos" class="page">
 
+<p class="eyebrow">WATCH</p>
 
-    <!-- =================================================
-         CONTENT
-    ================================================== -->
+<h1>Videos</h1>
 
-    <main class="content">
+<div id="videos" class="grid"></div>
 
+</section>
 
-        <!-- =================================================
-             HOME
-        ================================================== -->
 
-        <section
-            id="home"
-            class="page-section active"
-        >
+<section id="page-notes" class="page">
 
-            <div class="hero">
+<p class="eyebrow">STUDY</p>
 
-                <div class="hero-text">
+<h1>Notes / PDFs</h1>
 
-                    <span class="eyebrow">
-                        WELCOME TO DS ACADEMY
-                    </span>
+<div id="notes" class="grid"></div>
 
-                    <h1>
-                        Learn today.<br>
-                        Build tomorrow.
-                    </h1>
+</section>
 
-                    <p>
-                        Learn coding, web development, Python and AI/ML
-                        through simple explanations and practical projects.
-                    </p>
 
+<section id="page-playground" class="page">
 
-                    <div class="hero-buttons">
+<div class="play-title">
 
-                        <button
-                            class="primary-btn"
-                            data-go="courses"
-                        >
-                            Explore Courses
-                        </button>
+<div>
+<p class="eyebrow">PRACTICE</p>
+<h1>Coding Playground</h1>
+</div>
 
+<div class="actions">
 
-                        <button
-                            class="secondary-btn"
-                            data-go="playground"
-                        >
-                            Open Playground
-                        </button>
+<select id="lang">
 
-                    </div>
+<option value="html">Web</option>
 
-                </div>
+<option value="html">HTML</option>
+<option value="css">CSS</option>
+<option value="javascript">JavaScript</option>
 
+<option value="python312">Python 3.12</option>
+<option value="python310">Python 3.10</option>
+<option value="python38ml">Python 3.8 (ML)</option>
+<option value="python39">Python 3.9</option>
 
-                <div class="hero-card">
+<option value="c">C (gcc 8.3.0)</option>
+<option value="cpp">C++</option>
+<option value="java">Java</option>
+<option value="csharp">C#</option>
+<option value="kotlin">Kotlin</option>
+<option value="go">Go</option>
+<option value="rust">Rust</option>
+<option value="php">PHP</option>
+<option value="ruby">Ruby</option>
+<option value="swift">Swift</option>
+<option value="typescript">TypeScript</option>
 
-                    <div class="hero-card-top">
+<option value="mysql">MySQL</option>
+<option value="postgresql">PostgreSQL</option>
+<option value="r">R</option>
+<option value="matlab">MATLAB</option>
+<option value="scala">Scala</option>
+<option value="dart">Dart</option>
+<option value="lua">Lua</option>
+<option value="perl">Perl</option>
+<option value="haskell">Haskell</option>
+<option value="shell">Shell</option>
+<option value="bash">Bash</option>
+<option value="powershell">PowerShell</option>
+<option value="objectivec">Objective-C</option>
+<option value="julia">Julia</option>
+<option value="fortran">Fortran</option>
+<option value="cobol">COBOL</option>
+<option value="assembly">Assembly</option>
 
-                        <span>DS</span>
+</select>
 
-                        <span>2026</span>
+<button id="suggest" class="small">💡</button>
+<button id="copy" class="small">Copy</button>
+<button id="clear" class="small">Clear</button>
+<button id="reset" class="small">Reset</button>
+<button id="save" class="small">Save</button>
 
-                    </div>
-
-
-                    <h3>Darshan Academy</h3>
-
-                    <p>
-                        Learn. Code. Build. Grow.
-                    </p>
-
-
-                    <div class="instructors">
-
-                        <div>
-
-                            <strong>Darshan</strong>
-
-                            <span>
-                                Main Instructor
-                            </span>
-
-                        </div>
-
-
-                        <div>
-
-                            <strong>Sunil</strong>
-
-                            <span>
-                                Co-Instructor
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="section-heading">
-
-                <div>
-
-                    <span class="eyebrow">
-                        START LEARNING
-                    </span>
-
-                    <h2>
-                        Everything in one place
-                    </h2>
-
-                </div>
-
-            </div>
-
-
-            <div class="feature-grid">
-
-                <article class="feature-card">
-
-                    <div class="feature-icon">
-                        📚
-                    </div>
-
-                    <h3>
-                        Courses
-                    </h3>
-
-                    <p>
-                        HTML, CSS, JavaScript, Python and AI/ML.
-                    </p>
-
-                </article>
-
-
-                <article class="feature-card">
-
-                    <div class="feature-icon">
-                        💻
-                    </div>
-
-                    <h3>
-                        Code
-                    </h3>
-
-                    <p>
-                        Practice directly inside the coding playground.
-                    </p>
-
-                </article>
-
-
-                <article class="feature-card">
-
-                    <div class="feature-icon">
-                        🤖
-                    </div>
-
-                    <h3>
-                        AI Doubt
-                    </h3>
-
-                    <p>
-                        Ask questions and get instant explanations.
-                    </p>
-
-                </article>
-
-
-                <article class="feature-card">
-
-                    <div class="feature-icon">
-                        📝
-                    </div>
-
-                    <h3>
-                        Notes
-                    </h3>
-
-                    <p>
-                        Keep important learning notes in one place.
-                    </p>
-
-                </article>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             COURSES
-        ================================================== -->
-
-        <section
-            id="courses"
-            class="page-section"
-        >
-
-            <div class="section-title">
-
-                <span class="eyebrow">
-                    LEARNING PATH
-                </span>
-
-                <h1>
-                    Courses
-                </h1>
-
-                <p>
-                    Learn step by step through Darshan Academy
-                    YouTube playlists.
-                </p>
-
-            </div>
-
-
-            <div class="course-grid">
-
-
-                <!-- HTML -->
-
-                <article class="course-card html-course">
-
-                    <div class="course-icon">
-                        HTML
-                    </div>
-
-                    <h3>
-                        HTML
-                    </h3>
-
-                    <p>
-                        Learn HTML from the basics and understand
-                        webpage structure, elements, attributes,
-                        links, images, buttons and more.
-                    </p>
-
-                    <a
-                        href="https://www.youtube.com/playlist?list=PLINVebe4EU3A"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="course-btn"
-                    >
-                        Go to YouTube
-                    </a>
-
-                </article>
-
-
-                <!-- CSS -->
-
-                <article class="course-card css-course">
-
-                    <div class="course-icon">
-                        CSS
-                    </div>
-
-                    <h3>
-                        CSS
-                    </h3>
-
-                    <p>
-                        Learn CSS step by step including colors,
-                        fonts, spacing, borders, layouts and
-                        responsive webpage design.
-                    </p>
-
-                    <a
-                        href="https://www.youtube.com/playlist?list=PLaQNfMhGC1ro"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="course-btn"
-                    >
-                        Go to YouTube
-                    </a>
-
-                </article>
-
-
-                <!-- JAVASCRIPT -->
-
-                <article class="course-card js-course">
-
-                    <div class="course-icon">
-                        JS
-                    </div>
-
-                    <h3>
-                        JavaScript
-                    </h3>
-
-                    <p>
-                        Learn JavaScript from the basics and create
-                        interactive webpages using programming logic,
-                        functions, events and DOM concepts.
-                    </p>
-
-                    <a
-                        href="https://youtube.com/playlist?list=PLIgX2fGXgKvU&si=fPtCKsttXPohbGAg"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="course-btn"
-                    >
-                        Go to YouTube
-                    </a>
-
-                </article>
-
-
-                <!-- PYTHON -->
-
-                <article class="course-card python-course">
-
-                    <div class="course-icon">
-                        PY
-                    </div>
-
-                    <h3>
-                        Python
-                    </h3>
-
-                    <p>
-                        Learn Python programming step by step with
-                        variables, conditions, loops, functions,
-                        lists, dictionaries and problem solving.
-                    </p>
-
-                    <a
-                        href="https://www.youtube.com/playlist?list=PLbHaeywvV9PI"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="course-btn"
-                    >
-                        Go to YouTube
-                    </a>
-
-                </article>
-
-
-                <!-- AI / ML -->
-
-                <article class="course-card aiml-course">
-
-                    <div class="course-icon">
-                        AI
-                    </div>
-
-                    <h3>
-                        AI / ML
-                    </h3>
-
-                    <p>
-                        Understand Artificial Intelligence and
-                        Machine Learning through simple explanations,
-                        examples and real-world applications.
-                    </p>
-
-                    <a
-                        href="https://www.youtube.com/playlist?list=PLSuJlRaRXmXc"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="course-btn"
-                    >
-                        Go to YouTube
-                    </a>
-
-                </article>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             PROJECTS
-        ================================================== -->
-
-        <section
-            id="projects"
-            class="page-section"
-        >
-
-            <div class="section-title">
-
-                <span class="eyebrow">
-                    BUILD SOMETHING
-                </span>
-
-                <h1>
-                    Projects
-                </h1>
-
-                <p>
-                    Practice what you learn by building real projects.
-                </p>
-
-            </div>
-
-
-            <div class="project-grid">
-
-
-                <article class="project-card tree-project">
-
-                    <div class="project-preview">
-
-                        <div class="tree">
-
-                            <div class="tree-leaves"></div>
-
-                            <div class="tree-trunk"></div>
-
-                            <div class="tree-ground"></div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="project-info">
-
-                        <span class="project-tag">
-                            HTML + CSS
-                        </span>
-
-                        <h3>
-                            Tree Project – Build a Webpage from Scratch
-                        </h3>
-
-                        <p>
-                            Create an attractive tree-themed webpage
-                            using HTML and CSS while practicing webpage
-                            structure, styling, spacing, colors and layouts.
-                        </p>
-
-
-                        <button
-                            class="primary-btn project-open"
-                            data-go="playground"
-                        >
-                            Build Project
-                        </button>
-
-                    </div>
-
-                </article>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             VIDEOS
-        ================================================== -->
-
-        <section
-            id="videos"
-            class="page-section"
-        >
-
-            <div class="section-title">
-
-                <span class="eyebrow">
-                    WATCH & LEARN
-                </span>
-
-                <h1>
-                    Videos
-                </h1>
-
-                <p>
-                    Watch lessons and practical coding videos
-                    from Darshan Academy.
-                </p>
-
-            </div>
-
-
-            <div class="video-grid">
-
-
-                <article class="video-card">
-
-                    <div class="video-icon">
-                        ▶
-                    </div>
-
-                    <h3>
-                        HTML
-                    </h3>
-
-                    <p>
-                        Learn HTML concepts and practical webpage
-                        development.
-                    </p>
-
-                    <a
-                        href="https://www.youtube.com/playlist?list=PLINVebe4EU3A"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="course-btn"
-                    >
-                        Go to YouTube
-                    </a>
-
-                </article>
-
-
-                <article class="video-card">
-
-                    <div class="video-icon">
-                        ▶
-                    </div>
-
-                    <h3>
-                        CSS
-                    </h3>
-
-                    <p>
-                        Learn CSS styling, layouts, spacing and
-                        responsive design.
-                    </p>
-
-                    <a
-                        href="https://www.youtube.com/playlist?list=PLaQNfMhGC1ro"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="course-btn"
-                    >
-                        Go to YouTube
-                    </a>
-
-                </article>
-
-
-                <article class="video-card">
-
-                    <div class="video-icon">
-                        ▶
-                    </div>
-
-                    <h3>
-                        JavaScript
-                    </h3>
-
-                    <p>
-                        Learn programming logic and make webpages
-                        interactive.
-                    </p>
-
-                    <a
-                        href="https://youtube.com/playlist?list=PLIgX2fGXgKvU&si=fPtCKsttXPohbGAg"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="course-btn"
-                    >
-                        Go to YouTube
-                    </a>
-
-                </article>
-
-
-                <article class="video-card">
-
-                    <div class="video-icon">
-                        ▶
-                    </div>
-
-                    <h3>
-                        Python
-                    </h3>
-
-                    <p>
-                        Learn Python programming from the basics.
-                    </p>
-
-                    <a
-                        href="https://www.youtube.com/playlist?list=PLbHaeywvV9PI"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="course-btn"
-                    >
-                        Go to YouTube
-                    </a>
-
-                </article>
-
-
-                <article class="video-card">
-
-                    <div class="video-icon">
-                        ▶
-                    </div>
-
-                    <h3>
-                        AI / ML
-                    </h3>
-
-                    <p>
-                        Understand the fundamentals of AI and
-                        Machine Learning.
-                    </p>
-
-                    <a
-                        href="https://www.youtube.com/playlist?list=PLSuJlRaRXmXc"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="course-btn"
-                    >
-                        Go to YouTube
-                    </a>
-
-                </article>
-
-
-                <article class="video-card">
-
-                    <div class="video-icon">
-                        ▶
-                    </div>
-
-                    <h3>
-                        Projects
-                    </h3>
-
-                    <p>
-                        Build practical web development projects
-                        using what you learn.
-                    </p>
-
-                    <a
-                        href="https://www.youtube.com/playlist?list=PLHlHG8dVaMME"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="course-btn"
-                    >
-                        Go to YouTube
-                    </a>
-
-                </article>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             NOTES
-        ================================================== -->
-
-        <section
-            id="notes"
-            class="page-section"
-        >
-
-            <div class="section-title">
-
-                <span class="eyebrow">
-                    REVISION
-                </span>
-
-                <h1>
-                    Notes
-                </h1>
-
-                <p>
-                    Keep your important concepts and revision notes here.
-                </p>
-
-            </div>
-
-
-            <div class="notes-grid">
-
-                <article class="note-card">
-
-                    <span>01</span>
-
-                    <h3>
-                        HTML Notes
-                    </h3>
-
-                    <p>
-                        HTML elements, attributes, links, images
-                        and sections.
-                    </p>
-
-                    <button
-                        class="secondary-btn note-btn"
-                    >
-                        Open Notes
-                    </button>
-
-                </article>
-
-
-                <article class="note-card">
-
-                    <span>02</span>
-
-                    <h3>
-                        CSS Notes
-                    </h3>
-
-                    <p>
-                        Selectors, colors, spacing, borders
-                        and layouts.
-                    </p>
-
-                    <button
-                        class="secondary-btn note-btn"
-                    >
-                        Open Notes
-                    </button>
-
-                </article>
-
-
-                <article class="note-card">
-
-                    <span>03</span>
-
-                    <h3>
-                        Python Notes
-                    </h3>
-
-                    <p>
-                        Programming basics, variables,
-                        conditions and loops.
-                    </p>
-
-                    <button
-                        class="secondary-btn note-btn"
-                    >
-                        Open Notes
-                    </button>
-
-                </article>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             CODING PLAYGROUND
-        ================================================== -->
-
-        <section
-            id="playground"
-            class="page-section playground-section"
-        >
-
-            <div class="section-title">
-
-                <span class="eyebrow">
-                    PRACTICE
-                </span>
-
-                <h1>
-                    Coding Playground
-                </h1>
-
-                <p>
-                    Write code, run it and see the result instantly.
-                </p>
-
-            </div>
-
-
-            <div class="playground">
-
-
-                <!-- TOP PLAYGROUND BAR -->
-
-                <div class="playground-toolbar">
-
-
-                    <!-- WEB DROPDOWN -->
-
-                    <div class="web-dropdown">
-
-                        <button
-                            id="webDropdownBtn"
-                            class="web-dropdown-btn"
-                            type="button"
-                        >
-                            Web
-                            <span>▼</span>
-                        </button>
-
-
-                        <div
-                            id="webDropdownMenu"
-                            class="web-dropdown-menu"
-                        >
-
-                            <button
-                                type="button"
-                                class="web-option active"
-                                data-editor="html"
-                            >
-                                HTML
-                            </button>
-
-
-                            <button
-                                type="button"
-                                class="web-option"
-                                data-editor="css"
-                            >
-                                CSS
-                            </button>
-
-
-                            <button
-                                type="button"
-                                class="web-option"
-                                data-editor="javascript"
-                            >
-                                JavaScript
-                            </button>
-
-                            <div class="web-menu-divider"></div>
-
-                            <button
-                                type="button"
-                                class="web-option web-option-disabled"
-                                type="button"
-                                disabled
-                            >
-                                Python 3.10 — Coming soon
-                            </button>
-
-                            <button
-                                type="button"
-                                class="web-option web-option-disabled"
-                                disabled
-                            >
-                                C / C++ — Coming soon
-                            </button>
-
-                            <button
-                                type="button"
-                                class="web-option web-option-disabled"
-                                disabled
-                            >
-                                Java — Coming soon
-                            </button>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- TOP RIGHT ACTIONS -->
-
-                    <div class="playground-main-actions">
-
-                        <button
-                            id="runCode"
-                            class="run-btn"
-                        >
-                            ▶ Run Code
-                        </button>
-
-
-                        <button
-                            id="publishCode"
-                            class="publish-btn"
-                        >
-                            Publish Website
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <!-- SECOND PLAYGROUND BAR -->
-
-                <div class="playground-actions">
-
-
-                    <!-- FILE TABS -->
-
-                    <div class="editor-tabs">
-
-                        <button
-                            class="editor-tab active"
-                            data-editor="html"
-                        >
-                            index.html
-                        </button>
-
-
-                        <button
-                            class="editor-tab"
-                            data-editor="css"
-                        >
-                            style.css
-                        </button>
-
-
-                        <button
-                            class="editor-tab"
-                            data-editor="javascript"
-                        >
-                            script.js
-                        </button>
-
-                    </div>
-
-
-                    <button
-                        id="suggestBtn"
-                        class="tool-btn"
-                    >
-                        Suggestions
-                    </button>
-
-
-                    <button
-                        id="copyCode"
-                        class="tool-btn"
-                    >
-                        Copy
-                    </button>
-
-
-                    <button
-                        id="clearCode"
-                        class="tool-btn"
-                    >
-                        Clear
-                    </button>
-
-
-                    <button
-                        id="resetCode"
-                        class="tool-btn"
-                    >
-                        Reset
-                    </button>
-
-                </div>
-
-
-                <!-- EDITOR + PREVIEW -->
-
-                <div class="playground-grid">
-
-
-                    <!-- EDITOR -->
-
-                    <div class="editor-panel">
-
-                        <div class="panel-header">
-
-                            <span>
-                                Code
-                            </span>
-
-                            <span id="editorLanguage">
-                                HTML
-                            </span>
-
-                        </div>
-
-
-                        <div id="editorContainer"></div>
-
-                    </div>
-
-
-                    <!-- PREVIEW -->
-
-                    <div class="preview-panel">
-
-                        <div class="panel-header">
-
-                            <span>
-                                Live Preview
-                            </span>
-
-                        </div>
-
-
-                        <iframe
-                            id="previewFrame"
-                            title="Live website preview"
-                        ></iframe>
-
-                    </div>
-
-                </div>
-
-
-                <!-- PUBLISHED LINK -->
-
-                <div
-                    id="publishBox"
-                    class="publish-box hidden"
-                >
-
-                    <strong>
-                        Your website link
-                    </strong>
-
-
-                    <div class="share-row">
-
-                        <input
-                            id="shareLink"
-                            readonly
-                        >
-
-
-                        <button id="openPublished">
-                            Open Website
-                        </button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             MY JOURNEY
-        ================================================== -->
-
-        <section
-            id="journey"
-            class="page-section"
-        >
-
-            <div class="section-title">
-
-                <span class="eyebrow">
-                    YOUR PROGRESS
-                </span>
-
-                <h1>
-                    My Journey
-                </h1>
-
-                <p>
-                    Track your learning progress on Darshan Academy.
-                </p>
-
-            </div>
-
-
-            <div class="stats-grid">
-
-
-                <div class="stat-card">
-
-                    <span>🔥</span>
-
-                    <strong id="streakCount">
-                        0
-                    </strong>
-
-                    <small>
-                        Learning Days
-                    </small>
-
-                </div>
-
-
-                <div class="stat-card">
-
-                    <span>💻</span>
-
-                    <strong id="practiceCount">
-                        0
-                    </strong>
-
-                    <small>
-                        Practice Sessions
-                    </small>
-
-                </div>
-
-
-                <div class="stat-card">
-
-                    <span>📝</span>
-
-                    <strong id="savedCount">
-                        0
-                    </strong>
-
-                    <small>
-                        Saved Items
-                    </small>
-
-                </div>
-
-            </div>
-
-
-            <div class="journey-card">
-
-                <h3>
-                    Learning Progress
-                </h3>
-
-
-                <div class="progress-bar">
-
-                    <div id="progressFill"></div>
-
-                </div>
-
-
-                <div class="progress-text">
-
-                    <span>
-                        Keep learning
-                    </span>
-
-                    <strong id="progressPercent">
-                        0%
-                    </strong>
-
-                </div>
-
-            </div>
-
-
-            <div class="activity-card">
-
-                <h3>
-                    Recent Activity
-                </h3>
-
-                <div id="activityList"></div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             AI DOUBT
-        ================================================== -->
-
-        <section
-            id="ai"
-            class="page-section"
-        >
-
-            <div class="section-title">
-
-                <span class="eyebrow">
-                    LEARN WITH AI
-                </span>
-
-                <h1>
-                    AI Doubt Assistant
-                </h1>
-
-                <p>
-                    Ask a coding or learning question and get
-                    a simple explanation.
-                </p>
-
-            </div>
-
-
-            <div class="ai-layout">
-
-
-                <div class="ai-card">
-
-
-                    <div class="ai-heading">
-
-                        <div class="ai-avatar">
-                            AI
-                        </div>
-
-
-                        <div>
-
-                            <h3>
-                                DS AI Assistant
-                            </h3>
-
-                            <span>
-                                Ready to help
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <textarea
-                        id="aiQuestion"
-                        placeholder="Type your doubt here..."
-                    ></textarea>
-
-
-                    <button
-                        id="askAiBtn"
-                        class="primary-btn"
-                    >
-                        Ask AI
-                    </button>
-
-
-                    <div
-                        id="aiAnswer"
-                        class="ai-answer"
-                    >
-
-                        <span class="ai-placeholder">
-                            Your answer will appear here.
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <!-- QUICK NOTES -->
-
-                <div class="notes-side-card">
-
-                    <div class="notes-side-header">
-
-                        <div>
-
-                            <span class="eyebrow">
-                                QUICK NOTES
-                            </span>
-
-                            <h3>
-                                My Notes
-                            </h3>
-
-                        </div>
-
-                        <span>
-                            📝
-                        </span>
-
-                    </div>
-
-
-                    <textarea
-                        id="quickNotes"
-                        placeholder="Write your notes here..."
-                    ></textarea>
-
-
-                    <button
-                        id="saveNotesBtn"
-                        class="secondary-btn"
-                    >
-                        Save Notes
-                    </button>
-
-
-                    <small id="notesSavedMessage"></small>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             ASK INSTRUCTOR
-        ================================================== -->
-
-        <section
-            id="instructor"
-            class="page-section"
-        >
-
-            <div class="section-title">
-
-                <span class="eyebrow">
-                    DIRECT HELP
-                </span>
-
-                <h1>
-                    Ask Instructor
-                </h1>
-
-                <p>
-                    Write your doubt so you can keep track
-                    of your questions.
-                </p>
-
-            </div>
-
-
-            <div class="instructor-layout">
-
-
-                <div class="instructor-card">
-
-
-                    <div class="instructor-person">
-
-                        <div class="person-avatar">
-                            D
-                        </div>
-
-
-                        <div>
-
-                            <h3>
-                                Darshan
-                            </h3>
-
-                            <span>
-                                Main Instructor
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <textarea
-                        id="instructorQuestion"
-                        placeholder="Write your doubt..."
-                    ></textarea>
-
-
-                    <button
-                        id="sendInstructorBtn"
-                        class="primary-btn"
-                    >
-                        Ask Instructor
-                    </button>
-
-                </div>
-
-
-                <div class="question-list-card">
-
-                    <h3>
-                        Your Questions
-                    </h3>
-
-
-                    <div id="questionList">
-
-                        <div class="empty-question">
-                            Your questions will appear here.
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             FOOTER
-        ================================================== -->
-
-        <footer>
-
-            <div>
-
-                <strong>
-                    DS Academy
-                </strong>
-
-                <span>
-                    Learn. Code. Build. Grow.
-                </span>
-
-            </div>
-
-
-            <div>
-                © 2026 Darshan Academy
-            </div>
-
-        </footer>
-
-    </main>
+</div>
 
 </div>
 
 
-<!-- =====================================================
-     CODEMIRROR SCRIPTS
-===================================================== -->
+<div class="workspace">
+
+<div class="editor-panel">
+
+<div class="tabs">
+
+<button class="tab active" data-lang="html">🌐 HTML</button>
+<button class="tab" data-lang="css">🎨 CSS</button>
+<button class="tab" data-lang="javascript">⚡ JavaScript</button>
+
+</div>
+
+<div id="editorArea"></div>
+
+</div>
+
+
+<div class="preview-panel">
+
+<div class="preview-head">
+<b>Output</b>
+<span id="editorState" class="muted"></span>
+</div>
+
+<iframe id="preview" sandbox="allow-scripts"></iframe>
+
+<div id="compiler" class="hidden">
+
+<div class="card">
+<h3>Compiler</h3>
+<p>
+This language requires a compiler/backend for real execution.
+</p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="play-bottom">
+
+<span id="editorLang">HTML</span>
+
+<div>
+
+<button id="refresh" class="btn secondary">
+Refresh
+</button>
+
+<button id="run" class="btn primary">
+▶ Run Code
+</button>
+
+<button id="publish" class="btn primary">
+Publish Website
+</button>
+
+</div>
+
+</div>
+
+<div id="runStatus" class="muted"></div>
+
+
+<div id="publishBox" class="panel hidden">
+
+<h3>Your Published Website</h3>
+
+<p>
+Share this link with your friends and family.
+</p>
+
+<input id="publishUrl" class="doubt" readonly>
+
+<button id="copyLink" class="btn secondary">
+Copy Link
+</button>
+
+<button id="share" class="btn primary">
+Share
+</button>
+
+<button id="closePublish" class="small">
+Close
+</button>
+
+</div>
+
+</section>
+
+
+<section id="page-saved" class="page">
+
+<p class="eyebrow">YOUR WORK</p>
+
+<h1>Saved</h1>
+
+<div id="savedList" class="grid"></div>
+
+</section>
+
+
+<section id="page-doubt" class="page">
+
+<p class="eyebrow">HELP</p>
+
+<h1>Ask a Doubt</h1>
+
+<div class="two">
+
+<div class="panel">
+
+<textarea id="doubt" class="doubt" rows="7" placeholder="Type your doubt here..."></textarea>
+
+<button id="submitDoubt" class="btn primary">
+Submit Doubt
+</button>
+
+<p class="muted">
+Remote instructor replies need a backend/database.
+</p>
+
+</div>
+
+<div class="panel">
+
+<h3>Your Doubts</h3>
+
+<div id="doubtList"></div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section id="page-ai" class="page">
+
+<p class="eyebrow">LEARNING ASSISTANT</p>
+
+<h1>AI Assistant</h1>
+
+<div class="panel">
+
+<div id="aiMessages">
+
+<div class="ai-msg">
+
+<b>Darshan Academy AI</b>
+
+<p>
+Hello! Ask about HTML, CSS, JavaScript, Python, C, C++, Java or MySQL.
+</p>
+
+</div>
+
+</div>
+
+<div class="ai-input">
+
+<input id="aiInput" class="doubt" placeholder="Ask a coding question...">
+
+<button id="aiSend" class="btn primary">
+Send
+</button>
+
+</div>
+
+<p>
+This is a local learning assistant. Real AI requires a secure backend/API.
+</p>
+
+</div>
+
+</section>
+
+
+<section id="page-journey" class="page">
+
+<p class="eyebrow">PROGRESS</p>
+
+<h1>My Journey</h1>
+
+<div id="stats" class="stats"></div>
+
+<div class="panel">
+
+<div>
+<b id="journeyProgress">0%</b>
+</div>
+
+<div class="progress">
+<i id="journeyBar"></i>
+</div>
+
+</div>
+
+<h2>Recent Activity</h2>
+
+<div id="activity"></div>
+
+</section>
+
+
+<section id="page-blog" class="page">
+
+<p class="eyebrow">FUTURE</p>
+
+<h1>Blog / Articles</h1>
+
+<div class="card">
+
+<h3>Coming soon</h3>
+
+<p>
+Tutorials, updates and articles can be published here later.
+</p>
+
+</div>
+
+</section>
+
+
+<section id="page-quiz" class="page">
+
+<p class="eyebrow">PRACTISE</p>
+
+<h1>Quizzes</h1>
+
+<div class="card">
+
+<h3>Interactive quizzes are planned</h3>
+
+<p>
+This section is ready for quiz content and coding challenges when you add them.
+</p>
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+
+<footer class="footer">
+
+© <span id="year"></span> Darshan Academy • Learn. Code. Build. Grow.
+
+</footer>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
 
@@ -1668,17 +503,19 @@ function continueStudent() {
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/clike/clike.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/sql/sql.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/xml-hint.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/html-hint.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js"></script>
 
 <script src="script.js"></script>
 
 </body>
-</html
+</html>
