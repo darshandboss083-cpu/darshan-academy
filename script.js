@@ -1,24 +1,8 @@
-/* =========================================================
-   DARSHAN ACADEMY
-   Main Website JavaScript
-========================================================= */
-
 "use strict";
 
-
 /* =========================================================
-   SETTINGS
+   DARSHAN ACADEMY - SCRIPT.JS
 ========================================================= */
-
-const YOUTUBE_PLAYLISTS =
-    "https://youtube.com/@darshanacademy-z6c/playlists";
-
-const INSTAGRAM =
-    "https://www.instagram.com/dsacademy.in/";
-
-const SITE_URL =
-    "https://darshandboss083-cpu.github.io/darshan-academy/";
-
 
 const STORAGE = {
     name: "ds_student_name",
@@ -32,13 +16,7 @@ const STORAGE = {
     firstVisit: "ds_first_visit"
 };
 
-
-/* =========================================================
-   DEFAULT CODE
-========================================================= */
-
 const DEFAULT_CODE = {
-
     html: `<div class="page">
     <h1>Hello, Darshan Academy!</h1>
     <p>Start building your website here.</p>
@@ -78,46 +56,27 @@ button {
 
 
 /* =========================================================
-   HELPER
+   BASIC HELPERS
 ========================================================= */
 
 function get(id) {
     return document.getElementById(id);
 }
 
-
-function read(key, fallback) {
-
+function save(key, value) {
     try {
-
-        const value =
-            localStorage.getItem(key);
-
-        if (value === null) {
-            return fallback;
-        }
-
-        return JSON.parse(value);
-
-    } catch (error) {
-
-        return fallback;
+        localStorage.setItem(key, value);
+    } catch (e) {
+        console.warn("Could not save data.");
     }
 }
 
-
-function write(key, value) {
-
+function load(key, fallback = "") {
     try {
-
-        localStorage.setItem(
-            key,
-            JSON.stringify(value)
-        );
-
-    } catch (error) {
-
-        console.warn("Storage unavailable.");
+        const value = localStorage.getItem(key);
+        return value === null ? fallback : value;
+    } catch (e) {
+        return fallback;
     }
 }
 
@@ -127,227 +86,89 @@ function write(key, value) {
 ========================================================= */
 
 function setupStudentName() {
+    const modal = get("welcomeModal");
+    const input = get("studentNameInput");
+    const button = get("continueBtn");
+    const error = get("nameError");
 
-    const modal =
-        get("welcomeModal");
+    if (!modal || !input || !button) return;
 
-    /*
-       Your HTML currently uses studentNameInput.
-       The fallback also supports studentName.
-    */
-    const input =
-        get("studentNameInput") ||
-        get("studentName");
+    const savedName = load(STORAGE.name, "");
 
-    const continueBtn =
-        get("continueBtn");
-
-    const error =
-        get("nameError");
-
-
-    if (!modal || !input || !continueBtn) {
-
-        console.error(
-            "Welcome modal elements are missing."
-        );
-
-        return;
-    }
-
-
-    const savedName =
-        localStorage.getItem(
-            STORAGE.name
-        );
-
-
-    /* -------------------------
-       Existing student
-    ------------------------- */
-
-    if (
-        savedName &&
-        savedName.trim()
-    ) {
-
-        showStudent(
-            savedName.trim()
-        );
-
-        modal.classList.add(
-            "hidden"
-        );
-
+    if (savedName.trim()) {
+        showStudent(savedName);
+        modal.classList.add("hidden");
+        modal.style.display = "none";
     } else {
-
-        modal.classList.remove(
-            "hidden"
-        );
-
-        setTimeout(function () {
-
-            input.focus();
-
-        }, 200);
+        modal.classList.remove("hidden");
+        modal.style.display = "";
     }
 
-
-    /* -------------------------
-       Continue button
-    ------------------------- */
-
-    function continueToWebsite() {
-
-        const name =
-            input.value.trim();
-
+    function continueStudent() {
+        const name = input.value.trim();
 
         if (!name) {
-
             if (error) {
-
-                error.textContent =
-                    "Please enter your name.";
+                error.textContent = "Please enter your name.";
             }
-
             input.focus();
-
             return;
         }
 
+        save(STORAGE.name, name);
 
-        if (name.length < 2) {
-
-            if (error) {
-
-                error.textContent =
-                    "Please enter a valid name.";
-            }
-
-            input.focus();
-
-            return;
-        }
-
-
-        /* Save name */
-
-        localStorage.setItem(
-            STORAGE.name,
-            name
-        );
-
-
-        /* Show name on website */
-
-        showStudent(name);
-
-
-        /* Hide welcome popup */
-
-        modal.classList.add(
-            "hidden"
-        );
-
-
-        /* Save first visit */
-
-        if (
-            !localStorage.getItem(
-                STORAGE.firstVisit
-            )
-        ) {
-
-            localStorage.setItem(
+        if (!load(STORAGE.firstVisit)) {
+            save(
                 STORAGE.firstVisit,
                 new Date().toISOString()
             );
         }
 
+        showStudent(name);
 
-        updateActivity(
-            "Started learning journey"
-        );
+        modal.classList.add("hidden");
+        modal.style.display = "none";
 
+        if (error) {
+            error.textContent = "";
+        }
+
+        updateActivity("Started learning journey");
         updateJourney();
     }
 
+    button.onclick = continueStudent;
 
-    continueBtn.addEventListener(
-        "click",
-        continueToWebsite
-    );
-
-
-    /* Enter key */
-
-    input.addEventListener(
-        "keydown",
-        function (event) {
-
-            if (
-                event.key === "Enter"
-            ) {
-
-                event.preventDefault();
-
-                continueToWebsite();
-            }
+    input.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            continueStudent();
         }
-    );
+    });
 
-
-    /* Clear error while typing */
-
-    input.addEventListener(
-        "input",
-        function () {
-
-            if (error) {
-                error.textContent = "";
-            }
+    input.addEventListener("input", function () {
+        if (error) {
+            error.textContent = "";
         }
-    );
+    });
 }
 
 
-/* =========================================================
-   SHOW STUDENT
-========================================================= */
-
 function showStudent(name) {
+    document
+        .querySelectorAll(
+            "#studentDisplayName, #topStudentName, #profileStudentName, .student-name"
+        )
+        .forEach(function (element) {
+            element.textContent = name;
+        });
 
-    const topName =
-        get("topStudentName");
-
-    const avatar =
-        get("studentAvatar");
-
-
-    if (topName) {
-
-        topName.textContent =
-            name;
-    }
-
+    const avatar = get("studentAvatar");
 
     if (avatar) {
-
         avatar.textContent =
             name.charAt(0).toUpperCase();
     }
-
-
-    document
-        .querySelectorAll(
-            ".student-name, #profileStudentName, #studentDisplayName"
-        )
-        .forEach(function (element) {
-
-            element.textContent =
-                name;
-        });
 }
 
 
@@ -356,94 +177,62 @@ function showStudent(name) {
 ========================================================= */
 
 function setupNavigation() {
-
-    const navButtons =
-        document.querySelectorAll(
-            ".nav-btn"
-        );
+    const buttons =
+        document.querySelectorAll(".nav-btn");
 
     const sections =
-        document.querySelectorAll(
-            ".page-section"
-        );
+        document.querySelectorAll(".page-section");
 
+    function openSection(id) {
+        sections.forEach(function (section) {
+            section.classList.toggle(
+                "active",
+                section.id === id
+            );
+        });
 
-    function showSection(sectionId) {
+        buttons.forEach(function (button) {
+            button.classList.toggle(
+                "active",
+                button.dataset.section === id
+            );
+        });
 
-        sections.forEach(
-            function (section) {
-
-                section.classList.toggle(
-                    "active",
-                    section.id === sectionId
-                );
-            }
-        );
-
-
-        navButtons.forEach(
-            function (button) {
-
-                button.classList.toggle(
-                    "active",
-                    button.dataset.section === sectionId
-                );
-            }
-        );
-
+        if (id === "journey") {
+            updateJourney();
+        }
 
         window.scrollTo({
             top: 0,
             behavior: "smooth"
         });
-
-
-        if (
-            sectionId === "journey"
-        ) {
-
-            updateJourney();
-        }
     }
 
+    buttons.forEach(function (button) {
+        button.addEventListener("click", function () {
+            const section = button.dataset.section;
 
-    navButtons.forEach(
-        function (button) {
-
-            button.addEventListener(
-                "click",
-                function () {
-
-                    showSection(
-                        button.dataset.section
-                    );
-
-                    updateActivity(
-                        "Opened " +
-                        button.dataset.section
-                    );
-                }
-            );
-        }
-    );
-
+            if (section) {
+                openSection(section);
+                updateActivity(
+                    "Opened " + section
+                );
+            }
+        });
+    });
 
     document
         .querySelectorAll("[data-go]")
-        .forEach(
-            function (button) {
-
-                button.addEventListener(
-                    "click",
-                    function () {
-
-                        showSection(
-                            button.dataset.go
-                        );
-                    }
-                );
-            }
-        );
+        .forEach(function (button) {
+            button.addEventListener(
+                "click",
+                function () {
+                    openSection(
+                        button.dataset.go
+                    );
+                }
+            );
+        });
 }
 
 
@@ -452,45 +241,19 @@ function setupNavigation() {
 ========================================================= */
 
 function setupExternalLinks() {
+    document
+        .querySelectorAll('a[href*="youtube.com"]')
+        .forEach(function (link) {
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+        });
 
     document
-        .querySelectorAll(
-            'a[href*="youtube.com"]'
-        )
-        .forEach(
-            function (link) {
-
-                link.addEventListener(
-                    "click",
-                    function () {
-
-                        updateActivity(
-                            "Opened YouTube playlist"
-                        );
-                    }
-                );
-            }
-        );
-
-
-    document
-        .querySelectorAll(
-            'a[href*="instagram.com"]'
-        )
-        .forEach(
-            function (link) {
-
-                link.addEventListener(
-                    "click",
-                    function () {
-
-                        updateActivity(
-                            "Opened Instagram"
-                        );
-                    }
-                );
-            }
-        );
+        .querySelectorAll('a[href*="instagram.com"]')
+        .forEach(function (link) {
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+        });
 }
 
 
@@ -499,307 +262,223 @@ function setupExternalLinks() {
 ========================================================= */
 
 let editors = {};
+let activeEditor = "html";
 
-let activeLanguage = "html";
-
-
-const languageModes = {
-
+const editorModes = {
     html: "text/html",
-
     css: "css",
-
     javascript: "javascript"
 };
 
 
-/* =========================================================
-   SETUP PLAYGROUND
-========================================================= */
-
 function setupPlayground() {
+    const container = get("editorContainer");
 
-    const container =
-        get("editorContainer");
-
-
-    if (!container) {
-        return;
-    }
-
-
-    /*
-       Prevent duplicate editors
-       if the function runs again.
-    */
+    if (!container) return;
 
     if (
-        Object.keys(editors).length > 0
+        typeof CodeMirror === "undefined"
     ) {
-
+        console.error(
+            "CodeMirror is not loaded."
+        );
         return;
     }
 
+    createEditors(container);
+    setupEditorTabs();
+    setupWebDropdown();
+    setupPlaygroundButtons();
+    setupAutoHTMLClosing();
 
-    const savedHTML =
-        localStorage.getItem(
-            STORAGE.html
-        );
-
-    const savedCSS =
-        localStorage.getItem(
-            STORAGE.css
-        );
-
-    const savedJS =
-        localStorage.getItem(
-            STORAGE.javascript
-        );
+    switchEditor("html");
+    updatePreview();
+}
 
 
-    const initialCode = {
+/* =========================================================
+   CREATE THREE SEPARATE EDITORS
+========================================================= */
 
-        html:
-            savedHTML ||
-            DEFAULT_CODE.html,
+function createEditors(container) {
+    container.innerHTML = "";
 
-        css:
-            savedCSS ||
-            DEFAULT_CODE.css,
+    ["html", "css", "javascript"]
+        .forEach(function (language) {
 
-        javascript:
-            savedJS ||
-            DEFAULT_CODE.javascript
-    };
+            const wrapper =
+                document.createElement("div");
 
+            wrapper.className =
+                "editor-instance";
 
-    Object.keys(initialCode)
-        .forEach(
-            function (language) {
+            wrapper.dataset.editor =
+                language;
 
-                const wrapper =
-                    document.createElement(
-                        "div"
-                    );
+            container.appendChild(wrapper);
 
-
-                wrapper.className =
-                    "editor-instance";
-
-
-                wrapper.style.display =
-                    language === "html"
-                        ? "block"
-                        : "none";
-
-
-                const textarea =
-                    document.createElement(
-                        "textarea"
-                    );
-
-
-                textarea.value =
-                    initialCode[language];
-
-
-                wrapper.appendChild(
-                    textarea
+            const startingCode =
+                load(
+                    STORAGE[language],
+                    DEFAULT_CODE[language]
                 );
 
+            const editor =
+                CodeMirror(wrapper, {
+                    value: startingCode,
 
-                container.appendChild(
-                    wrapper
-                );
+                    mode:
+                        editorModes[language],
 
+                    theme: "material-darker",
 
-                const editor =
-                    CodeMirror.fromTextArea(
-                        textarea,
-                        {
+                    lineNumbers: true,
 
-                            mode:
-                                languageModes[
-                                    language
-                                ],
+                    lineWrapping: true,
 
-                            theme:
-                                "material-darker",
+                    autoCloseBrackets: true,
 
-                            lineNumbers:
-                                true,
+                    matchBrackets: true,
 
-                            lineWrapping:
-                                true,
+                    indentUnit: 4,
 
-                            autoCloseBrackets:
-                                true,
+                    tabSize: 4,
 
-                            tabSize:
-                                2,
+                    smartIndent: true,
 
-                            indentUnit:
-                                2,
+                    viewportMargin: Infinity,
 
-                            extraKeys: {
+                    extraKeys: {
+                        "Ctrl-S": function () {
+                            saveEditorCode(language);
+                        },
 
-                                "Ctrl-Space":
-                                    "autocomplete"
-                            }
+                        "Cmd-S": function () {
+                            saveEditorCode(language);
                         }
-                    );
-
-
-                editor.on(
-                    "change",
-                    function () {
-
-                        localStorage.setItem(
-                            STORAGE[language],
-                            editor.getValue()
-                        );
-
-                        updatePractice();
                     }
-                );
+                });
 
+            editors[language] = {
+                editor: editor,
+                wrapper: wrapper
+            };
 
-                editors[language] = {
+            editor.on(
+                "change",
+                function () {
 
-                    editor:
-                        editor,
+                    saveEditorCode(language);
 
-                    wrapper:
-                        wrapper
-                };
-
-
-                /* HTML automatic closing */
-
-                if (
-                    language === "html"
-                ) {
-
-                    setupHTMLAutoClose(
-                        editor
-                    );
+                    if (
+                        language === "html" ||
+                        language === "css" ||
+                        language === "javascript"
+                    ) {
+                        updatePreview();
+                    }
                 }
-            }
-        );
+            );
+        });
+}
 
 
-    /* Editor tabs */
+/* =========================================================
+   SAVE EDITOR
+========================================================= */
+
+function saveEditorCode(language) {
+    if (
+        !editors[language] ||
+        !editors[language].editor
+    ) {
+        return;
+    }
+
+    save(
+        STORAGE[language],
+        editors[language].editor.getValue()
+    );
+}
+
+
+/* =========================================================
+   SWITCH EDITOR
+========================================================= */
+
+function switchEditor(language) {
+    if (!editors[language]) return;
+
+    activeEditor = language;
+
+    Object.keys(editors).forEach(function (key) {
+        const item = editors[key];
+
+        item.wrapper.style.display =
+            key === language
+                ? "block"
+                : "none";
+    });
 
     document
-        .querySelectorAll(
-            ".editor-tab"
-        )
-        .forEach(
-            function (tab) {
+        .querySelectorAll(".editor-tab")
+        .forEach(function (tab) {
 
-                tab.addEventListener(
-                    "click",
-                    function () {
+            tab.classList.toggle(
+                "active",
+                tab.dataset.editor === language
+            );
+        });
 
-                        changeLanguage(
-                            tab.dataset.editor
-                        );
-                    }
-                );
-            }
-        );
+    document
+        .querySelectorAll(".web-option")
+        .forEach(function (option) {
 
+            option.classList.toggle(
+                "active",
+                option.dataset.editor === language
+            );
+        });
 
-    /* Suggestions */
+    const languageLabel =
+        get("editorLanguage");
 
-    const suggestBtn =
-        get("suggestBtn");
-
-    if (suggestBtn) {
-
-        suggestBtn.addEventListener(
-            "click",
-            showSuggestions
-        );
+    if (languageLabel) {
+        languageLabel.textContent =
+            language === "html"
+                ? "HTML"
+                : language === "css"
+                    ? "CSS"
+                    : "JavaScript";
     }
 
-
-    /* Copy */
-
-    const copyBtn =
-        get("copyCode");
-
-    if (copyBtn) {
-
-        copyBtn.addEventListener(
-            "click",
-            copyCode
-        );
-    }
+    setTimeout(function () {
+        editors[language].editor.refresh();
+        editors[language].editor.focus();
+    }, 50);
+}
 
 
-    /* Clear */
+/* =========================================================
+   EDITOR TABS
+========================================================= */
 
-    const clearBtn =
-        get("clearCode");
+function setupEditorTabs() {
+    document
+        .querySelectorAll(".editor-tab")
+        .forEach(function (tab) {
 
-    if (clearBtn) {
+            tab.addEventListener(
+                "click",
+                function () {
 
-        clearBtn.addEventListener(
-            "click",
-            clearCode
-        );
-    }
+                    const language =
+                        tab.dataset.editor;
 
-
-    /* Reset */
-
-    const resetBtn =
-        get("resetCode");
-
-    if (resetBtn) {
-
-        resetBtn.addEventListener(
-            "click",
-            resetCode
-        );
-    }
-
-
-    /* Run */
-
-    const runBtn =
-        get("runCode");
-
-    if (runBtn) {
-
-        runBtn.addEventListener(
-            "click",
-            runWebsite
-        );
-    }
-
-
-    /* Publish */
-
-    const publishBtn =
-        get("publishCode");
-
-    if (publishBtn) {
-
-        publishBtn.addEventListener(
-            "click",
-            publishWebsite
-        );
-    }
-
-
-    setupWebDropdown();
-
-
-    runWebsite();
-
-    updateEditorLabel();
+                    switchEditor(language);
+                }
+            );
+        });
 }
 
 
@@ -808,18 +487,13 @@ function setupPlayground() {
 ========================================================= */
 
 function setupWebDropdown() {
-
     const button =
         get("webDropdownBtn");
 
     const menu =
         get("webDropdownMenu");
 
-
-    if (!button || !menu) {
-        return;
-    }
-
+    if (!button || !menu) return;
 
     button.addEventListener(
         "click",
@@ -827,736 +501,133 @@ function setupWebDropdown() {
 
             event.stopPropagation();
 
-            menu.classList.toggle(
-                "show"
-            );
+            menu.classList.toggle("show");
         }
     );
 
+    menu
+        .querySelectorAll(".web-option")
+        .forEach(function (option) {
+
+            option.addEventListener(
+                "click",
+                function () {
+
+                    if (
+                        option.disabled ||
+                        option.classList.contains(
+                            "web-option-disabled"
+                        )
+                    ) {
+                        return;
+                    }
+
+                    const language =
+                        option.dataset.editor;
+
+                    if (language) {
+                        switchEditor(language);
+                    }
+
+                    menu.classList.remove("show");
+                }
+            );
+        });
 
     document.addEventListener(
         "click",
         function () {
-
-            menu.classList.remove(
-                "show"
-            );
-        }
-    );
-
-
-    document
-        .querySelectorAll(
-            ".web-option"
-        )
-        .forEach(
-            function (option) {
-
-                option.addEventListener(
-                    "click",
-                    function () {
-
-                        const language =
-                            option.dataset.editor;
-
-
-                        changeLanguage(
-                            language
-                        );
-
-
-                        document
-                            .querySelectorAll(
-                                ".web-option"
-                            )
-                            .forEach(
-                                function (item) {
-
-                                    item.classList.remove(
-                                        "active"
-                                    );
-                                }
-                            );
-
-
-                        option.classList.add(
-                            "active"
-                        );
-
-
-                        menu.classList.remove(
-                            "show"
-                        );
-                    }
-                );
-            }
-        );
-}
-
-
-/* =========================================================
-   HTML AUTO CLOSE TAG
-========================================================= */
-
-function setupHTMLAutoClose(editor) {
-
-    let lock = false;
-
-
-    const voidTags =
-        new Set([
-
-            "area",
-            "base",
-            "br",
-            "col",
-            "embed",
-            "hr",
-            "img",
-            "input",
-            "link",
-            "meta",
-            "param",
-            "source",
-            "track",
-            "wbr"
-        ]);
-
-
-    editor.on(
-        "change",
-        function (cm, change) {
-
-            if (
-                lock ||
-                !change ||
-                change.origin === "autoClose"
-            ) {
-
-                return;
-            }
-
-
-            if (
-                change.text.length !== 1 ||
-                change.text[0] !== ">"
-            ) {
-
-                return;
-            }
-
-
-            const cursor =
-                cm.getCursor();
-
-
-            const line =
-                cm.getLine(
-                    cursor.line
-                );
-
-
-            const before =
-                line.slice(
-                    0,
-                    cursor.ch
-                );
-
-
-            const match =
-                before.match(
-                    /<([A-Za-z][\w:-]*)(?:\s[^<>]*?)?>$/
-                );
-
-
-            if (!match) {
-                return;
-            }
-
-
-            const tag =
-                match[1];
-
-
-            if (
-                voidTags.has(
-                    tag.toLowerCase()
-                )
-            ) {
-
-                return;
-            }
-
-
-            if (
-                /\/\s*>$/.test(
-                    before
-                )
-            ) {
-
-                return;
-            }
-
-
-            /*
-               Don't automatically close
-               an already closed tag.
-            */
-
-            const after =
-                line.slice(
-                    cursor.ch
-                );
-
-
-            if (
-                after.startsWith(
-                    `</${tag}>`
-                )
-            ) {
-
-                return;
-            }
-
-
-            const closingTag =
-                `</${tag}>`;
-
-
-            lock = true;
-
-
-            cm.replaceRange(
-                closingTag,
-                cursor,
-                cursor,
-                "autoClose"
-            );
-
-
-            cm.setCursor(
-                cursor
-            );
-
-
-            lock = false;
+            menu.classList.remove("show");
         }
     );
 }
 
 
 /* =========================================================
-   CHANGE LANGUAGE
+   PLAYGROUND BUTTONS
 ========================================================= */
 
-function changeLanguage(language) {
+function setupPlaygroundButtons() {
+    const run =
+        get("runCode");
 
-    if (
-        !editors[language]
-    ) {
+    const publish =
+        get("publishCode");
 
-        return;
-    }
+    const copy =
+        get("copyCode");
 
+    const clear =
+        get("clearCode");
 
-    Object.keys(editors)
-        .forEach(
-            function (key) {
+    const reset =
+        get("resetCode");
 
-                editors[key].wrapper.style.display =
-                    key === language
-                        ? "block"
-                        : "none";
-            }
-        );
+    const suggest =
+        get("suggestBtn");
 
 
-    activeLanguage =
-        language;
-
-
-    document
-        .querySelectorAll(
-            ".editor-tab"
-        )
-        .forEach(
-            function (tab) {
-
-                tab.classList.toggle(
-                    "active",
-                    tab.dataset.editor === language
+    if (run) {
+        run.addEventListener(
+            "click",
+            function () {
+                updatePreview();
+                updatePractice();
+                updateActivity(
+                    "Ran code in playground"
                 );
             }
         );
-
-
-    document
-        .querySelectorAll(
-            ".web-option"
-        )
-        .forEach(
-            function (option) {
-
-                option.classList.toggle(
-                    "active",
-                    option.dataset.editor === language
-                );
-            }
-        );
-
-
-    updateEditorLabel();
-
-
-    setTimeout(
-        function () {
-
-            editors[
-                language
-            ].editor.refresh();
-
-        },
-        50
-    );
-}
-
-
-/* =========================================================
-   EDITOR LABEL
-========================================================= */
-
-function updateEditorLabel() {
-
-    const label =
-        get("editorLanguage");
-
-
-    if (!label) {
-        return;
     }
 
 
-    if (
-        activeLanguage === "html"
-    ) {
-
-        label.textContent =
-            "HTML";
-
-    } else if (
-        activeLanguage === "css"
-    ) {
-
-        label.textContent =
-            "CSS";
-
-    } else {
-
-        label.textContent =
-            "JavaScript";
-    }
-}
-
-
-/* =========================================================
-   SUGGESTIONS
-========================================================= */
-
-function showSuggestions() {
-
-    const currentEditor =
-        editors[
-            activeLanguage
-        ]?.editor;
-
-
-    if (!currentEditor) {
-        return;
+    if (publish) {
+        publish.addEventListener(
+            "click",
+            publishWebsite
+        );
     }
 
 
-    const suggestions = {
-
-        html: [
-
-            "<div></div>",
-            "<section></section>",
-            "<header></header>",
-            "<main></main>",
-            "<footer></footer>",
-            "<h1></h1>",
-            "<p></p>",
-            "<button></button>",
-            "<a href=\"\"></a>",
-            "<img src=\"\" alt=\"\">",
-            "<ul></ul>",
-            "<li></li>"
-        ],
-
-
-        css: [
-
-            "display: flex;",
-            "display: grid;",
-            "justify-content: center;",
-            "align-items: center;",
-            "background: #ffffff;",
-            "color: #000000;",
-            "padding: 20px;",
-            "margin: 20px;",
-            "border-radius: 10px;",
-            "box-shadow: 0 10px 30px rgba(0,0,0,.2);",
-            "font-size: 20px;",
-            "text-align: center;"
-        ],
-
-
-        javascript: [
-
-            "console.log();",
-            "document.getElementById();",
-            "document.querySelector();",
-            "addEventListener();",
-            "function name() {}",
-            "if () {}",
-            "for (let i = 0; i < 10; i++) {}",
-            "const value = ;",
-            "let value = ;"
-        ]
-    };
-
-
-    const hintList =
-        suggestions[
-            activeLanguage
-        ];
-
-
-    if (
-        !hintList ||
-        !CodeMirror.showHint
-    ) {
-
-        return;
+    if (copy) {
+        copy.addEventListener(
+            "click",
+            copyCurrentCode
+        );
     }
 
 
-    const cursor =
-        currentEditor.getCursor();
-
-
-    const token =
-        currentEditor.getTokenAt(
-            cursor
+    if (clear) {
+        clear.addEventListener(
+            "click",
+            clearCurrentCode
         );
-
-
-    const word =
-        token.string || "";
-
-
-    const start =
-        cursor.ch -
-        word.length;
-
-
-    const end =
-        cursor.ch;
-
-
-    CodeMirror.showHint(
-        currentEditor,
-        function () {
-
-            return {
-
-                list:
-                    hintList,
-
-                from:
-                    CodeMirror.Pos(
-                        cursor.line,
-                        Math.max(
-                            0,
-                            start
-                        )
-                    ),
-
-                to:
-                    CodeMirror.Pos(
-                        cursor.line,
-                        end
-                    )
-            };
-        },
-
-        {
-            completeSingle:
-                false
-        }
-    );
-
-
-    updateActivity(
-        "Used code suggestions"
-    );
-}
-
-
-/* =========================================================
-   COPY
-========================================================= */
-
-async function copyCode() {
-
-    const editor =
-        editors[
-            activeLanguage
-        ]?.editor;
-
-
-    if (!editor) {
-        return;
     }
 
 
-    const code =
-        editor.getValue();
-
-
-    try {
-
-        await navigator.clipboard.writeText(
-            code
+    if (reset) {
+        reset.addEventListener(
+            "click",
+            resetCurrentCode
         );
-
-        alert(
-            "Code copied!"
-        );
-
-    } catch (error) {
-
-        const temp =
-            document.createElement(
-                "textarea"
-            );
+    }
 
 
-        temp.value =
-            code;
-
-
-        document.body.appendChild(
-            temp
-        );
-
-
-        temp.select();
-
-
-        document.execCommand(
-            "copy"
-        );
-
-
-        temp.remove();
-
-
-        alert(
-            "Code copied!"
+    if (suggest) {
+        suggest.addEventListener(
+            "click",
+            showSuggestions
         );
     }
 }
 
 
 /* =========================================================
-   CLEAR
+   CURRENT CODE
 ========================================================= */
 
-function clearCode() {
-
-    const editor =
-        editors[
-            activeLanguage
-        ]?.editor;
-
-
-    if (!editor) {
-        return;
-    }
-
-
-    editor.setValue("");
-
-
-    updateActivity(
-        "Cleared " +
-        activeLanguage +
-        " code"
-    );
-}
-
-
-/* =========================================================
-   RESET
-========================================================= */
-
-function resetCode() {
-
-    const editor =
-        editors[
-            activeLanguage
-        ]?.editor;
-
-
-    if (!editor) {
-        return;
-    }
-
-
-    editor.setValue(
-        DEFAULT_CODE[
-            activeLanguage
-        ]
-    );
-
-
-    localStorage.setItem(
-        STORAGE[
-            activeLanguage
-        ],
-        DEFAULT_CODE[
-            activeLanguage
-        ]
-    );
-
-
-    updateActivity(
-        "Reset " +
-        activeLanguage +
-        " code"
-    );
-}
-
-
-/* =========================================================
-   RUN WEBSITE
-========================================================= */
-
-function runWebsite() {
-
-    if (
-        !editors.html ||
-        !editors.css ||
-        !editors.javascript
-    ) {
-
-        return;
-    }
-
-
-    const html =
-        editors.html.editor.getValue();
-
-
-    const css =
-        editors.css.editor.getValue();
-
-
-    const javascript =
-        editors.javascript.editor.getValue();
-
-
-    const safeJS =
-        javascript.replace(
-            /<\/script/gi,
-            "<\\/script"
-        );
-
-
-    const finalHTML =
-`<!DOCTYPE html>
-<html>
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<style>
-
-${css}
-
-</style>
-
-</head>
-
-<body>
-
-${html}
-
-<script>
-
-${safeJS}
-
-<\/script>
-
-</body>
-
-</html>`;
-
-
-    const preview =
-        get("previewFrame");
-
-
-    if (!preview) {
-        return;
-    }
-
-
-    preview.srcdoc =
-        finalHTML;
-
-
-    updatePractice();
-}
-
-
-/* =========================================================
-   PUBLISH WEBSITE
-========================================================= */
-
-function publishWebsite() {
-
-    if (
-        !editors.html ||
-        !editors.css ||
-        !editors.javascript
-    ) {
-
-        return;
-    }
-
-
-    if (
-        typeof LZString === "undefined"
-    ) {
-
-        alert(
-            "Publishing is temporarily unavailable. Please refresh the page."
-        );
-
-        return;
-    }
-
-
-    const project = {
-
+function getAllCode() {
+    return {
         html:
             editors.html.editor.getValue(),
 
@@ -1566,324 +637,483 @@ function publishWebsite() {
         javascript:
             editors.javascript.editor.getValue()
     };
-
-
-    const compressed =
-        LZString.compressToEncodedURIComponent(
-            JSON.stringify(project)
-        );
-
-
-    const url =
-        SITE_URL +
-        "#project=" +
-        compressed;
-
-
-    const box =
-        get("publishBox");
-
-
-    const link =
-        get("shareLink");
-
-
-    if (box) {
-
-        box.classList.remove(
-            "hidden"
-        );
-    }
-
-
-    if (link) {
-
-        link.value =
-            url;
-    }
-
-
-    updateActivity(
-        "Published a website"
-    );
 }
 
 
 /* =========================================================
-   GET SHARED PROJECT
-========================================================= */
-
-function getSharedProjectFromURL() {
-
-    const hash =
-        window.location.hash;
-
-
-    if (
-        !hash.startsWith(
-            "#project="
-        )
-    ) {
-
-        return null;
-    }
-
-
-    try {
-
-        const compressed =
-            decodeURIComponent(
-                hash.substring(9)
-            );
-
-
-        if (
-            typeof LZString === "undefined"
-        ) {
-
-            return null;
-        }
-
-
-        const json =
-            LZString.decompressFromEncodedURIComponent(
-                compressed
-            );
-
-
-        if (!json) {
-            return null;
-        }
-
-
-        return JSON.parse(
-            json
-        );
-
-    } catch (error) {
-
-        console.error(
-            "Could not load shared project:",
-            error
-        );
-
-        return null;
-    }
-}
-
-
-/* =========================================================
-   BUILD SHARED PROJECT
+   RUN CODE / LIVE PREVIEW
 ========================================================= */
 
 function buildProjectHTML(project) {
 
-    const html =
-        project.html || "";
-
-
-    const css =
-        project.css || "";
-
-
-    const javascript =
-        (
-            project.javascript ||
-            ""
-        ).replace(
+    const safeJS =
+        project.javascript.replace(
             /<\/script/gi,
             "<\\/script"
         );
 
-
-    /*
-       If user created a complete
-       HTML document.
-    */
-
-    if (
-        /<html[\s>]/i.test(
-            html
-        )
-    ) {
-
-        let full =
-            html;
-
-
-        if (
-            /<\/head>/i.test(
-                full
-            )
-        ) {
-
-            full =
-                full.replace(
-                    /<\/head>/i,
-                    `<style>${css}</style></head>`
-                );
-
-        } else {
-
-            full =
-                `<style>${css}</style>` +
-                full;
-        }
-
-
-        if (
-            /<\/body>/i.test(
-                full
-            )
-        ) {
-
-            full =
-                full.replace(
-                    /<\/body>/i,
-                    `<script>${javascript}<\/script></body>`
-                );
-
-        } else {
-
-            full +=
-                `<script>${javascript}<\/script>`;
-        }
-
-
-        return full;
-    }
-
-
-    /*
-       Normal HTML fragment.
-    */
-
     return `<!DOCTYPE html>
-
 <html>
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <style>
-
-${css}
-
+${project.css}
 </style>
 
 </head>
 
 <body>
 
-${html}
+${project.html}
 
 <script>
-
-${javascript}
-
+${safeJS}
 <\/script>
 
 </body>
-
 </html>`;
 }
 
 
+function updatePreview() {
+    const frame =
+        get("previewFrame");
+
+    if (!frame || !editors.html) {
+        return;
+    }
+
+    const project =
+        getAllCode();
+
+    frame.srcdoc =
+        buildProjectHTML(project);
+}
+
+
 /* =========================================================
-   RENDER SHARED PROJECT
+   COPY
+========================================================= */
+
+async function copyCurrentCode() {
+    if (!editors[activeEditor]) return;
+
+    const code =
+        editors[activeEditor]
+            .editor
+            .getValue();
+
+    try {
+        await navigator.clipboard.writeText(code);
+
+        alert(
+            activeEditor.toUpperCase() +
+            " code copied."
+        );
+
+    } catch (error) {
+
+        const textarea =
+            document.createElement("textarea");
+
+        textarea.value = code;
+
+        document.body.appendChild(
+            textarea
+        );
+
+        textarea.select();
+
+        document.execCommand("copy");
+
+        textarea.remove();
+
+        alert("Code copied.");
+    }
+}
+
+
+/* =========================================================
+   CLEAR
+========================================================= */
+
+function clearCurrentCode() {
+    if (!editors[activeEditor]) return;
+
+    editors[activeEditor]
+        .editor
+        .setValue("");
+
+    saveEditorCode(activeEditor);
+
+    updatePreview();
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+function resetCurrentCode() {
+    if (!editors[activeEditor]) return;
+
+    const confirmed =
+        confirm(
+            "Reset this file to the default code?"
+        );
+
+    if (!confirmed) return;
+
+    editors[activeEditor]
+        .editor
+        .setValue(
+            DEFAULT_CODE[activeEditor]
+        );
+
+    saveEditorCode(activeEditor);
+
+    updatePreview();
+}
+
+
+/* =========================================================
+   HTML AUTO CLOSE TAG
+========================================================= */
+
+function setupAutoHTMLClosing() {
+    if (!editors.html) return;
+
+    const editor =
+        editors.html.editor;
+
+    editor.on(
+        "inputRead",
+        function (cm, change) {
+
+            if (
+                !change ||
+                change.origin !== "+input"
+            ) {
+                return;
+            }
+
+            if (
+                activeEditor !== "html"
+            ) {
+                return;
+            }
+
+            const cursor =
+                cm.getCursor();
+
+            const line =
+                cm.getLine(cursor.line);
+
+            const beforeCursor =
+                line.substring(
+                    0,
+                    cursor.ch
+                );
+
+            const match =
+                beforeCursor.match(
+                    /<([a-zA-Z][\w-]*)>$/
+                );
+
+            if (!match) return;
+
+            const tag =
+                match[1].toLowerCase();
+
+            const voidTags = [
+                "area",
+                "base",
+                "br",
+                "col",
+                "embed",
+                "hr",
+                "img",
+                "input",
+                "link",
+                "meta",
+                "param",
+                "source",
+                "track",
+                "wbr"
+            ];
+
+            if (
+                voidTags.includes(tag)
+            ) {
+                return;
+            }
+
+            const closing =
+                `</${tag}>`;
+
+            cm.replaceRange(
+                closing,
+                cursor,
+                cursor
+            );
+
+            cm.setCursor(cursor);
+        }
+    );
+}
+
+
+/* =========================================================
+   SUGGESTIONS
+========================================================= */
+
+function showSuggestions() {
+    if (!editors[activeEditor]) return;
+
+    const editor =
+        editors[activeEditor].editor;
+
+    if (
+        typeof CodeMirror.commands.autocomplete ===
+        "function"
+    ) {
+        CodeMirror.commands.autocomplete(
+            editor
+        );
+        return;
+    }
+
+    let suggestion = "";
+
+    if (activeEditor === "html") {
+        suggestion =
+`<div class="">
+    <h1>Heading</h1>
+    <p>Your text here.</p>
+</div>`;
+    }
+
+    if (activeEditor === "css") {
+        suggestion =
+`.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}`;
+    }
+
+    if (activeEditor === "javascript") {
+        suggestion =
+`function example() {
+    console.log("Hello!");
+}`;
+    }
+
+    editor.replaceSelection(
+        suggestion
+    );
+}
+
+
+/* =========================================================
+   PUBLISH WEBSITE
+========================================================= */
+
+function publishWebsite() {
+    const project =
+        getAllCode();
+
+    if (
+        !project.html.trim() &&
+        !project.css.trim() &&
+        !project.javascript.trim()
+    ) {
+        alert(
+            "Please write some code first."
+        );
+        return;
+    }
+
+    const encoded =
+        encodeProject(project);
+
+    const url =
+        window.location.origin +
+        window.location.pathname +
+        "#project=" +
+        encoded;
+
+    const link =
+        get("shareLink");
+
+    if (link) {
+        link.value = url;
+    }
+
+    const box =
+        get("publishBox");
+
+    if (box) {
+        box.classList.remove("hidden");
+        box.style.display = "";
+    }
+
+    const open =
+        get("openPublished");
+
+    if (open) {
+        open.onclick = function () {
+            window.open(
+                url,
+                "_blank",
+                "noopener,noreferrer"
+            );
+        };
+    }
+
+    updateActivity(
+        "Published a website"
+    );
+
+    try {
+        navigator.clipboard.writeText(url);
+    } catch (e) {}
+
+    alert(
+        "Your website link has been created."
+    );
+}
+
+
+/* =========================================================
+   SIMPLE URL ENCODING
+========================================================= */
+
+function encodeProject(project) {
+    const json =
+        JSON.stringify(project);
+
+    const bytes =
+        new TextEncoder().encode(json);
+
+    let binary = "";
+
+    bytes.forEach(function (byte) {
+        binary += String.fromCharCode(byte);
+    });
+
+    return btoa(binary)
+        .replace(/\+/g, "-")
+        .replace(/\//g, "_")
+        .replace(/=+$/, "");
+}
+
+
+function decodeProject(value) {
+    try {
+
+        let base64 =
+            value
+                .replace(/-/g, "+")
+                .replace(/_/g, "/");
+
+        while (
+            base64.length % 4
+        ) {
+            base64 += "=";
+        }
+
+        const binary =
+            atob(base64);
+
+        const bytes =
+            Uint8Array.from(
+                binary,
+                function (character) {
+                    return character.charCodeAt(0);
+                }
+            );
+
+        const json =
+            new TextDecoder().decode(bytes);
+
+        return JSON.parse(json);
+
+    } catch (error) {
+
+        return null;
+    }
+}
+
+
+/* =========================================================
+   READ PUBLISHED PROJECT
+========================================================= */
+
+function getSharedProjectFromURL() {
+    const hash =
+        window.location.hash;
+
+    if (
+        !hash.startsWith("#project=")
+    ) {
+        return null;
+    }
+
+    const encoded =
+        hash.substring(
+            "#project=".length
+        );
+
+    return decodeProject(encoded);
+}
+
+
+/* =========================================================
+   DISPLAY PUBLISHED PROJECT
 ========================================================= */
 
 function renderSharedProject(project) {
-
     document.body.innerHTML = "";
 
+    document.body.style.margin = "0";
+    document.body.style.padding = "0";
+    document.body.style.overflow = "hidden";
 
     const frame =
-        document.createElement(
-            "iframe"
-        );
+        document.createElement("iframe");
 
-
-    frame.style.cssText =
-        "width:100vw;" +
-        "height:100vh;" +
-        "border:0;" +
-        "display:block;" +
-        "background:white;";
-
-
+    frame.style.width = "100vw";
+    frame.style.height = "100vh";
+    frame.style.border = "0";
     frame.setAttribute(
         "title",
         "Published Website"
     );
 
-
     frame.setAttribute(
         "sandbox",
-        "allow-scripts"
+        "allow-scripts allow-forms allow-modals allow-popups"
     );
-
 
     frame.srcdoc =
-        buildProjectHTML(
-            project
-        );
+        buildProjectHTML(project);
 
-
-    document.body.appendChild(
-        frame
-    );
-
-
-    document.title =
-        "Published Website | Darshan Academy";
+    document.body.appendChild(frame);
 }
 
 
 /* =========================================================
-   LOAD PUBLISHED PROJECT
-========================================================= */
-
-function loadPublishedProject() {
-
-    const project =
-        getSharedProjectFromURL();
-
-
-    if (!project) {
-        return false;
-    }
-
-
-    renderSharedProject(
-        project
-    );
-
-
-    return true;
-}
-
-
-/* =========================================================
-   PUBLISHED LINK BUTTON
+   PUBLISHED BUTTON
 ========================================================= */
 
 function setupPublishedButton() {
-
     const button =
         get("openPublished");
 
-
-    if (!button) {
-        return;
-    }
-
+    if (!button) return;
 
     button.addEventListener(
         "click",
@@ -1892,16 +1122,13 @@ function setupPublishedButton() {
             const link =
                 get("shareLink");
 
-
             if (
                 link &&
                 link.value
             ) {
-
                 window.open(
                     link.value,
-                    "_blank",
-                    "noopener,noreferrer"
+                    "_blank"
                 );
             }
         }
@@ -1910,173 +1137,53 @@ function setupPublishedButton() {
 
 
 /* =========================================================
-   AI ASSISTANT
+   AI DOUBT
 ========================================================= */
 
 function setupAI() {
-
     const button =
-        get("askAiBtn");
-
-
-    if (button) {
-
-        button.addEventListener(
-            "click",
-            askAI
-        );
-    }
-
+        get("askAIButton");
 
     const input =
         get("aiQuestion");
-
-
-    if (input) {
-
-        input.addEventListener(
-            "keydown",
-            function (event) {
-
-                if (
-                    event.key === "Enter" &&
-                    event.ctrlKey
-                ) {
-
-                    event.preventDefault();
-
-                    askAI();
-                }
-            }
-        );
-    }
-}
-
-
-function askAI() {
-
-    const input =
-        get("aiQuestion");
-
 
     const answer =
         get("aiAnswer");
 
-
-    if (!input || !answer) {
+    if (!button || !input || !answer) {
         return;
     }
 
+    button.addEventListener(
+        "click",
+        function () {
 
-    const question =
-        input.value.trim();
+            const question =
+                input.value.trim();
 
+            if (!question) {
+                answer.textContent =
+                    "Write your doubt first.";
+                return;
+            }
 
-    if (!question) {
+            answer.innerHTML = `
+                <strong>DS Academy AI Assistant</strong>
+                <p>
+                    Your doubt is:
+                    "${escapeHTML(question)}"
+                </p>
+                <p>
+                    Try breaking the problem into
+                    smaller steps and check the
+                    HTML, CSS, or JavaScript involved.
+                </p>
+            `;
 
-        answer.innerHTML =
-            `<span class="ai-placeholder">
-                Please type your doubt first.
-            </span>`;
-
-        return;
-    }
-
-
-    const q =
-        question.toLowerCase();
-
-
-    let response = "";
-
-
-    if (
-        q.includes("html") &&
-        q.includes("css")
-    ) {
-
-        response =
-            "HTML creates the structure of a webpage, while CSS controls its appearance, spacing, colors and layout.";
-
-    } else if (
-        q.includes("html")
-    ) {
-
-        response =
-            "HTML stands for HyperText Markup Language. It is used to create the structure and content of a webpage.";
-
-    } else if (
-        q.includes("css")
-    ) {
-
-        response =
-            "CSS stands for Cascading Style Sheets. It is used to style HTML elements, including colors, spacing, borders, fonts and layouts.";
-
-    } else if (
-        q.includes("javascript") ||
-        q.includes(" js ")
-    ) {
-
-        response =
-            "JavaScript adds behavior and interaction to websites. You can use it to respond to clicks, change content and create dynamic features.";
-
-    } else if (
-        q.includes("python")
-    ) {
-
-        response =
-            "Python is a high-level programming language known for simple syntax. It is widely used in software development, automation, data science and AI.";
-
-    } else if (
-        q.includes("artificial intelligence") ||
-        q.includes(" ai ")
-    ) {
-
-        response =
-            "Artificial Intelligence is the field of creating systems that can perform tasks that normally require human-like intelligence, such as understanding, prediction and generation.";
-
-    } else if (
-        q.includes("machine learning") ||
-        q.includes(" ml ")
-    ) {
-
-        response =
-            "Machine Learning is a part of AI where systems learn patterns from data and use those patterns to make predictions or decisions.";
-
-    } else if (
-        q.includes("div")
-    ) {
-
-        response =
-            "The div element is a general-purpose container in HTML. It is commonly used to group elements and apply CSS styles or JavaScript behavior.";
-
-    } else if (
-        q.includes("flex")
-    ) {
-
-        response =
-            "Flexbox is a CSS layout system. Use display: flex on a parent and properties such as justify-content and align-items to position its children.";
-
-    } else if (
-        q.includes("border-radius")
-    ) {
-
-        response =
-            "border-radius is the CSS property used to create rounded corners on HTML elements.";
-
-    } else {
-
-        response =
-            "Start by breaking the doubt into a smaller concept. Check the relevant HTML, CSS, JavaScript, Python or AI/ML lesson, then test the concept in the Coding Playground.";
-    }
-
-
-    answer.innerHTML =
-        `<strong>Answer:</strong><br><br>${response}`;
-
-
-    updateActivity(
-        "Asked AI a doubt"
+            updateActivity(
+                "Asked an AI doubt"
+            );
+        }
     );
 }
 
@@ -2086,68 +1193,46 @@ function askAI() {
 ========================================================= */
 
 function setupNotes() {
-
     const notes =
         get("quickNotes");
 
-
-    const save =
+    const button =
         get("saveNotesBtn");
-
 
     const message =
         get("notesSavedMessage");
 
+    if (!notes || !button) return;
 
-    if (!notes || !save) {
-        return;
-    }
-
-
-    const saved =
-        localStorage.getItem(
-            STORAGE.notes
+    notes.value =
+        load(
+            STORAGE.notes,
+            ""
         );
 
-
-    if (saved) {
-
-        notes.value =
-            saved;
-    }
-
-
-    save.addEventListener(
+    button.addEventListener(
         "click",
         function () {
 
-            localStorage.setItem(
+            save(
                 STORAGE.notes,
                 notes.value
             );
 
-
             if (message) {
-
                 message.textContent =
-                    "Notes saved.";
+                    "Notes saved successfully.";
 
-
-                setTimeout(
-                    function () {
-
-                        message.textContent =
-                            "";
-
-                    },
-                    1800
-                );
+                setTimeout(function () {
+                    message.textContent = "";
+                }, 2000);
             }
-
 
             updateActivity(
                 "Saved notes"
             );
+
+            updateJourney();
         }
     );
 }
@@ -2158,296 +1243,227 @@ function setupNotes() {
 ========================================================= */
 
 function setupInstructor() {
-
     const button =
         get("sendInstructorBtn");
 
-
-    if (button) {
-
-        button.addEventListener(
-            "click",
-            function () {
-
-                const input =
-                    get("instructorQuestion");
-
-
-                if (!input) {
-                    return;
-                }
-
-
-                const question =
-                    input.value.trim();
-
-
-                if (!question) {
-
-                    alert(
-                        "Please write your doubt first."
-                    );
-
-                    input.focus();
-
-                    return;
-                }
-
-
-                const questions =
-                    read(
-                        STORAGE.questions,
-                        []
-                    );
-
-
-                questions.unshift({
-
-                    text:
-                        question,
-
-                    time:
-                        new Date()
-                            .toLocaleString()
-                });
-
-
-                write(
-                    STORAGE.questions,
-                    questions.slice(
-                        0,
-                        20
-                    )
-                );
-
-
-                input.value =
-                    "";
-
-
-                renderQuestions();
-
-
-                updateActivity(
-                    "Asked Instructor a question"
-                );
-
-
-                alert(
-                    "Your question has been saved."
-                );
-            }
-        );
+    if (!button) {
+        renderQuestions();
+        return;
     }
 
+    button.addEventListener(
+        "click",
+        function () {
+
+            const input =
+                get("instructorQuestion");
+
+            if (!input) return;
+
+            const question =
+                input.value.trim();
+
+            if (!question) {
+                alert(
+                    "Please write your doubt first."
+                );
+                input.focus();
+                return;
+            }
+
+            let questions;
+
+            try {
+                questions =
+                    JSON.parse(
+                        load(
+                            STORAGE.questions,
+                            "[]"
+                        )
+                    );
+            } catch (e) {
+                questions = [];
+            }
+
+            questions.unshift({
+                text: question,
+                time:
+                    new Date()
+                        .toLocaleString()
+            });
+
+            save(
+                STORAGE.questions,
+                JSON.stringify(
+                    questions.slice(0, 20)
+                )
+            );
+
+            input.value = "";
+
+            renderQuestions();
+
+            updateActivity(
+                "Asked Instructor a question"
+            );
+
+            alert(
+                "Your question has been saved."
+            );
+        }
+    );
 
     renderQuestions();
 }
 
 
 function renderQuestions() {
-
     const list =
         get("questionList");
 
+    if (!list) return;
 
-    if (!list) {
-        return;
+    let questions = [];
+
+    try {
+        questions =
+            JSON.parse(
+                load(
+                    STORAGE.questions,
+                    "[]"
+                )
+            );
+    } catch (e) {
+        questions = [];
     }
-
-
-    const questions =
-        read(
-            STORAGE.questions,
-            []
-        );
-
 
     if (!questions.length) {
-
-        list.innerHTML =
-            `<div class="empty-question">
+        list.innerHTML = `
+            <div class="empty-question">
                 Your questions will appear here.
-            </div>`;
-
+            </div>
+        `;
         return;
     }
-
 
     list.innerHTML =
         questions
-            .map(
-                function (question) {
-
-                    return `
-                        <div class="question-item">
-
-                            <strong>
-                                ${escapeHTML(
-                                    question.text
-                                )}
-                            </strong>
-
-                            <small>
-                                ${escapeHTML(
-                                    question.time
-                                )}
-                            </small>
-
-                        </div>
-                    `;
-                }
-            )
+            .map(function (question) {
+                return `
+                    <div class="question-item">
+                        <strong>
+                            ${escapeHTML(
+                                question.text
+                            )}
+                        </strong>
+                        <small>
+                            ${escapeHTML(
+                                question.time
+                            )}
+                        </small>
+                    </div>
+                `;
+            })
             .join("");
 }
 
 
 /* =========================================================
-   JOURNEY / ACTIVITY
+   JOURNEY
 ========================================================= */
 
 function updateActivity(text) {
+    if (!text) return;
 
-    if (!text) {
-        return;
+    let activities = [];
+
+    try {
+        activities =
+            JSON.parse(
+                load(
+                    STORAGE.activities,
+                    "[]"
+                )
+            );
+    } catch (e) {
+        activities = [];
     }
 
-
-    const activities =
-        read(
-            STORAGE.activities,
-            []
-        );
-
-
     activities.unshift({
-
-        text:
-            text,
-
+        text: text,
         time:
             new Date()
-                .toLocaleTimeString(
-                    [],
-                    {
-                        hour:
-                            "2-digit",
-
-                        minute:
-                            "2-digit"
-                    }
-                )
+                .toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                })
     });
 
-
-    write(
+    save(
         STORAGE.activities,
-        activities.slice(
-            0,
-            10
+        JSON.stringify(
+            activities.slice(0, 20)
         )
     );
-
 
     updateJourney();
 }
 
 
 function updatePractice() {
-
-    let count =
+    const current =
         Number(
-            localStorage.getItem(
-                STORAGE.practice
-            ) ||
-            "0"
+            load(
+                STORAGE.practice,
+                "0"
+            )
         );
 
-
-    count += 1;
-
-
-    localStorage.setItem(
+    save(
         STORAGE.practice,
-        String(count)
+        String(current + 1)
     );
-
 
     updateJourney();
 }
 
 
 function updateJourney() {
+    let activities = [];
 
-    const activities =
-        read(
-            STORAGE.activities,
-            []
-        );
-
+    try {
+        activities =
+            JSON.parse(
+                load(
+                    STORAGE.activities,
+                    "[]"
+                )
+            );
+    } catch (e) {
+        activities = [];
+    }
 
     const practice =
         Number(
-            localStorage.getItem(
-                STORAGE.practice
-            ) ||
-            "0"
+            load(
+                STORAGE.practice,
+                "0"
+            )
         );
 
+    const notes =
+        load(
+            STORAGE.notes,
+            ""
+        );
 
     const streak =
-        activities.length > 0
+        activities.length
             ? Math.min(
                 30,
-                Math.max(
-                    1,
-                    activities.length
-                )
+                activities.length
             )
             : 0;
-
-
-    if (
-        get("streakCount")
-    ) {
-
-        get(
-            "streakCount"
-        ).textContent =
-            streak;
-    }
-
-
-    if (
-        get("practiceCount")
-    ) {
-
-        get(
-            "practiceCount"
-        ).textContent =
-            practice;
-    }
-
-
-    const savedNotes =
-        localStorage.getItem(
-            STORAGE.notes
-        );
-
-
-    if (
-        get("savedCount")
-    ) {
-
-        get(
-            "savedCount"
-        ).textContent =
-            savedNotes &&
-            savedNotes.trim()
-                ? 1
-                : 0;
-    }
-
 
     const progress =
         Math.min(
@@ -2455,77 +1471,77 @@ function updateJourney() {
             activities.length * 5
         );
 
+    const streakElement =
+        get("streakCount");
 
-    if (
-        get("progressFill")
-    ) {
+    const practiceElement =
+        get("practiceCount");
 
-        get(
-            "progressFill"
-        ).style.width =
+    const savedElement =
+        get("savedCount");
+
+    const progressFill =
+        get("progressFill");
+
+    const progressPercent =
+        get("progressPercent");
+
+    if (streakElement) {
+        streakElement.textContent =
+            streak;
+    }
+
+    if (practiceElement) {
+        practiceElement.textContent =
+            practice;
+    }
+
+    if (savedElement) {
+        savedElement.textContent =
+            notes.trim() ? "1" : "0";
+    }
+
+    if (progressFill) {
+        progressFill.style.width =
             progress + "%";
     }
 
-
-    if (
-        get("progressPercent")
-    ) {
-
-        get(
-            "progressPercent"
-        ).textContent =
+    if (progressPercent) {
+        progressPercent.textContent =
             progress + "%";
     }
-
 
     const activityList =
         get("activityList");
 
-
-    if (!activityList) {
-        return;
-    }
-
+    if (!activityList) return;
 
     if (!activities.length) {
-
-        activityList.innerHTML =
-            `<div class="activity-item">
+        activityList.innerHTML = `
+            <div class="activity-item">
                 Start learning to see your activity.
-            </div>`;
-
+            </div>
+        `;
         return;
     }
-
 
     activityList.innerHTML =
         activities
-            .slice(
-                0,
-                8
-            )
-            .map(
-                function (item) {
-
-                    return `
-                        <div class="activity-item">
-
+            .slice(0, 8)
+            .map(function (item) {
+                return `
+                    <div class="activity-item">
+                        ${escapeHTML(
+                            item.text
+                        )}
+                        <small>
                             ${escapeHTML(
-                                item.text
+                                item.time
                             )}
-
-                            <small
-                                style="color:#8f98ad;margin-left:8px;"
-                            >
-                                ${escapeHTML(
-                                    item.time
-                                )}
-                            </small>
-
-                        </div>
-                    `;
-                }
-            )
+                        </small>
+                    </div>
+                `;
+            })
             .join("");
 }
 
@@ -2535,39 +1551,39 @@ function updateJourney() {
 ========================================================= */
 
 function setupNoteButtons() {
-
     document
-        .querySelectorAll(
-            ".note-btn"
-        )
-        .forEach(
-            function (button) {
+        .querySelectorAll(".note-btn")
+        .forEach(function (button) {
 
-                button.addEventListener(
-                    "click",
-                    function () {
+            button.addEventListener(
+                "click",
+                function () {
 
-                        document
-                            .querySelector(
-                                '[data-section="ai"]'
-                            )
-                            ?.click();
-
-
-                        setTimeout(
-                            function () {
-
-                                get(
-                                    "aiQuestion"
-                                )?.focus();
-
-                            },
-                            200
+                    const aiButton =
+                        document.querySelector(
+                            '[data-section="ai"]'
                         );
+
+                    if (aiButton) {
+                        aiButton.click();
                     }
-                );
-            }
-        );
+
+                    setTimeout(
+                        function () {
+
+                            const input =
+                                get("aiQuestion");
+
+                            if (input) {
+                                input.focus();
+                            }
+
+                        },
+                        200
+                    );
+                }
+            );
+        });
 }
 
 
@@ -2576,84 +1592,41 @@ function setupNoteButtons() {
 ========================================================= */
 
 function escapeHTML(value) {
-
     return String(value)
-
-        .replaceAll(
-            "&",
-            "&amp;"
-        )
-
-        .replaceAll(
-            "<",
-            "&lt;"
-        )
-
-        .replaceAll(
-            ">",
-            "&gt;"
-        )
-
-        .replaceAll(
-            '"',
-            "&quot;"
-        )
-
-        .replaceAll(
-            "'",
-            "&#039;"
-        );
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 }
 
 
 /* =========================================================
-   INITIALIZATION
+   START WEBSITE
 ========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
     function () {
 
-        /*
-           IMPORTANT:
-           If this is a published project link,
-           show only the student's project.
-        */
-
         const sharedProject =
             getSharedProjectFromURL();
 
-
         if (sharedProject) {
-
             renderSharedProject(
                 sharedProject
             );
-
             return;
         }
 
-
-        /* Normal website */
-
         setupStudentName();
-
         setupNavigation();
-
         setupExternalLinks();
-
         setupPlayground();
-
-        setupPublishedButton();
-
         setupAI();
-
         setupNotes();
-
         setupInstructor();
-
         setupNoteButtons();
-
         updateJourney();
     }
 );
