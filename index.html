@@ -1,521 +1,1060 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Darshan Academy</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <title>Darshan Academy</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css">
-<link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css"
+  >
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css"
+  >
+
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<div id="welcome" class="welcome">
-  <div class="welcome-card">
-    <div class="welcome-logo">DS</div>
-    <p class="eyebrow">WELCOME TO DARSHAN ACADEMY</p>
-    <h1>What should we call you?</h1>
-    <p>Enter your name to start your learning journey.</p>
+  <!-- WELCOME POPUP -->
+  <div id="welcome" class="welcome">
 
-    <form id="nameForm">
-      <input id="name" placeholder="Enter your name" maxlength="40" required>
-      <button class="btn primary">Start Learning →</button>
-    </form>
+    <div class="welcome-card">
 
-    <small class="muted">No account • No phone number • No OTP</small>
-  </div>
-</div>
+      <div class="welcome-logo">
+        DS
+      </div>
 
-<div id="toast" class="toast"></div>
+      <p class="eyebrow">
+        WELCOME TO DARSHAN ACADEMY
+      </p>
 
-<header class="top">
-  <button id="mobile" class="small mobile">☰</button>
+      <h1>
+        What should we call you?
+      </h1>
 
-  <div class="brand">
-    <div class="logo">DS</div>
-    <div>
-      <b>Darshan Academy</b>
-      <small>Learn. Code. Build. Grow.</small>
+      <p>
+        Enter your name to start your learning journey.
+      </p>
+
+      <form id="nameForm">
+
+        <input
+          id="name"
+          placeholder="Enter your name"
+          maxlength="40"
+          required
+        >
+
+        <button class="btn primary">
+          Start Learning →
+        </button>
+
+      </form>
+
+      <small class="muted">
+        No account • No phone number • No OTP
+      </small>
+
     </div>
+
   </div>
 
-  <div>
-    <button id="theme" class="small">☾</button>
-    <span class="avatar" id="avatar">D</span>
-    <span id="student">Student</span>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast"></div>
+
+
+  <!-- HEADER -->
+  <header class="top">
+
+    <button id="mobile" class="small mobile">
+      ☰
+    </button>
+
+    <div class="brand">
+
+      <div class="logo">
+        DS
+      </div>
+
+      <div>
+        <b>Darshan Academy</b>
+        <small>Learn. Code. Build. Grow.</small>
+      </div>
+
+    </div>
+
+
+    <div>
+
+      <button id="theme" class="small">
+        ☾
+      </button>
+
+      <span class="avatar" id="avatar">
+        D
+      </span>
+
+      <span id="student">
+        Student
+      </span>
+
+    </div>
+
+  </header>
+
+
+  <!-- APP -->
+  <div class="app">
+
+
+    <!-- SIDEBAR -->
+    <aside id="side">
+
+      <nav>
+
+        <button class="nav active" data-page="home">
+          ⌂ Home
+        </button>
+
+        <button class="nav" data-page="courses">
+          ▦ Courses
+        </button>
+
+        <button class="nav" data-page="videos">
+          ▶ Videos
+        </button>
+
+        <button class="nav" data-page="notes">
+          ▤ Notes / PDFs
+        </button>
+
+        <button class="nav" data-page="playground">
+          &lt;/&gt; Coding Playground
+        </button>
+
+        <button class="nav" data-page="saved">
+          ♡ Saved
+        </button>
+
+        <button class="nav" data-page="doubt">
+          ? Ask a Doubt
+        </button>
+
+        <button class="nav" data-page="ai">
+          ✦ AI Assistant
+        </button>
+
+        <button class="nav" data-page="journey">
+          ◔ My Journey
+        </button>
+
+        <button class="nav" data-page="blog">
+          ▥ Blog / Articles
+        </button>
+
+        <button class="nav" data-page="quiz">
+          ✓ Quizzes
+        </button>
+
+      </nav>
+
+
+      <div>
+
+        <a
+          class="nav"
+          href="https://youtube.com/@darshanacademy-z6c?si=i3MVR4Ne1t9wch-I"
+          target="_blank"
+        >
+          ▶ YouTube
+        </a>
+
+        <a
+          class="nav"
+          href="https://www.instagram.com/dsacademy.in?stkn=MTNvZXN1amNjbnltdA%3D%3D&utm_source=qr"
+          target="_blank"
+        >
+          ◎ Instagram
+        </a>
+
+        <p class="muted">
+          Darshan — Main Instructor<br>
+          Sunil — Co-Instructor
+        </p>
+
+      </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main>
+
+
+      <!-- HOME -->
+      <section id="page-home" class="page active">
+
+        <div class="hero">
+
+          <p class="eyebrow">
+            DARSHAN ACADEMY
+          </p>
+
+          <h1>
+            Learn.
+            <span>Code.</span>
+            <br>
+            Build.
+            <span>Grow.</span>
+          </h1>
+
+          <p>
+            Engineering, programming, web development,
+            AI/ML and practical learning — explained simply.
+          </p>
+
+          <button
+            class="btn primary"
+            data-go="playground"
+          >
+            Start Coding →
+          </button>
+
+          <button
+            class="btn secondary"
+            data-go="courses"
+          >
+            Explore Courses
+          </button>
+
+          <p>
+            👨‍🏫 Darshan — Main Instructor
+            &nbsp; • &nbsp;
+            👨‍💻 Sunil — Co-Instructor
+          </p>
+
+        </div>
+
+
+        <h2>
+          Everything in one place
+        </h2>
+
+
+        <div class="grid">
+
+          <button
+            class="card"
+            data-go="courses"
+          >
+            <h3>
+              ▦ Courses
+            </h3>
+
+            <p>
+              Learn step by step.
+            </p>
+          </button>
+
+
+          <button
+            class="card"
+            data-go="videos"
+          >
+            <h3>
+              ▶ Videos
+            </h3>
+
+            <p>
+              Watch class lessons.
+            </p>
+          </button>
+
+
+          <button
+            class="card"
+            data-go="notes"
+          >
+            <h3>
+              ▤ Notes
+            </h3>
+
+            <p>
+              Study your material.
+            </p>
+          </button>
+
+
+          <button
+            class="card"
+            data-go="playground"
+          >
+            <h3>
+              &lt;/&gt; Playground
+            </h3>
+
+            <p>
+              Build websites.
+            </p>
+          </button>
+
+
+          <button
+            class="card"
+            data-go="doubt"
+          >
+            <h3>
+              ? Ask a Doubt
+            </h3>
+
+            <p>
+              Write your question.
+            </p>
+          </button>
+
+
+          <button
+            class="card"
+            data-go="journey"
+          >
+            <h3>
+              ◔ My Journey
+            </h3>
+
+            <p>
+              Track progress.
+            </p>
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- COURSES -->
+      <section id="page-courses" class="page">
+
+        <p class="eyebrow">
+          LEARNING
+        </p>
+
+        <h1>
+          Courses
+        </h1>
+
+        <div
+          id="courses"
+          class="grid"
+        ></div>
+
+      </section>
+
+
+      <!-- VIDEOS -->
+      <section id="page-videos" class="page">
+
+        <p class="eyebrow">
+          WATCH
+        </p>
+
+        <h1>
+          Videos
+        </h1>
+
+        <div
+          id="videos"
+          class="grid"
+        ></div>
+
+      </section>
+
+
+      <!-- NOTES -->
+      <section id="page-notes" class="page">
+
+        <p class="eyebrow">
+          STUDY
+        </p>
+
+        <h1>
+          Notes / PDFs
+        </h1>
+
+        <div
+          id="notes"
+          class="grid"
+        ></div>
+
+      </section>
+
+
+      <!-- CODING PLAYGROUND -->
+      <section id="page-playground" class="page">
+
+        <div class="play-title">
+
+          <div>
+
+            <p class="eyebrow">
+              BUILD
+            </p>
+
+            <h1>
+              Coding Playground
+            </h1>
+
+            <p>
+              Left = code editor.
+              Right = website preview.
+              No code is shown in the preview.
+            </p>
+
+          </div>
+
+
+          <div class="actions">
+
+            <button
+              id="save"
+              class="btn small"
+            >
+              Save
+            </button>
+
+            <button
+              id="copy"
+              class="btn small"
+            >
+              Copy
+            </button>
+
+            <button
+              id="clear"
+              class="btn small"
+            >
+              Clear
+            </button>
+
+            <button
+              id="reset"
+              class="btn small"
+            >
+              Reset
+            </button>
+
+            <button
+              id="publish"
+              class="btn primary"
+            >
+              Publish / Share ↗
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="toolbar">
+
+          <select id="lang">
+
+            <option value="html">
+              HTML
+            </option>
+
+            <option value="css">
+              CSS
+            </option>
+
+            <option value="javascript">
+              JavaScript
+            </option>
+
+            <option value="python312">
+              Python 3.12
+            </option>
+
+            <option value="python310">
+              Python 3.10
+            </option>
+
+            <option value="python39">
+              Python 3.9
+            </option>
+
+            <option value="c">
+              C
+            </option>
+
+            <option value="cpp">
+              C++
+            </option>
+
+            <option value="csharp">
+              C#
+            </option>
+
+            <option value="java">
+              Java
+            </option>
+
+            <option value="kotlin">
+              Kotlin
+            </option>
+
+            <option value="go">
+              Go
+            </option>
+
+            <option value="rust">
+              Rust
+            </option>
+
+            <option value="php">
+              PHP
+            </option>
+
+            <option value="ruby">
+              Ruby
+            </option>
+
+            <option value="swift">
+              Swift
+            </option>
+
+            <option value="typescript">
+              TypeScript
+            </option>
+
+            <option value="sql">
+              SQL
+            </option>
+
+            <option value="mysql">
+              MySQL
+            </option>
+
+            <option value="postgresql">
+              PostgreSQL
+            </option>
+
+            <option value="r">
+              R
+            </option>
+
+            <option value="matlab">
+              MATLAB
+            </option>
+
+            <option value="scala">
+              Scala
+            </option>
+
+            <option value="dart">
+              Dart
+            </option>
+
+            <option value="lua">
+              Lua
+            </option>
+
+            <option value="perl">
+              Perl
+            </option>
+
+            <option value="haskell">
+              Haskell
+            </option>
+
+            <option value="shell">
+              Shell
+            </option>
+
+            <option value="bash">
+              Bash
+            </option>
+
+            <option value="powershell">
+              PowerShell
+            </option>
+
+            <option value="objectivec">
+              Objective-C
+            </option>
+
+            <option value="julia">
+              Julia
+            </option>
+
+            <option value="fortran">
+              Fortran
+            </option>
+
+            <option value="cobol">
+              COBOL
+            </option>
+
+            <option value="assembly">
+              Assembly
+            </option>
+
+          </select>
+
+
+          <div class="tabs">
+
+            <button
+              class="tab active"
+              data-lang="html"
+            >
+              &lt;/&gt; HTML
+            </button>
+
+            <button
+              class="tab"
+              data-lang="css"
+            >
+              # CSS
+            </button>
+
+            <button
+              class="tab"
+              data-lang="javascript"
+            >
+              JS JAVASCRIPT
+            </button>
+
+          </div>
+
+
+          <button
+            id="suggest"
+            class="btn small"
+          >
+            ✦ Suggestions
+            <small>Ctrl+Space</small>
+          </button>
+
+        </div>
+
+
+        <div class="workspace">
+
+          <div class="editor">
+
+            <div class="label">
+
+              <span id="editorLang">
+                HTML
+              </span>
+
+              <span id="editorState">
+                Ready
+              </span>
+
+            </div>
+
+            <textarea id="code"></textarea>
+
+          </div>
+
+
+          <div class="preview">
+
+            <div class="label">
+
+              <span>
+                LIVE WEBSITE
+              </span>
+
+              <button id="refresh">
+                ↻ Refresh
+              </button>
+
+            </div>
+
+
+            <iframe
+              id="preview"
+              sandbox="allow-scripts"
+            ></iframe>
+
+
+            <div
+              id="compiler"
+              class="compiler hidden"
+            >
+
+              <h2>
+                &lt;/&gt;
+              </h2>
+
+              <p>
+                Editor and suggestions are available.
+                Real Python/C/C++/Java/MySQL execution
+                needs a secure backend/compiler.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="runbar">
+
+          <span>
+            ●
+            <em id="runStatus">
+              Ready
+            </em>
+          </span>
+
+          <button
+            id="run"
+            class="btn primary"
+          >
+            Run Code ▶
+          </button>
+
+        </div>
+
+
+        <div
+          id="publishBox"
+          class="panel publish hidden"
+        >
+
+          <h3>
+            Share your project
+          </h3>
+
+          <p>
+            Client-side share link.
+            It stores the project inside the URL fragment.
+          </p>
+
+          <input
+            id="publishUrl"
+            readonly
+          >
+
+          <br>
+
+          <button
+            id="copyLink"
+            class="btn primary"
+          >
+            Copy Link
+          </button>
+
+          <button
+            id="share"
+            class="btn secondary"
+          >
+            Share
+          </button>
+
+          <button
+            id="closePublish"
+            class="btn small"
+          >
+            Close
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- SAVED -->
+      <section id="page-saved" class="page">
+
+        <p class="eyebrow">
+          YOUR LIBRARY
+        </p>
+
+        <h1>
+          Saved
+        </h1>
+
+        <div class="panel">
+
+          <p>
+            Saved code is stored in this browser.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- DOUBT -->
+      <section id="page-doubt" class="page">
+
+        <p class="eyebrow">
+          GET HELP
+        </p>
+
+        <h1>
+          Ask a Doubt
+        </h1>
+
+        <div class="two">
+
+          <div class="panel">
+
+            <h3>
+              Darshan + Sunil
+            </h3>
+
+            <textarea
+              id="doubt"
+              class="doubt"
+              rows="9"
+              placeholder="Type your doubt..."
+            ></textarea>
+
+            <button
+              id="submitDoubt"
+              class="btn primary"
+            >
+              Submit Doubt
+            </button>
+
+            <p>
+              Static version:
+              stored only in this browser.
+            </p>
+
+          </div>
+
+
+          <div class="panel">
+
+            <h3>
+              Your Doubts
+            </h3>
+
+            <div id="doubtList"></div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- AI -->
+      <section id="page-ai" class="page">
+
+        <p class="eyebrow">
+          LEARNING ASSISTANT
+        </p>
+
+        <h1>
+          AI Assistant
+        </h1>
+
+        <div class="panel">
+
+          <div id="aiMessages">
+
+            <div class="ai-msg">
+
+              <b>
+                Darshan Academy AI
+              </b>
+
+              <p>
+                Hello!
+                Ask about HTML, CSS, JavaScript,
+                Python, C, C++, Java or MySQL.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="ai-input">
+
+            <input
+              id="aiInput"
+              class="doubt"
+              placeholder="Ask a coding question..."
+            >
+
+            <button
+              id="aiSend"
+              class="btn primary"
+            >
+              Send
+            </button>
+
+          </div>
+
+
+          <p>
+            This is a local learning assistant.
+            Real AI requires a secure backend/API.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- JOURNEY -->
+      <section id="page-journey" class="page">
+
+        <p class="eyebrow">
+          PROGRESS
+        </p>
+
+        <h1>
+          My Journey
+        </h1>
+
+        <div
+          id="stats"
+          class="stats"
+        ></div>
+
+
+        <div class="panel">
+
+          <div>
+            <b id="journeyProgress">
+              0%
+            </b>
+          </div>
+
+          <div class="progress">
+
+            <i id="journeyBar"></i>
+
+          </div>
+
+        </div>
+
+
+        <h2>
+          Recent Activity
+        </h2>
+
+        <div id="activity"></div>
+
+      </section>
+
+
+      <!-- BLOG -->
+      <section id="page-blog" class="page">
+
+        <p class="eyebrow">
+          FUTURE
+        </p>
+
+        <h1>
+          Blog / Articles
+        </h1>
+
+        <div class="card">
+
+          <h3>
+            Coming soon
+          </h3>
+
+          <p>
+            Tutorials, updates and articles
+            can be published here later.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      <!-- QUIZ -->
+      <section id="page-quiz" class="page">
+
+        <p class="eyebrow">
+          PRACTISE
+        </p>
+
+        <h1>
+          Quizzes
+        </h1>
+
+        <div class="card">
+
+          <h3>
+            Interactive quizzes are planned
+          </h3>
+
+          <p>
+            This section is ready for quiz content
+            and coding challenges.
+          </p>
+
+        </div>
+
+      </section>
+
+    </main>
+
   </div>
-</header>
 
-<div class="app">
 
-<aside id="side">
+  <!-- FOOTER -->
+  <footer class="footer">
 
-<nav>
-<button class="nav active" data-page="home">⌂ Home</button>
-<button class="nav" data-page="courses">▦ Courses</button>
-<button class="nav" data-page="videos">▶ Videos</button>
-<button class="nav" data-page="notes">▤ Notes / PDFs</button>
-<button class="nav" data-page="playground">&lt;/&gt; Coding Playground</button>
-<button class="nav" data-page="saved">♡ Saved</button>
-<button class="nav" data-page="doubt">? Ask a Doubt</button>
-<button class="nav" data-page="ai">✦ AI Assistant</button>
-<button class="nav" data-page="journey">◔ My Journey</button>
-<button class="nav" data-page="blog">▥ Blog / Articles</button>
-<button class="nav" data-page="quiz">✓ Quizzes</button>
-</nav>
+    ©
+    <span id="year"></span>
+    Darshan Academy
+    • Learn. Code. Build. Grow.
 
-<div>
-<a class="nav" href="https://youtube.com/@darshanacademy-z6c?si=i3MVR4Ne1t9wch-I" target="_blank">▶ YouTube</a>
+  </footer>
 
-<a class="nav" href="https://www.instagram.com/dsacademy.in?stkn=MTNvZXN1amNjbnltdA%3D%3D&utm_source=qr" target="_blank">◎ Instagram</a>
 
-<p class="muted">
-Darshan — Main Instructor<br>
-Sunil — Co-Instructor
-</p>
-</div>
+  <!-- CODEMIRROR -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
 
-</aside>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
 
-<main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
 
-<section id="page-home" class="page active">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
 
-<div class="hero">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
 
-<p class="eyebrow">DARSHAN ACADEMY</p>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/clike/clike.min.js"></script>
 
-<h1>
-Learn. <span>Code.</span><br>
-Build. <span>Grow.</span>
-</h1>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/sql/sql.min.js"></script>
 
-<p>
-Engineering, programming, web development, AI/ML and practical learning — explained simply.
-</p>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
 
-<button class="btn primary" data-go="playground">
-Start Coding →
-</button>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
 
-<button class="btn secondary" data-go="courses">
-Explore Courses
-</button>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js"></script>
 
-<p>
-👨‍🏫 Darshan — Main Instructor
-&nbsp; • &nbsp;
-Sunil — Co-Instructor
-</p>
-
-</div>
-
-<div class="grid" id="homeCards">
-
-<div class="card">
-<h3>💻 Learn Programming</h3>
-<p>Learn HTML, CSS, JavaScript, Python and other programming concepts.</p>
-</div>
-
-<div class="card">
-<h3>🤖 AI / ML</h3>
-<p>Understand artificial intelligence and machine learning concepts.</p>
-</div>
-
-<div class="card">
-<h3>🚀 Build Projects</h3>
-<p>Turn your knowledge into practical projects.</p>
-</div>
-
-</div>
-
-</section>
-
-
-<section id="page-courses" class="page">
-
-<p class="eyebrow">LEARN</p>
-
-<h1>Courses</h1>
-
-<div id="courses" class="grid"></div>
-
-</section>
-
-
-<section id="page-videos" class="page">
-
-<p class="eyebrow">WATCH</p>
-
-<h1>Videos</h1>
-
-<div id="videos" class="grid"></div>
-
-</section>
-
-
-<section id="page-notes" class="page">
-
-<p class="eyebrow">STUDY</p>
-
-<h1>Notes / PDFs</h1>
-
-<div id="notes" class="grid"></div>
-
-</section>
-
-
-<section id="page-playground" class="page">
-
-<div class="play-title">
-
-<div>
-<p class="eyebrow">PRACTICE</p>
-<h1>Coding Playground</h1>
-</div>
-
-<div class="actions">
-
-<select id="lang">
-
-<option value="html">Web</option>
-
-<option value="html">HTML</option>
-<option value="css">CSS</option>
-<option value="javascript">JavaScript</option>
-
-<option value="python312">Python 3.12</option>
-<option value="python310">Python 3.10</option>
-<option value="python38ml">Python 3.8 (ML)</option>
-<option value="python39">Python 3.9</option>
-
-<option value="c">C (gcc 8.3.0)</option>
-<option value="cpp">C++</option>
-<option value="java">Java</option>
-<option value="csharp">C#</option>
-<option value="kotlin">Kotlin</option>
-<option value="go">Go</option>
-<option value="rust">Rust</option>
-<option value="php">PHP</option>
-<option value="ruby">Ruby</option>
-<option value="swift">Swift</option>
-<option value="typescript">TypeScript</option>
-
-<option value="mysql">MySQL</option>
-<option value="postgresql">PostgreSQL</option>
-<option value="r">R</option>
-<option value="matlab">MATLAB</option>
-<option value="scala">Scala</option>
-<option value="dart">Dart</option>
-<option value="lua">Lua</option>
-<option value="perl">Perl</option>
-<option value="haskell">Haskell</option>
-<option value="shell">Shell</option>
-<option value="bash">Bash</option>
-<option value="powershell">PowerShell</option>
-<option value="objectivec">Objective-C</option>
-<option value="julia">Julia</option>
-<option value="fortran">Fortran</option>
-<option value="cobol">COBOL</option>
-<option value="assembly">Assembly</option>
-
-</select>
-
-<button id="suggest" class="small">💡</button>
-<button id="copy" class="small">Copy</button>
-<button id="clear" class="small">Clear</button>
-<button id="reset" class="small">Reset</button>
-<button id="save" class="small">Save</button>
-
-</div>
-
-</div>
-
-
-<div class="workspace">
-
-<div class="editor-panel">
-
-<div class="tabs">
-
-<button class="tab active" data-lang="html">🌐 HTML</button>
-<button class="tab" data-lang="css">🎨 CSS</button>
-<button class="tab" data-lang="javascript">⚡ JavaScript</button>
-
-</div>
-
-<div id="editorArea"></div>
-
-</div>
-
-
-<div class="preview-panel">
-
-<div class="preview-head">
-<b>Output</b>
-<span id="editorState" class="muted"></span>
-</div>
-
-<iframe id="preview" sandbox="allow-scripts"></iframe>
-
-<div id="compiler" class="hidden">
-
-<div class="card">
-<h3>Compiler</h3>
-<p>
-This language requires a compiler/backend for real execution.
-</p>
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="play-bottom">
-
-<span id="editorLang">HTML</span>
-
-<div>
-
-<button id="refresh" class="btn secondary">
-Refresh
-</button>
-
-<button id="run" class="btn primary">
-▶ Run Code
-</button>
-
-<button id="publish" class="btn primary">
-Publish Website
-</button>
-
-</div>
-
-</div>
-
-<div id="runStatus" class="muted"></div>
-
-
-<div id="publishBox" class="panel hidden">
-
-<h3>Your Published Website</h3>
-
-<p>
-Share this link with your friends and family.
-</p>
-
-<input id="publishUrl" class="doubt" readonly>
-
-<button id="copyLink" class="btn secondary">
-Copy Link
-</button>
-
-<button id="share" class="btn primary">
-Share
-</button>
-
-<button id="closePublish" class="small">
-Close
-</button>
-
-</div>
-
-</section>
-
-
-<section id="page-saved" class="page">
-
-<p class="eyebrow">YOUR WORK</p>
-
-<h1>Saved</h1>
-
-<div id="savedList" class="grid"></div>
-
-</section>
-
-
-<section id="page-doubt" class="page">
-
-<p class="eyebrow">HELP</p>
-
-<h1>Ask a Doubt</h1>
-
-<div class="two">
-
-<div class="panel">
-
-<textarea id="doubt" class="doubt" rows="7" placeholder="Type your doubt here..."></textarea>
-
-<button id="submitDoubt" class="btn primary">
-Submit Doubt
-</button>
-
-<p class="muted">
-Remote instructor replies need a backend/database.
-</p>
-
-</div>
-
-<div class="panel">
-
-<h3>Your Doubts</h3>
-
-<div id="doubtList"></div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section id="page-ai" class="page">
-
-<p class="eyebrow">LEARNING ASSISTANT</p>
-
-<h1>AI Assistant</h1>
-
-<div class="panel">
-
-<div id="aiMessages">
-
-<div class="ai-msg">
-
-<b>Darshan Academy AI</b>
-
-<p>
-Hello! Ask about HTML, CSS, JavaScript, Python, C, C++, Java or MySQL.
-</p>
-
-</div>
-
-</div>
-
-<div class="ai-input">
-
-<input id="aiInput" class="doubt" placeholder="Ask a coding question...">
-
-<button id="aiSend" class="btn primary">
-Send
-</button>
-
-</div>
-
-<p>
-This is a local learning assistant. Real AI requires a secure backend/API.
-</p>
-
-</div>
-
-</section>
-
-
-<section id="page-journey" class="page">
-
-<p class="eyebrow">PROGRESS</p>
-
-<h1>My Journey</h1>
-
-<div id="stats" class="stats"></div>
-
-<div class="panel">
-
-<div>
-<b id="journeyProgress">0%</b>
-</div>
-
-<div class="progress">
-<i id="journeyBar"></i>
-</div>
-
-</div>
-
-<h2>Recent Activity</h2>
-
-<div id="activity"></div>
-
-</section>
-
-
-<section id="page-blog" class="page">
-
-<p class="eyebrow">FUTURE</p>
-
-<h1>Blog / Articles</h1>
-
-<div class="card">
-
-<h3>Coming soon</h3>
-
-<p>
-Tutorials, updates and articles can be published here later.
-</p>
-
-</div>
-
-</section>
-
-
-<section id="page-quiz" class="page">
-
-<p class="eyebrow">PRACTISE</p>
-
-<h1>Quizzes</h1>
-
-<div class="card">
-
-<h3>Interactive quizzes are planned</h3>
-
-<p>
-This section is ready for quiz content and coding challenges when you add them.
-</p>
-
-</div>
-
-</section>
-
-</main>
-
-</div>
-
-
-<footer class="footer">
-
-© <span id="year"></span> Darshan Academy • Learn. Code. Build. Grow.
-
-</footer>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/clike/clike.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/sql/sql.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.5.0/lz-string.min.js"></script>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 
 </body>
 </html>
